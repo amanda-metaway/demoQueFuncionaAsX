@@ -75,11 +75,17 @@ public class DemoApplication {
 //            }
 
             //cadastra user com perfil
-//            User newUser = new User();
-//            newUser.setName("Maria Silva");
-//            newUser.setProfile(UserProfile.ADMIN);
-//            sqlMapClient.insert("User.saveUser", newUser);
-//            System.out.println("Usuário cadastrado com sucesso!");
+            User newUser = new User();
+            newUser.setName("Everton");
+            newUser.setPerfil_id(UserProfile.CLIENTE); //  perfil como CLIENTE ou ADMIN
+            sqlMapClient.insert("saveUser", newUser);
+            System.out.println("Usuário cadastrado com sucesso!");
+
+
+
+
+
+
 
         } catch (Exception e) {
             e.printStackTrace();

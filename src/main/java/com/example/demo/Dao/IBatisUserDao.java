@@ -22,7 +22,7 @@ public class IBatisUserDao extends SqlMapClientDaoSupport implements UserDao {
 
     @Override
     public User getUserById(int id) {
-        return (User) sqlMapClientTemplate.queryForObject("User.getUserById", id);
+        return (User) getSqlMapClientTemplate().queryForObject("getUserById", id);
     }
 
     @Override
@@ -32,12 +32,12 @@ public class IBatisUserDao extends SqlMapClientDaoSupport implements UserDao {
 
     @Override
     public void updateUser(User user) {
-        sqlMapClientTemplate.update("User.updateUser", user);
+        getSqlMapClientTemplate().update("updateUser", user);
     }
 
     @Override
     public void deleteUser(int id) {
-        sqlMapClientTemplate.delete("User.deleteUser", id);
+        getSqlMapClientTemplate().delete("deleteUser", id);
     }
 
 

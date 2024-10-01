@@ -29,7 +29,7 @@ public class UserService {
     public void saveUser(User user) {
         userIbatisUserDao.saveUser(user);
     }
-//ainda nao fiz esse metodo
+//nao fiz nenhum chamado do metodo listar
     public List<User> listarUsers() {
         return userIbatisUserDao.getListarUser();
     }

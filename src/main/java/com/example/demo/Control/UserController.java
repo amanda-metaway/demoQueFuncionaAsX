@@ -7,35 +7,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/users")
+
 public class UserController {
 
-    @Autowired
     private UserService userService;
 
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public User getUser(@PathVariable int id) {
+    public User getUser(int id) {
         return userService.getUserById(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    @ResponseBody
-    public void createUser(@RequestBody User user) {
+
+    public void createUser(User user) {
         userService.saveUser(user);
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    @ResponseBody
-    public void updateUser(@RequestBody User user) {
+
+    public void updateUser(User user) {
         userService.updateUser(user);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
-    public void deleteUser(@PathVariable int id) {
+
+    public void deleteUser(int id) {
         userService.deleteUser(id);
     }
 }

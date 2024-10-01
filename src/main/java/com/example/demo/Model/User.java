@@ -29,7 +29,4 @@ public class User {
     public void setPerfil_id(UserProfile perfil_id) {
         this.perfil_id = perfil_id;
     }
-
-    public User() {
-    }
 }

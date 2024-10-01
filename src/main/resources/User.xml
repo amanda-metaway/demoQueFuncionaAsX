@@ -10,8 +10,9 @@
 
     <insert id="saveUser" parameterClass="com.example.demo.Model.User">
         INSERT INTO users (name, perfil_id)
-        VALUES (#name#, #perfil_id#)
+        VALUES (#name#, #perfil_id.id#)
     </insert>
+
 
     <update id="updateUser" parameterClass="com.example.demo.Model.User">
         UPDATE users
