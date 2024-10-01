@@ -34,7 +34,7 @@
     </delete>
 
     <select id="listarPets" resultClass="com.example.demo.Model.Pet">
-        SELECT *
+        SELECT id, nome, raca, dono, dono_contato AS donoContato
         FROM pets
     </select>
 

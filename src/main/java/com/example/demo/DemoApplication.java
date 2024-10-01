@@ -40,21 +40,21 @@ public class DemoApplication {
 
 
             // Atualiza pet
-            int petIdToUpdate = 1;
-            Pet existingPet = (Pet) sqlMapClient.queryForObject("getPetById", petIdToUpdate);
-            if (existingPet != null) {
-                existingPet.setNome("Gigi atualizada2");
-                existingPet.setRaca("Siamês");
-                existingPet.setDono("Novo Dono");
-                existingPet.setDonoContato("1234567890");
-
-
-                petDao.updatePet(existingPet);
-                System.out.println("Pet com ID " + petIdToUpdate + " atualizado com sucesso!");
-                System.out.println("Atualizado para " + existingPet);
-            } else {
-                System.out.println("Pet com ID " + petIdToUpdate + " não encontrado.");
-            }
+//            int petIdToUpdate = 1;
+//            Pet existingPet = (Pet) sqlMapClient.queryForObject("getPetById", petIdToUpdate);
+//            if (existingPet != null) {
+//                existingPet.setNome("Gigi atualizada2");
+//                existingPet.setRaca("Siamês");
+//                existingPet.setDono("Novo Dono");
+//                existingPet.setDonoContato("1234567890");
+//
+//
+//                petDao.updatePet(existingPet);
+//                System.out.println("Pet com ID " + petIdToUpdate + " atualizado com sucesso!");
+//                System.out.println("Atualizado para " + existingPet);
+//            } else {
+//                System.out.println("Pet com ID " + petIdToUpdate + " não encontrado.");
+//            }
 
 
             //deleta pet
@@ -68,7 +68,7 @@ public class DemoApplication {
 //            }
 
             //lista pets
-//            List<Pet> pets = sqlMapClient.queryForList("Pet.listarPets");
+//            List<Pet> pets = sqlMapClient.queryForList("listarPets");
 //            System.out.println("Lista de Pets Cadastrados:");
 //            for (Pet pet : pets) {
 //                System.out.println("Nome: " + pet.getNome() + ", Raça: " + pet.getRaca() + ", Dono: " + pet.getDono() + ", Contato: " + pet.getDonoContato());
