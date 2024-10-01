@@ -26,24 +26,36 @@ public class DemoApplication {
 
 
             //procura um pet
-            int petIdToSelect = 21;
-            Pet existingPet = (Pet) sqlMapClient.queryForObject("getPetById", petIdToSelect);
-            if (existingPet != null) {
-                petDao.getPetById(petIdToSelect);
-                System.out.println("Pet com ID " + petIdToSelect + " encontrado com sucesso!");
-                System.out.println("Descricao :" + existingPet);
+//            int petIdToSelect = 21;
+//            Pet existingPet = (Pet) sqlMapClient.queryForObject("getPetById", petIdToSelect);
+//            if (existingPet != null) {
+//                petDao.getPetById(petIdToSelect);
+//                System.out.println("Pet com ID " + petIdToSelect + " encontrado com sucesso!");
+//                System.out.println("Descricao :" + existingPet);
+//
+//            } else {
+//                System.out.println("Pet com ID " + petIdToSelect + " não encontrado.");
+//            }
 
+
+
+            // Atualiza pet
+            int petIdToUpdate = 1;
+            Pet existingPet = (Pet) sqlMapClient.queryForObject("getPetById", petIdToUpdate);
+            if (existingPet != null) {
+                existingPet.setNome("Gigi atualizada2");
+                existingPet.setRaca("Siamês");
+                existingPet.setDono("Novo Dono");
+                existingPet.setDonoContato("1234567890");
+
+
+                petDao.updatePet(existingPet);
+                System.out.println("Pet com ID " + petIdToUpdate + " atualizado com sucesso!");
+                System.out.println("Atualizado para " + existingPet);
             } else {
-                System.out.println("Pet com ID " + petIdToSelect + " não encontrado.");
+                System.out.println("Pet com ID " + petIdToUpdate + " não encontrado.");
             }
 
-            //atualiza pet
-//            Pet existingPet = (Pet) sqlMapClient.queryForObject("Pet.getPetById", newPet.getId());
-//            if (existingPet != null) {
-//                existingPet.setNome("Luna atualizada");
-//                sqlMapClient.update("Pet.updatePet", existingPet);
-//                System.out.println("Pet atualizado com sucesso!");
-//            }
 
             //deleta pet
 //            int petIdToDelete = 14;

@@ -33,7 +33,7 @@ public class IBatisPetDao extends SqlMapClientDaoSupport implements PetDao {
 
     @Override
     public void updatePet(Pet pet) {
-        sqlMapClientTemplate.update("Pet.updatePet", pet);
+        getSqlMapClientTemplate().update("updatePet", pet);
     }
 
     @Override
