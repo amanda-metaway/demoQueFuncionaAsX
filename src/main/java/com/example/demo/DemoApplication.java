@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.Dao.IBatisPetDao;
 import com.example.demo.Model.Pet;
 import com.example.demo.Model.User;
 import com.example.demo.Model.UserProfile;
@@ -15,13 +16,13 @@ public class DemoApplication {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
         SqlMapClient sqlMapClient = (SqlMapClient) context.getBean("sqlMapClient");
-
+        IBatisPetDao petDao = (IBatisPetDao) context.getBean("petDao");
 
         try {
 //            //cria um pet
-            Pet newPet = new Pet("Boio", "Persa", "Marcelo Ferreira", "9926224866");
-            sqlMapClient.insert("savePet", newPet);
-            System.out.println("Pet cadastrado com sucesso!");
+//            Pet newPet = new Pet("Boio", "Persa", "Marcelo Ferreira", "9926224866");
+//            sqlMapClient.insert("savePet", newPet);
+//            System.out.println("Pet cadastrado com sucesso!");
 
             //atualiza pet
 //            Pet existingPet = (Pet) sqlMapClient.queryForObject("Pet.getPetById", newPet.getId());
@@ -32,8 +33,9 @@ public class DemoApplication {
 //            }
 
             //deleta pet
-//            sqlMapClient.delete("Pet.deletePet");
-//            System.out.println("Pet deletado com sucesso!");
+            int petIdToDelete = 1;
+            petDao.deletePet(petIdToDelete);
+            System.out.println("Pet com ID " + petIdToDelete + " deletado com sucesso!");
 
             //lista pets
 //            List<Pet> pets = sqlMapClient.queryForList("Pet.listarPets");
