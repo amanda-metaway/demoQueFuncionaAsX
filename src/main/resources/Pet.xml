@@ -4,7 +4,7 @@
 <sqlMap namespace="Pet">
 
     <select id="getPetById" parameterClass="integer" resultClass="com.example.demo.Model.Pet">
-        SELECT *
+        SELECT id, nome, raca, dono, dono_contato AS donoContato
         FROM pets
         WHERE id = #id#
     </select>
