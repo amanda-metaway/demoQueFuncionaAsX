@@ -1,0 +1,28 @@
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:param name="title" value="Cadastrar Usuário"/>
+
+    <ui:define name="content">
+        <h2>Cadastrar Usuário</h2>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel for="name" value="Nome:"/>
+                <h:inputText id="name" value="#{userController.user.name}"/>
+
+                <h:outputLabel for="profile" value="Perfil:"/>
+                <h:selectOneMenu id="profile" value="#{userController.user.perfil_id}">
+                    <f:selectItem itemValue="admin" itemLabel="Admin"/>
+                    <f:selectItem itemValue="cliente" itemLabel="Cliente"/>
+                </h:selectOneMenu>
+
+                <h:panelGrid colspan="2">
+                    <h:commandButton value="Cadastrar" action="#{userController.createUser}"/>
+                    <h:commandButton value="Cancelar" action="index"/>
+                </h:panelGrid>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

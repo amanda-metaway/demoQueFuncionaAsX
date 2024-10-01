@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/testeAppDemo"/>
+        <property name="username" value="postgres"/>
+        <property name="password" value="postgres"/>
+    </bean>
+
+
+
+
+    <bean  id="sqlMapClientTemplate"
+           class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+        <property name="sqlMapClient" ref="sqlMapClient"/>
+    </bean>
+    <bean id="sqlMapClient"
+          class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+       <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="sqlMapConfig.xml"/>
+    </bean>
+
+
+
+
+    <bean id="petDao" class="com.example.demo.Dao.IBatisPetDao">
+        <property name="sqlMapClient" ref="sqlMapClient"/>
+    </bean>
+
+    <bean id="petService" class="com.example.demo.Service.PetService">
+        <property name="petDao" ref="petDao"/>
+    </bean>
+
+
+    <bean id="userDao" class="com.example.demo.Dao.IBatisUserDao">
+        <property name="sqlMapClient" ref="sqlMapClient"/>
+    </bean>
+
+    <bean id="userService" class="com.example.demo.Service.UserService">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
+    <context:component-scan base-package="com.example.demo"/>
+
+</beans>
