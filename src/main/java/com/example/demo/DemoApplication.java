@@ -33,9 +33,14 @@ public class DemoApplication {
 //            }
 
             //deleta pet
-            int petIdToDelete = 1;
-            petDao.deletePet(petIdToDelete);
-            System.out.println("Pet com ID " + petIdToDelete + " deletado com sucesso!");
+            int petIdToDelete = 14;
+            Pet existingPet = (Pet) sqlMapClient.queryForObject("getPetById", petIdToDelete);
+            if (existingPet != null) {
+                petDao.deletePet(petIdToDelete);
+                System.out.println("Pet com ID " + petIdToDelete + " deletado com sucesso!");
+            } else {
+                System.out.println("Pet com ID " + petIdToDelete + " não encontrado.");
+            }
 
             //lista pets
 //            List<Pet> pets = sqlMapClient.queryForList("Pet.listarPets");
