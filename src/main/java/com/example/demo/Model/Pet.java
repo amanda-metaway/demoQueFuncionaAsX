@@ -8,17 +8,13 @@ public class Pet {
     private String dono;
     private String donoContato;
 
-    public Pet() {
+    public int getId() {
+        return id;
     }
 
-    public Pet(String nome, String raca, String dono, String donoContato) {
-        this.nome = nome;
-        this.raca = raca;
-        this.dono = dono;
-        this.donoContato = donoContato;
+    public void setId(int id) {
+        this.id = id;
     }
-
-
 
     public String getNome() {
         return nome;
@@ -26,6 +22,14 @@ public class Pet {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getRaca() {
+        return raca;
+    }
+
+    public void setRaca(String raca) {
+        this.raca = raca;
     }
 
     public String getDono() {
@@ -44,19 +48,26 @@ public class Pet {
         this.donoContato = donoContato;
     }
 
-    public String getRaca() {
-        return raca;
+    public Pet() {
     }
 
-    public void setRaca(String raca) {
+    public Pet(String nome, String raca, String dono, String donoContato) {
+        this.nome = nome;
         this.raca = raca;
+        this.dono = dono;
+        this.donoContato = donoContato;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
+
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", raca='" + raca + '\'' +
+                ", dono='" + dono + '\'' +
+                ", donoContato='" + donoContato + '\'' +
+                '}';
     }
 }

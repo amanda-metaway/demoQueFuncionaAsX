@@ -10,8 +10,11 @@
     </select>
 
     <insert id="savePet" parameterClass="com.example.demo.Model.Pet">
-        INSERT INTO pets (id,nome, raca, dono, dono_contato)
-        VALUES (#id#,#nome#, #raca#, #dono#, #donoContato#)
+        <selectKey keyProperty="id" resultClass="int">
+            SELECT nextval('pets_id_seq'::regclass)
+        </selectKey>
+        INSERT INTO pets (id, nome, raca, dono, dono_contato)
+        VALUES (#id#, #nome#, #raca#, #dono#, #donoContato#)
     </insert>
 
 

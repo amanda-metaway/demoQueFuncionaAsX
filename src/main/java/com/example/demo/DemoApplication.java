@@ -17,11 +17,11 @@ public class DemoApplication {
         SqlMapClient sqlMapClient = (SqlMapClient) context.getBean("sqlMapClient");
 
 
-       try {
+        try {
 //            //cria um pet
-//            Pet newPet = new Pet("Bob", "Pug", "Andre Ferreira", "1126224855");
-//            sqlMapClient.insert("savePet", newPet);
-//            System.out.println("Pet cadastrado com sucesso!");
+            Pet newPet = new Pet("Boio", "Persa", "Marcelo Ferreira", "9926224866");
+            sqlMapClient.insert("savePet", newPet);
+            System.out.println("Pet cadastrado com sucesso!");
 
             //atualiza pet
 //            Pet existingPet = (Pet) sqlMapClient.queryForObject("Pet.getPetById", newPet.getId());
