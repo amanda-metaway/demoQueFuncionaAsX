@@ -19,10 +19,23 @@ public class DemoApplication {
         IBatisPetDao petDao = (IBatisPetDao) context.getBean("petDao");
 
         try {
-//            //cria um pet
+//            //cadastra um pet
 //            Pet newPet = new Pet("Boio", "Persa", "Marcelo Ferreira", "9926224866");
 //            sqlMapClient.insert("savePet", newPet);
 //            System.out.println("Pet cadastrado com sucesso!");
+
+
+            //procura um pet
+            int petIdToSelect = 21;
+            Pet existingPet = (Pet) sqlMapClient.queryForObject("getPetById", petIdToSelect);
+            if (existingPet != null) {
+                petDao.getPetById(petIdToSelect);
+                System.out.println("Pet com ID " + petIdToSelect + " encontrado com sucesso!");
+                System.out.println("Descricao :" + existingPet);
+
+            } else {
+                System.out.println("Pet com ID " + petIdToSelect + " não encontrado.");
+            }
 
             //atualiza pet
 //            Pet existingPet = (Pet) sqlMapClient.queryForObject("Pet.getPetById", newPet.getId());
@@ -33,14 +46,14 @@ public class DemoApplication {
 //            }
 
             //deleta pet
-            int petIdToDelete = 14;
-            Pet existingPet = (Pet) sqlMapClient.queryForObject("getPetById", petIdToDelete);
-            if (existingPet != null) {
-                petDao.deletePet(petIdToDelete);
-                System.out.println("Pet com ID " + petIdToDelete + " deletado com sucesso!");
-            } else {
-                System.out.println("Pet com ID " + petIdToDelete + " não encontrado.");
-            }
+//            int petIdToDelete = 14;
+//            Pet existingPet = (Pet) sqlMapClient.queryForObject("getPetById", petIdToDelete);
+//            if (existingPet != null) {
+//                petDao.deletePet(petIdToDelete);
+//                System.out.println("Pet com ID " + petIdToDelete + " deletado com sucesso!");
+//            } else {
+//                System.out.println("Pet com ID " + petIdToDelete + " não encontrado.");
+//            }
 
             //lista pets
 //            List<Pet> pets = sqlMapClient.queryForList("Pet.listarPets");
