@@ -1,19 +1,14 @@
 package com.example.demo;
 
 import com.example.demo.Dao.IBatisPetDao;
-import com.example.demo.Model.Pet;
-import com.example.demo.Model.User;
-import com.example.demo.Model.UserProfile;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.List;
-
 public class DemoApplication {
 
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("WEB-INF/applicationContext.xml");
 
         SqlMapClient sqlMapClient = (SqlMapClient) context.getBean("sqlMapClient");
         IBatisPetDao petDao = (IBatisPetDao) context.getBean("petDao");
@@ -75,11 +70,11 @@ public class DemoApplication {
 //            }
 
             //cadastra user com perfil
-            User newUser = new User();
-            newUser.setName("Everton");
-            newUser.setPerfil_id(UserProfile.CLIENTE); //  perfil como CLIENTE ou ADMIN
-            sqlMapClient.insert("saveUser", newUser);
-            System.out.println("Usuário cadastrado com sucesso!");
+//            User newUser = new User();
+//            newUser.setName("Everton");
+//            newUser.setPerfil_id(UserProfile.CLIENTE); //  perfil como CLIENTE ou ADMIN
+//            sqlMapClient.insert("saveUser", newUser);
+//            System.out.println("Usuário cadastrado com sucesso!");
 
 
 

@@ -1,51 +1,57 @@
 <ui:composition template="/WEB-INF/template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
 
-   <ui:param name="title" value="Cadastrar Pet"/>
+    <ui:param name="title" value="Cadastrar Pet"/>
 
-   <ui:define name="content">
-      <h:form>
-         <h:panelGrid columns="2">
-            <h:outputLabel for="nome" value="Nome do Pet:" />
-            <h:inputText id="nome" value="#{petController.getNome()}" />
+    <ui:define name="content">
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel for="nome" value="Nome do Pet:" />
+                <h:inputText id="nome" value="#{petController.pet.nome}" required="true" />
 
-            <h:outputLabel for="raca" value="Raça:" />
-            <h:inputText id="raca" value="#{petController.pet.raca}" />
+                <h:outputLabel for="raca" value="Raça:" />
+                <h:inputText id="raca" value="#{petController.pet.raca}" required="true" />
 
-            <h:outputLabel for="dono" value="Nome do Dono:" />
-            <h:inputText id="dono" value="#{petController.pet.dono}" />
+                <h:outputLabel for="dono" value="Nome do Dono:" />
+                <h:inputText id="dono" value="#{petController.pet.dono}" required="true" />
 
-            <h:outputLabel for="donoContato" value="Contato do Dono:" />
-            <h:inputText id="donoContato" value="#{petController.pet.donoContato}" />
+                <h:outputLabel for="donoContato" value="Contato do Dono:" />
+                <h:inputText id="donoContato" value="#{petController.pet.donoContato}" required="true" />
 
-            <h:panelGrid colspan="2">
-               <h:commandButton value="Cadastrar" action="#{petController.createPet}"
-                                oncomplete="alert('Pet cadastrado com sucesso!');" />
-               <h:commandButton value="Cancelar" action="index" />
+                <h:panelGrid colspan="2">
+                    <h:commandButton value="Cadastrar" action="#{petController.savePet}"
+                                     oncomplete="alert('Pet cadastrado com sucesso!');" />
+                    <h:commandButton value="Cancelar" action="index.xhtml" />
+                </h:panelGrid>
             </h:panelGrid>
-         </h:panelGrid>
-      </h:form>
 
-      <h:dataTable value="#{petController.listarPets()}" var="pet">
-         <h:column>
-            <f:facet name="header">Nome</f:facet>
-            #{pet.nome}
-         </h:column>
-         <h:column>
-            <f:facet name="header">Raça</f:facet>
-            #{pet.raca}
-         </h:column>
-         <h:column>
-            <f:facet name="header">Dono</f:facet>
-            #{pet.dono}
-         </h:column>
-         <h:column>
-            <f:facet name="header">Contato do Dono</f:facet>
-            #{pet.donoContato}
-         </h:column>
-      </h:dataTable>
+            <h:dataTable value="#{petController.listarPets()}" var="pet" styleClass="rich-table">
+                <h:column>
+                    <f:facet name="header">Nome</f:facet>
+                    #{pet.nome}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Raça</f:facet>
+                    #{pet.raca}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Dono</f:facet>
+                    #{pet.dono}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Contato do Dono</f:facet>
+                    #{pet.donoContato}
+                </h:column>
 
-   </ui:define>
+                <h:column>
+                    <f:facet name="header">Ações</f:facet>
+                    <h:commandLink value="Editar" action="editarPet.xhtml?id=#{pet.id}" />
+                    <h:commandLink value="Deletar" action="#{petController.deletePet(pet.id)}" />
+                </h:column>
+
+            </h:dataTable>
+        </h:form>
+    </ui:define>
 </ui:composition>

@@ -10,8 +10,13 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>Teste</name>
-    <url>http://www.metaway.com.br</url>
+    <repositories>
+        <repository>
+            <id>jboss</id>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,16 +24,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>jboss</id>
-            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
-        </repository>
-        <repository>
-            <id>local</id>
-            <url>file://${basedir}/localrepo</url>
-        </repository>
-    </repositories>
+
     <dependencies>
 
         <!-- JSF -->
@@ -42,6 +38,7 @@
             <artifactId>jsf-impl</artifactId>
             <version>1.2_15-06</version>
         </dependency>
+
         <dependency>
             <groupId>com.sun.facelets</groupId>
             <artifactId>jsf-facelets</artifactId>
@@ -59,26 +56,15 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.richfaces</groupId>
+            <groupId>org.richfaces.framework</groupId>
             <artifactId>richfaces-impl</artifactId>
             <version>3.3.3.Final</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/webapp/lib/richfaces-impl-3.3.3.Final.jar</systemPath>
         </dependency>
 
         <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>javax.faces-api</artifactId>
-            <version>2.2</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.richfaces</groupId>
-            <artifactId>richfaces-ui</artifactId>
+            <groupId>org.richfaces.framework</groupId>
+            <artifactId>richfaces-api</artifactId>
             <version>3.3.3.Final</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/webapp/lib/richfaces-ui-3.3.3.Final.jar</systemPath>
         </dependency>
 
 
@@ -86,9 +72,8 @@
             <groupId>org.jboss.el</groupId>
             <artifactId>jboss-el</artifactId>
             <version>2.0.1.GA</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/webapp/lib/jboss-el-2.0.1.GA.jar</systemPath>
         </dependency>
+
         <dependency>
             <groupId>org.apache.myfaces.tomahawk</groupId>
             <artifactId>tomahawk</artifactId>
@@ -96,11 +81,9 @@
         </dependency>
 
         <dependency>
-            <groupId>ibatis</groupId>
-            <artifactId>ibatis</artifactId>
+            <groupId>org.apache.ibatis</groupId>
+            <artifactId>ibatis-sqlmap</artifactId>
             <version>2.3.4.726</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/webapp/lib/ibatis-2.3.4.726.jar</systemPath>
         </dependency>
 
 
@@ -249,6 +232,7 @@
         </dependency>
 
 
+
         <!-- unit testing -->
         <dependency>
             <groupId>junit</groupId>
@@ -256,7 +240,21 @@
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <version>9.0.0.M21</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-websocket</artifactId>
+            <version>9.0.0.M21</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <version>9.0.0.M21</version>
+        </dependency>
 
     </dependencies>
 

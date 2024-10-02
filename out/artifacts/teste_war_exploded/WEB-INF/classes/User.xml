@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="User">
+
+    <select id="getUserById" parameterClass="integer" resultClass="com.example.demo.Model.User">
+        SELECT *
+        FROM users
+        WHERE id = #value#
+    </select>
+
+    <insert id="saveUser" parameterClass="com.example.demo.Model.User">
+        INSERT INTO users (name, perfil_id)
+        VALUES (#name#, #perfil_id.id#)
+    </insert>
+
+
+    <update id="updateUser" parameterClass="com.example.demo.Model.User">
+        UPDATE users
+        SET name      = #name#,
+            perfil_id = #perfil_id#
+        WHERE id = #id#
+    </update>
+
+    <delete id="deleteUser" parameterClass="java.lang.Integer">
+        DELETE
+        FROM users
+        WHERE id = #value#
+    </delete>
+
+</sqlMap>

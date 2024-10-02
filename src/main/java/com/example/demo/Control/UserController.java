@@ -1,16 +1,22 @@
 package com.example.demo.Control;
 
-import com.example.demo.Model.Pet;
+
 import com.example.demo.Model.User;
 import com.example.demo.Service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 
 
 public class UserController {
 
+
     private UserService userService;
+
+    public UserController() {
+
+    }
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
 
     public User getUser(int id) {
@@ -27,6 +33,13 @@ public class UserController {
         userService.updateUser(user);
     }
 
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    public UserService getUserService() {
+        return userService;
+    }
 
     public void deleteUser(int id) {
         userService.deleteUser(id);
