@@ -17,7 +17,7 @@
                 <h:panelGrid columns="2">
                     <h:outputLabel for="data" value="Data:"/>
                     <h:inputText id="data" value="#{agendamentoController.data}">
-                        <f:validateRequired message="A data é obrigatória."/>
+
                         <f:convertDateTime pattern="dd/MM/yyyy"/>
                     </h:inputText>
 
@@ -27,10 +27,8 @@
                         <f:selectItem itemValue="consultaVet" itemLabel="Consulta Clínica ou Especialista"/>
                     </h:selectOneMenu>
 
-                    <h:panelGrid colspan="2">
+                    <h:panelGrid>
                         <h:commandButton value="Agendar" action="#{agendamentoController.createAgendamento}">
-                            <f:ajax execute="@form" render="@form"
-                                    oncomplete="alert('Agendamento realizado com sucesso!')"/>
                         </h:commandButton>
                     </h:panelGrid>
                 </h:panelGrid>

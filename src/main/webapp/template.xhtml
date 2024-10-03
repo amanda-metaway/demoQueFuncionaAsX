@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<head>
+    <title><ui:insert name="title"/> - Demo Amanda Petshop</title>
+</head>
+
+<body>
+   <div class="nav">
+        <h:form>
+            <h:panelGroup layout="block">
+                <h:commandLink value="Home" action="index" styleClass="nav-link"/>
+                <h:commandLink value="Cadastrar Pet" action="cadastrarPet" styleClass="nav-link"/>
+                <h:commandLink value="Cadastrar Usuário" action="cadastrarUsuario" styleClass="nav-link"/>
+                <h:commandLink value="Serviços" action="servicos" styleClass="nav-link"/>
+                <h:commandLink value="Loja Agro - Confira" action="loja_produtos" styleClass="nav-link"/>
+            </h:panelGroup>
+        </h:form>
+    </div>
+
+    <div class="main-content">
+        <ui:insert name="content"/>
+    </div>
+
+    <div class="footer">
+        <h:outputText value="Demo Amanda Metaway © 2024 Sistema Pet"/>
+    </div>
+</body>
+
+</html>

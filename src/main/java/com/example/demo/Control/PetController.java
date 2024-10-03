@@ -18,6 +18,22 @@ public class PetController implements Serializable {
         this.petService = petService;
     }
 
+    public PetService getPetService() {
+        return petService;
+    }
+
+    public void setPetService(PetService petService) {
+        this.petService = petService;
+    }
+
+    public Pet getPet() {
+        return pet;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+
     public Pet getPet(int id) {
         return petService.getPetById(id);
     }

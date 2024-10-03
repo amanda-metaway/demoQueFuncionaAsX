@@ -1,20 +1,26 @@
-<ui:composition template="/WEB-INF/template.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
 
-    <ui:param name="title" value="Página Inicial - Home"/>
+<ui:composition template="template.xhtml">
+
+    <ui:define name="title">Página Inicial - Home</ui:define>
 
     <ui:define name="content">
         <h2>Bem-vindo ao Petshop!</h2>
         <h:outputText value="Selecione uma opção do menu para começar a navegar pelo sistema." style="font-size: 16px;"/>
-
-        <h:panelGroup layout="block" style="margin-top: 20px;">
-            <h:commandLink value="Ver Pets Cadastrados" action="listarPets" styleClass="nav-link" />
-            <h:commandLink value="Cadastrar Novo Pet" action="cadastrarPet" styleClass="nav-link" />
-            <h:commandLink value="Cadastrar Usuário" action="cadastrarUsuario" styleClass="nav-link" />
-            <h:commandLink value="Serviços" action="servicos" styleClass="nav-link" />
-            <h:commandLink value="Loja Agro - Confira" action="loja_produtos" styleClass="nav-link" />
-        </h:panelGroup>
+        <h:form>
+            <h:panelGroup layout="block" style="margin-top: 20px;">
+                <h:commandLink value="Ver Pets Cadastrados" action="listarPets" styleClass="nav-link" />
+                <h:commandLink value="Cadastrar Novo Pet" action="cadastrarPet" styleClass="nav-link" />
+                <h:commandLink value="Cadastrar Usuário" action="cadastrarUsuario" styleClass="nav-link" />
+                <h:commandLink value="Serviços" action="servicos" styleClass="nav-link" />
+                <h:commandLink value="Loja Agro - Confira" action="loja_produtos" styleClass="nav-link" />
+            </h:panelGroup>
+        </h:form>
     </ui:define>
+
 </ui:composition>
+</html>
