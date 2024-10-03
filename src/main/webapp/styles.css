@@ -1,65 +1,62 @@
-
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f0f4f8; /* Fundo suave */
+    height: 100vh; /* Garantir que ocupe toda a altura */
+    display: flex;
+    flex-direction: column; /* Para alinhar o footer na parte inferior */
 }
 
 /* Navigation styles */
 .nav {
-    background-color: #3f51b5;
-    padding: 10px 0;
+    background-color: #07956c;
+    padding: 20px 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .nav-link {
+
     color: white;
     padding: 14px 20px;
     text-decoration: none;
-    display: inline-block;
+    display:-ms-flexbox;
+    position: relative;
     transition: background-color 0.3s, color 0.3s;
+    font-weight: bold; /* Texto em negrito */
+    border-radius: 8px;
+    font-size: 18px;
 }
 
 .nav-link:hover {
-    background-color: #536dfe;
+    background-color: #76baa5;
     color: #fff;
 }
 
 /* Main content styles */
 .main-content {
+    flex: 1; /* Para ocupar o espaço restante */
     padding: 20px;
-    max-width: 1200px;
-    margin: 20px auto;
+    width: 95%; /* Largura total */
+    margin: 20px auto; /* Centraliza horizontalmente com margens */
     background: white;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Inclui padding e border na largura total */
 }
 
-
-.header {
-    background-color: #2196F3;
-    color: white;
-    padding: 15px;
-    text-align: center;
-}
-
-.header-title {
-    font-size: 28px;
-    font-weight: bold;
-}
-
-
+/* Footer styles */
 .footer {
     text-align: center;
     padding: 15px 0;
     background-color: #e3f2fd;
-    position: relative;
-    bottom: 0;
     width: 100%;
+    font-size: small;
+    font-weight: bold; /* Negrito no rodapé */
 }
 
-
+/* Table styles */
 .rich-table {
     width: 100%;
     border-collapse: collapse;
@@ -76,7 +73,7 @@ body {
     color: white;
 }
 
-
+/* Feedback styles */
 .success {
     background-color: #d0e9c6;
     color: #3c763d;
@@ -87,16 +84,19 @@ body {
     color: #a94442;
 }
 
-
+/* Button styles */
 h\:commandButton {
     background-color: #3f51b5;
     color: white;
     border: none;
-    padding: 10px 15px;
-    margin: 4px 2px;
+    padding: 10px;
+    margin: 10px 0; /* Margem vertical para separar os botões */
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.3s, transform 0.2s;
+    font-weight: bold; /* Negrito nos botões */
+    width: 100%; /* Largura total */
+    display: block;
 }
 
 h\:commandButton:hover {
@@ -105,21 +105,20 @@ h\:commandButton:hover {
 }
 
 
+/* Media queries */
 @media (max-width: 768px) {
     .nav-link {
         display: block;
         padding: 10px;
         text-align: center;
+
     }
 
     .main-content {
         padding: 15px;
         margin: 10px;
+        width: calc(100% - 20px); /* Largura total com margem */
     }
-
-
-
-
 
     .nav-link:hover::before {
         filter: brightness(0.8);
@@ -143,7 +142,7 @@ h\:commandButton:hover {
     }
 
     .pet-link::before {
-        content: "\f1ae";
+        content: "\f1ae"; /* Código do ícone de pet */
         font-family: "Font Awesome 5 Free";
         font-weight: 900;
         position: absolute;
@@ -154,7 +153,29 @@ h\:commandButton:hover {
     }
 
     .user-link::before {
-        content: "\f007";
+        content: "\f007"; /* Código do ícone de usuário */
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: white;
+    }
+
+    .service-link::before {
+        content: "\f0f1"; /* Código do ícone de serviços */
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: white;
+    }
+
+    .shop-link::before {
+        content: "\f07a"; /* Código do ícone de carrinho de compras */
         font-family: "Font Awesome 5 Free";
         font-weight: 900;
         position: absolute;
@@ -166,11 +187,11 @@ h\:commandButton:hover {
 
     .nav-link {
         padding: 14px 20px;
+
     }
 
     .nav-link i {
         margin-right: 8px;
+        font-size: 18px;
     }
-
-
 }

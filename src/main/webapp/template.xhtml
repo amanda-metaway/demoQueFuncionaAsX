@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html">
@@ -14,13 +15,12 @@
 <body>
 <div class="nav">
     <h:form>
-        <h:panelGroup layout="block">
+        <h:panelGroup>
             <h:commandLink value="Home" action="index" styleClass="nav-link home-link"/>
-            <h:commandLink value="Cadastrar Pet" action="cadastrarPet" styleClass="nav-link  pet-link"/>
-            <h:commandLink value="Cadastrar Usuário" action="cadastrarUsuario" styleClass="nav-link  user-link"/>
-
-            <h:commandLink value="Serviços" action="servicos" styleClass="nav-link"/>
-            <h:commandLink value="Loja Agro - Confira" action="loja_produtos" styleClass="nav-link"/>
+            <h:commandLink value="Cadastrar Pet" action="cadastrarPet" styleClass="nav-link pet-link"/>
+            <h:commandLink value="Cadastrar Usuário" action="cadastrarUsuario" styleClass="nav-link user-link"/>
+            <h:commandLink value="Serviços" action="servicos" styleClass="nav-link service-link"/>
+            <h:commandLink value="Loja Agro - Confira" action="loja_produtos" styleClass="nav-link shop-link"/>
         </h:panelGroup>
     </h:form>
 </div>
