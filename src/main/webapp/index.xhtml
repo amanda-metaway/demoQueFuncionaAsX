@@ -1,20 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="template.xhtml">
 
     <ui:define name="title">Página Inicial - Home</ui:define>
 
     <ui:define name="content">
+        <div class="login-container">
+            <h4>Acesso ao Sistema</h4>
+            <h:form>
+                <h:panelGrid columns="1">
+                    <div class="input-container">
+                        <h:outputLabel for="cpf" value="CPF:"/>
+                        <h:inputText id="cpf" value="#{UserController.cpf}" required="true" styleClass="input-field"/>
+                    </div>
 
+                    <div class="input-container">
+                        <h:outputLabel for="senha" value="Senha:"/>
+                        <h:inputSecret id="senha" value="#{UserController.senha}" required="true" styleClass="input-field"/>
+                    </div>
 
+                    <div class="input-container">
+                        <h:outputLabel for="perfil" value="Tipo de Perfil:"/>
+                        <h:selectOneMenu id="perfil" value="#{UserController.perfil_id}" required="true" styleClass="input-field">
+                            <f:selectItem itemLabel="ADMIN" itemValue="ADMIN"/>
+                            <f:selectItem itemLabel="CLIENTE" itemValue="CLIENTE"/>
+                        </h:selectOneMenu>
+                    </div>
+                </h:panelGrid>
 
-
+                <h:commandButton value="Logar" action="#{UserController.logar}" styleClass="btn-login"/>
+                <h:commandButton value="Cadastrar" action="#{UserController.cadastrar}" styleClass="btn-cadastrar"/>
+            </h:form>
+        </div>
 
     </ui:define>
-
 </ui:composition>
 </html>

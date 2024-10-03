@@ -194,4 +194,51 @@ h\:commandButton:hover {
         margin-right: 8px;
         font-size: 18px;
     }
+    .login-container {
+        background: #76baa5;
+        padding: 30px;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    h4 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .input-container {
+
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .input-field {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #608a81;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .btn-login, .btn-cadastrar {
+        width: 45%;
+        padding: 10px;
+        background-color: #07956c;
+        color: #608a81;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .btn-login:hover, .btn-cadastrar:hover {
+        background-color: #608a81;
+    }
+
+
+
 }
