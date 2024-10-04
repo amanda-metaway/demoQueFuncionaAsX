@@ -3,9 +3,11 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f0f4f8; /* Fundo suave */
-    height: 100vh; /* Garantir que ocupe toda a altura */
-    display: flex;
+    /*height: 100vh; !* Garantir que ocupe toda a altura *!*/
     flex-direction: column; /* Para alinhar o footer na parte inferior */
+    width: 100%;
+    display:-ms-flexbox;
+    position: relative;
 }
 
 /* Navigation styles */
@@ -27,6 +29,7 @@ body {
     font-weight: bold; /* Texto em negrito */
     border-radius: 8px;
     font-size: 18px;
+    font-family:  "Century Gothic";
 }
 
 .nav-link:hover {
@@ -36,15 +39,20 @@ body {
 
 /* Main content styles */
 .main-content {
-    flex: 1; /* Para ocupar o espaço restante */
+    /*flex: 1;*/
     padding: 20px;
-    width: 95%; /* Largura total */
-    margin: 20px auto; /* Centraliza horizontalmente com margens */
-    background: white;
+    /*margin: 20px auto;*/
+    width: 100%;
+    /*width: fit-content;*/
+    /*height: auto;*/
+    height: 100%;
+    /*background: #bcfdeb;*/
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box; /* Inclui padding e border na largura total */
+    box-sizing: border-box;
+    /*min-height: calc(100vh - 160px); !* Ajuste para a altura total menos cabeçalho e rodapé *!*/
 }
+
 
 /* Footer styles */
 .footer {
@@ -52,6 +60,8 @@ body {
     padding: 15px 0;
     background-color: #e3f2fd;
     width: 100%;
+    height: 100%;
+    nav-down: auto;
     font-size: small;
     font-weight: bold; /* Negrito no rodapé */
 }
@@ -85,24 +95,24 @@ body {
 }
 
 /* Button styles */
-h\:commandButton {
-    background-color: #3f51b5;
-    color: white;
-    border: none;
-    padding: 10px;
-    margin: 10px 0; /* Margem vertical para separar os botões */
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s, transform 0.2s;
-    font-weight: bold; /* Negrito nos botões */
-    width: 100%; /* Largura total */
-    display: block;
-}
+/*h\:commandButton {*/
+/*    background-color: #3f51b5;*/
+/*    color: white;*/
+/*    border: none;*/
+/*    padding: 10px;*/
+/*    margin: 10px 0; !* Margem vertical para separar os botões *!*/
+/*    cursor: pointer;*/
+/*    border-radius: 4px;*/
+/*    transition: background-color 0.3s, transform 0.2s;*/
+/*    font-weight: bold; !* Negrito nos botões *!*/
+/*    width: 100%; !* Largura total *!*/
+/*    display: block;*/
+/*}*/
 
-h\:commandButton:hover {
-    background-color: #1e88e5;
-    transform: translateY(-2px);
-}
+/*h\:commandButton:hover {*/
+/*    background-color: #1e88e5;*/
+/*    transform: translateY(-2px);*/
+/*}*/
 
 
 /* Media queries */
@@ -115,10 +125,16 @@ h\:commandButton:hover {
     }
 
     .main-content {
-        padding: 15px;
-        margin: 10px;
-        width: calc(100% - 20px); /* Largura total com margem */
+        padding: 40px;
+        margin: 40px auto;
     }
+  /*@media (min-width: 1024px) {*/
+  /*      .login-container {*/
+  /*          max-width: 500px; !* Largura maior em telas grandes *!*/
+  /*          padding: 40px; !* Mais padding, se necessário *!*/
+  /*      }*/
+  /*  }*/
+
 
     .nav-link:hover::before {
         filter: brightness(0.8);
@@ -195,48 +211,108 @@ h\:commandButton:hover {
         font-size: 18px;
     }
     .login-container {
-        background: #76baa5;
-        padding: 30px;
+        display: flex;
+        flex-direction: column; /* Alinha os elementos verticalmente */
+        align-items: center; /* Centraliza os itens horizontalmente */
+        background-color: #07956c;
+        padding: 10px;
         border-radius: 4px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        margin-top: 20px;
-        max-width: 400px;
-        margin-left: auto;
-        margin-right: auto;
+        margin: 10px auto; /* Centraliza */
+        max-width: 400px; /* Largura máxima */
+        /*width:inherit;*/
+        height: fit-content;/* Largura total */
+        position: relative;
+        /*display:-ms-flexbox;*/
+        font-family: "Font Awesome 5 Free";
+        font-weight: 700;
+        color: white;
+
     }
+
+
 
     h4 {
         text-align: center;
         margin-bottom: 20px;
+        font-family: "Font Awesome 5 Free";
     }
 
     .input-container {
-
+        font-family: "Font Awesome 5 Free";
         margin-bottom: 15px;
         text-align: center;
     }
 
     .input-field {
-        width: 100%;
+        width: 80%;
         padding: 10px;
         border: 1px solid #608a81;
         border-radius: 4px;
         box-sizing: border-box;
+        font-family: "Font Awesome 5 Free";
     }
 
     .btn-login, .btn-cadastrar {
-        width: 45%;
-        padding: 10px;
-        background-color: #07956c;
-        color: #608a81;
-        border: none;
-        border-radius: 8px;
+        width: 80%;
+        padding:10px;
+        /*padding: 14px 20px;*/
+        background-color: rgba(118, 186, 165, 0.39);
+        color: rgba(118, 186, 165, 0.47);
+        border-radius: 4px;
         cursor: pointer;
         transition: background-color 0.3s;
+        font-size: medium;
+        font-weight: bold;
+        position: relative;
+        text-align: center;
+        font-family: "Font Awesome 5 Free";
     }
 
+
     .btn-login:hover, .btn-cadastrar:hover {
-        background-color: #608a81;
+        background-color: #76baa5;
+        color: #fff;
+        filter: brightness(0.8);
+        font-family: "Font Awesome 5 Free";
+    }
+
+    /* Media queries para telas pequenas */
+    @media (max-width: 768px) {
+
+
+        .login-container {
+            padding: 20px; /* Ajuste o padding para telas menores */
+            margin: 10px auto; /* Margem menor para o login */
+            width: 90%; /* Largura total em telas pequenas */
+        }
+
+        .main-content {
+            margin: 10px; /* Margem menor */
+            padding: 10px; /* Padding menor */
+        }
+    }
+
+    /* Media queries para telas médias e grandes */
+    @media (min-width: 769px) {
+
+
+        .login-container {
+            max-width: 500px; /* Largura máxima em telas maiores */
+            padding: 30px; /* Padding padrão */
+        }
+
+        .main-content {
+            margin: 20px auto; /* Centraliza horizontalmente */
+            padding: 20px; /* Padding padrão */
+        }
+    }
+
+    /* Media queries para telas muito grandes, se necessário */
+    @media (min-width: 1024px) {
+        .login-container {
+            padding: 40px; /* Mais padding para telas grandes */
+        }
     }
 
 
