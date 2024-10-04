@@ -4,6 +4,8 @@ public class User {
     private int id;
     private String name;
     private UserProfile perfil_id;
+    private String cpfUsuario;
+    private String password;
 
 
     public int getId() {
@@ -28,5 +30,21 @@ public class User {
 
     public void setPerfil_id(UserProfile perfil_id) {
         this.perfil_id = perfil_id;
+    }
+
+    public String getCpfUsuario() {
+        return cpfUsuario;
+    }
+
+    public void setCpfUsuario(String cpfUsuario) {
+        this.cpfUsuario = cpfUsuario;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

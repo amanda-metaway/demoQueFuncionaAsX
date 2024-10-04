@@ -5,10 +5,10 @@
               http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd_0.xsd">
 
     <managed-bean>
-        <description>customer</description>
-        <managed-bean-name>customer</managed-bean-name>
+        <description>pet</description>
+        <managed-bean-name>petController</managed-bean-name>
         <managed-bean-class>com.example.demo.Control.PetController</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
             <property-name>petService</property-name>
             <value>#{petService}</value>

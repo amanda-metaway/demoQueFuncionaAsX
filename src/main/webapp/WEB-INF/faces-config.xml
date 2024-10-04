@@ -32,4 +32,23 @@
         </locale-config>
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
     </application>
+
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>cadastrar_usuario</from-outcome>
+            <to-view-id>/cadastrar_usuario.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>cadastrar_pet</from-outcome>
+            <to-view-id>/cadastrar_pet.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+
 </faces-config>

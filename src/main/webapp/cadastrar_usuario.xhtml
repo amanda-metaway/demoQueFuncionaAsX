@@ -1,4 +1,11 @@
-<ui:composition template="/WEB-INF/template.xhtml"
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="template.xhtml">
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
@@ -10,19 +17,26 @@
         <h:form>
             <h:panelGrid columns="2">
                 <h:outputLabel for="name" value="Nome:"/>
-                <h:inputText id="name" value="#{userController.user.name}"/>
+                <h:inputText id="name" value="#{userController.user.name}" styleClass="input-field"/>
+
+                <h:outputLabel for="cpfUsuario" value="CPF:"/>
+                <h:inputText id="cpfUsuario" value="#{userController.user.cpfUsuario}" styleClass="input-field"/>
 
                 <h:outputLabel for="profile" value="Perfil:"/>
-                <h:selectOneMenu id="profile" value="#{userController.user.perfil_id}">
-                    <f:selectItem itemValue="admin" itemLabel="Admin"/>
-                    <f:selectItem itemValue="cliente" itemLabel="Cliente"/>
+                <h:selectOneMenu id="profile" value="#{userController.user}" styleClass="input-field">
+                    <f:selectItem itemValue="#{com.example.demo.Model.UserProfile.ADMIN}" itemLabel="Admin"/>
+                    <f:selectItem itemValue="#{com.example.demo.Model.UserProfile.CLIENTE}" itemLabel="Cliente"/>
                 </h:selectOneMenu>
 
-                <h:panelGrid colspan="2">
-                    <h:commandButton value="Cadastrar" action="#{userController.createUser}"/>
+                <h:outputLabel for="password" value="SENHA:"/>
+                <h:inputSecret id="password" value="#{userController.user.password}" required="true" styleClass="input-field"/>
+
+                <h:panelGrid columns="2">
+                    <h:commandButton value="Cadastrar" action="#{userController.createUser()}"/>
                     <h:commandButton value="Cancelar" action="index"/>
                 </h:panelGrid>
             </h:panelGrid>
         </h:form>
     </ui:define>
 </ui:composition>
+</html>

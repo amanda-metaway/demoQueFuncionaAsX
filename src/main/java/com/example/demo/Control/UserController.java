@@ -7,6 +7,7 @@ import com.example.demo.Service.UserService;
 
 public class UserController {
 
+    private User user = new User();
 
     private UserService userService;
 
@@ -24,8 +25,9 @@ public class UserController {
     }
 
 
-    public void createUser(User user) {
+    public void createUser() {
         userService.saveUser(user);
+
     }
 
 
@@ -44,4 +46,14 @@ public class UserController {
     public void deleteUser(int id) {
         userService.deleteUser(id);
     }
+
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }

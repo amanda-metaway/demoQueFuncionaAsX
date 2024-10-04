@@ -1,8 +1,8 @@
 package com.example.demo.Model;
-
 public enum UserProfile {
     ADMIN(1),
     CLIENTE(2);
+
 
     private final int id;
 
@@ -13,4 +13,5 @@ public enum UserProfile {
     public int getId() {
         return id;
     }
+
 }

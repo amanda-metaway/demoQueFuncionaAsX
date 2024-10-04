@@ -17,7 +17,7 @@ public class IBatisUserDao extends SqlMapClientDaoSupport implements UserDao {
 
     @Override
     public void saveUser(User user) {
-
+        System.out.println("USUARIO SALVO!");
     }
 
     @Override

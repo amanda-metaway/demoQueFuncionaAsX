@@ -3,21 +3,34 @@
 <sqlMap namespace="User">
 
     <select id="getUserById" parameterClass="integer" resultClass="com.example.demo.Model.User">
-        SELECT *
+        SELECT id, name, perfil_id, cpfusuario, password
         FROM users
-        WHERE id = #value#
+        WHERE id = #id#
     </select>
 
+
+<!--    <insert id="saveUser" parameterClass="com.example.demo.Model.User">-->
+<!--        INSERT INTO users (name, perfil_id, cpfUsuario, password)-->
+<!--        VALUES (#name#, #perfil_id.id#, #cpfUsuario#, #password#)-->
+<!--    </insert>-->
+
     <insert id="saveUser" parameterClass="com.example.demo.Model.User">
-        INSERT INTO users (name, perfil_id)
-        VALUES (#name#, #perfil_id.id#)
+        <selectKey keyProperty="id" resultClass="int">
+            SELECT nextval('users_id_seq'::regclass))
+        </selectKey>
+        INSERT INTO users (id, name, perfil_id, cpfusuario, password)
+        VALUES (#id#, #name#, #perfil_id.id#, #cpfUsuario#, #password#)
     </insert>
+
+
 
 
     <update id="updateUser" parameterClass="com.example.demo.Model.User">
         UPDATE users
-        SET name      = #name#,
-            perfil_id = #perfil_id#
+        SET name       = #name#,
+            perfil_id  = #perfil_id#,
+            cpfusuario = #cpfUsuario#,
+            password   = #password#
         WHERE id = #id#
     </update>
 

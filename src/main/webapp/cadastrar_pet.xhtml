@@ -1,31 +1,38 @@
-<ui:composition template="/WEB-INF/template.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="template.xhtml">
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:param name="title" value="Cadastrar Pet"/>
 
     <ui:define name="content">
         <h:form>
             <h:panelGrid columns="2">
-                <h:outputLabel for="nome" value="Nome do Pet:" />
-                <h:inputText id="nome" value="#{petController.pet.nome}" required="true" />
+                <h:outputLabel for="nome" value="Nome do Pet:"/>
+                <h:inputText id="nome" value="#{petController.pet.nome}" required="true"/>
 
-                <h:outputLabel for="raca" value="Raça:" />
-                <h:inputText id="raca" value="#{petController.pet.raca}" required="true" />
+                <h:outputLabel for="raca" value="Raça:"/>
+                <h:inputText id="raca" value="#{petController.pet.raca}" required="true"/>
 
-                <h:outputLabel for="dono" value="Nome do Dono:" />
-                <h:inputText id="dono" value="#{petController.pet.dono}" required="true" />
+                <h:outputLabel for="dono" value="Nome do Dono:"/>
+                <h:inputText id="dono" value="#{petController.pet.dono}" required="true"/>
 
-                <h:outputLabel for="donoContato" value="Contato do Dono:" />
-                <h:inputText id="donoContato" value="#{petController.pet.donoContato}" required="true" />
+                <h:outputLabel for="donoContato" value="Contato do Dono:"/>
+                <h:inputText id="donoContato" value="#{petController.pet.donoContato}" required="true"/>
 
-                <h:panelGrid colspan="2">
-                    <h:commandButton value="Cadastrar" action="#{petController.savePet}"
-                                     oncomplete="alert('Pet cadastrado com sucesso!');" />
-                    <h:commandButton value="Cancelar" action="index.xhtml" />
+                <h:panelGrid columns="2">
+                    <h:commandButton value="Cadastrar" action="#{petController.createPet(petController)}"/>
+                    <h:commandButton value="Cancelar" action="index.xhtml"/>
                 </h:panelGrid>
             </h:panelGrid>
+
 
             <h:dataTable value="#{petController.listarPets()}" var="pet" styleClass="rich-table">
                 <h:column>
@@ -45,13 +52,8 @@
                     #{pet.donoContato}
                 </h:column>
 
-                <h:column>
-                    <f:facet name="header">Ações</f:facet>
-                    <h:commandLink value="Editar" action="editarPet.xhtml?id=#{pet.id}" />
-                    <h:commandLink value="Deletar" action="#{petController.deletePet(pet.id)}" />
-                </h:column>
-
             </h:dataTable>
         </h:form>
     </ui:define>
 </ui:composition>
+</html>

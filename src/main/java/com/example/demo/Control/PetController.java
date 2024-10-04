@@ -8,9 +8,9 @@ import java.util.List;
 
 public class PetController implements Serializable {
 
-    private PetService petService;
-    private Pet pet = new Pet();
 
+    private Pet pet = new Pet();
+    private PetService petService;
     public PetController() {
     }
 

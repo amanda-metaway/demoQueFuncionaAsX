@@ -51,12 +51,12 @@ public class Pet {
     public Pet() {
     }
 
-    public Pet(String nome, String raca, String dono, String donoContato) {
-        this.nome = nome;
-        this.raca = raca;
-        this.dono = dono;
-        this.donoContato = donoContato;
-    }
+//    public Pet(String nome, String raca, String dono, String donoContato) {
+//        this.nome = nome;
+//        this.raca = raca;
+//        this.dono = dono;
+//        this.donoContato = donoContato;
+//    }
 
 
 
