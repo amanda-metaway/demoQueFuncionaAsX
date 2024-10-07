@@ -2,10 +2,9 @@ package com.example.demo.Control;
 
 import com.example.demo.Model.Pet;
 import com.example.demo.Service.PetService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,15 +13,19 @@ public class PetController implements Serializable {
 
     private Pet pet = new Pet();
 
+    private List<Pet> pets;
+    private boolean tabelaVisivel;
     private PetService petService;
+
+    public PetController() {
+        this.pets = new ArrayList<>();
+        this.tabelaVisivel = false;
+    }
 
     public PetController(PetService petService) {
         this.petService = petService;
     }
 
-    public PetController() {
-
-    }
 
     public PetService getPetService() {
         return petService;
@@ -46,25 +49,40 @@ public class PetController implements Serializable {
     }
 
 
+
+
+
+
     public void createPet() {
         petService.savePet(this.pet);
-        // this.pet = new Pet();
+        this.pet = new Pet();
     }
 
     public void updatePet(Pet pet) {
         petService.updatePet(pet);
     }
 
-    public List<Pet> listarPets() {
-        return petService.listarPets();
+
+    public void carregarPets() {
+        pets = petService.listarPets();
+        tabelaVisivel = true;
     }
+    public boolean isTabelaVisivel() {
+        return tabelaVisivel;
+    }
+
 
     public void deletePet(int id) {
         petService.deletePet(id);
     }
 
 
-    public Object getSetNome() {
-        return pet.getNome();
+
+    public List<Pet> getPets() {
+        return pets;
+    }
+
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
     }
 }

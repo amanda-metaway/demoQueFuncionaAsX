@@ -35,7 +35,7 @@
 
     <select id="listarPets" resultClass="com.example.demo.Model.Pet">
         SELECT id, nome, raca, dono, dono_contato AS donoContato
-        FROM pets
+        FROM pets ORDER BY id DESC
     </select>
 
 </sqlMap>

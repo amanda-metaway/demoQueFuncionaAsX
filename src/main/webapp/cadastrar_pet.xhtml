@@ -5,6 +5,10 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
 
+
+<link rel="stylesheet" type="text/css" href="styles.css"/>
+
+
 <ui:composition template="template.xhtml">
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -16,26 +20,39 @@
         <h:form>
             <h:panelGrid columns="2">
                 <h:outputLabel for="nome" value="Nome do Pet:"/>
-                <h:inputText id="nome" value="#{petController.pet.nome}" required="true"/>
+                <h:inputText id="nome" value="#{petController.pet.nome}"/>
 
                 <h:outputLabel for="raca" value="Raça:"/>
-                <h:inputText id="raca" value="#{petController.pet.raca}" required="true"/>
+                <h:inputText id="raca" value="#{petController.pet.raca}"/>
 
                 <h:outputLabel for="dono" value="Nome do Dono:"/>
-                <h:inputText id="dono" value="#{petController.pet.dono}" required="true"/>
+                <h:inputText id="dono" value="#{petController.pet.dono}"/>
 
                 <h:outputLabel for="donoContato" value="Contato do Dono:"/>
-                <h:inputText id="donoContato" value="#{petController.pet.donoContato}" required="true"/>
+                <h:inputText id="donoContato" value="#{petController.pet.donoContato}"/>
 
                 <h:panelGrid columns="2">
                     <h:commandButton value="Cadastrar" action="#{petController.createPet()}"/>
                     <h:commandButton value="Cancelar" action="index.xhtml"/>
                 </h:panelGrid>
             </h:panelGrid>
+        </h:form>
 
 
-            <h:dataTable value="#{petController.listarPets()}" var="pet" styleClass="rich-table">
-                <h:column >
+            <br>
+
+            </br>
+            <br>
+
+            </br>
+
+        <h:form styleClass="rich-tableForm">
+            <h:commandButton value="Pets cadastrados" action="#{petController.carregarPets}"
+                             styleClass="action-buttonForm"/>
+
+            <h:dataTable value="#{petController.pets}" var="pet" styleClass="rich-table"
+                         rendered="#{petController.tabelaVisivel}">
+                <h:column>
                     <f:facet name="header">Nome</f:facet>
                     #{pet.nome}
                 </h:column>
@@ -51,9 +68,17 @@
                     <f:facet name="header">Contato do Dono</f:facet>
                     #{pet.donoContato}
                 </h:column>
-
+                <h:column>
+                    <f:facet name="header">Ações</f:facet>
+                    <h:commandButton value="Editar" action="#{petController.editarPet(pet)}"
+                                     styleClass="action-button"/>
+                    <h:commandButton value="Deletar" action="#{petController.deletePet(pet.id)}"
+                                     styleClass="action-button"
+                                     onclick="return confirm('Tem certeza que deseja deletar?');"/>
+                </h:column>
             </h:dataTable>
         </h:form>
+
     </ui:define>
 </ui:composition>
 </html>

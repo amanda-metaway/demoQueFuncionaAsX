@@ -74,36 +74,84 @@ body {
     font-weight: bold; /* Negrito no rodapé */
 }
 
-/* Table styles */
+/* Estilo geral da tabela */
 .rich-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    border: 2px solid darkgray;
+    overflow-x: auto; /* Permite rolagem horizontal */
+
+}
+.rich-tableForm {
+    overflow-x: auto;
+}
+.rich-tableForm .action-buttonForm{
+    background-color: rgb(118, 186, 165);
+    color: #0c0e0e;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Animação ao passar o mouse */
+    border-radius: 16px;
+    font-weight: bold;
+
+}
+
+.rich-tableForm .action-buttonForm:hover {
+    background-color: rgba(105, 237, 203, 0.79); /* Escurece o botão ao passar o mouse */
 }
 
 
-.rich-table th, .rich-table td {
-    border: 1px solid rgba(118, 186, 165, 0.47);
-    padding: 8px;
-    color: #608a81;
+.rich-table tr {
+
+    color: #0c0e0e; /* Cor do texto */
+    border: 2px solid darkgray;
 }
 
+/* Estilo para as células de cabeçalho */
 .rich-table th {
-    background-color: rgba(118, 186, 165, 0.47);
-    color: white;
+    background-color: #068562; /* Verde escuro */
+    color: white; /* Letras brancas */
+    padding: 12px; /* Espaçamento interno */
+    text-align: left; /* Alinhamento do texto */
+    border: 2px solid darkgray;
 }
 
-/* Feedback styles */
-.success {
-    background-color: #d0e9c6;
-    color: #3c763d;
+/* Estilo para as células */
+.rich-table td {
+    padding: 12px; /* Espaçamento interno */
+    border: 2px solid darkgray;
 }
 
-.error {
-    background-color: #f2dede;
-    color: #a94442;
+/* Estilo para as linhas pares */
+.rich-table tr:nth-child(even) {
+    background-color: rgba(118, 186, 165, 0.39); /* Fundo sutil para linhas pares */
+    border: 2px solid darkgray;
 }
 
+/* Estilo para as linhas ao passar o mouse */
+.rich-table tr:hover {
+    background-color: rgb(111, 166, 148); /* Destaque quando o mouse está sobre a linha */
+}
+
+/* Botões dentro da tabela */
+.rich-table .action-button {
+    background-color: rgb(118, 186, 165);
+    color: #0c0e0e;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Animação ao passar o mouse */
+    border-radius: 16px;
+    font-weight: bold;
+}
+
+.rich-table .action-button:hover {
+    background-color: rgba(105, 237, 203, 0.79); /* Escurece o botão ao passar o mouse */
+}
+
+
+
+
+/**/
 /* Button styles */
 /*h\:commandButton {*/
 /*    background-color: #3f51b5;*/
@@ -138,14 +186,13 @@ body {
         padding: 40px;
         margin: 40px auto;
     }
-  /*@media (min-width: 1024px) {*/
-  /*      .login-container {*/
-  /*          max-width: 500px; !* Largura maior em telas grandes *!*/
-  /*          padding: 40px; !* Mais padding, se necessário *!*/
-  /*      }*/
-  /*  }*/
 
-
+    /*@media (min-width: 1024px) {*/
+    /*      .login-container {*/
+    /*          max-width: 500px; !* Largura maior em telas grandes *!*/
+    /*          padding: 40px; !* Mais padding, se necessário *!*/
+    /*      }*/
+    /*  }*/
     .nav-link:hover::before {
         filter: brightness(0.8);
     }
@@ -220,6 +267,7 @@ body {
         margin-right: 8px;
         font-size: 18px;
     }
+
     .login-container {
         display: flex;
         flex-direction: column; /* Alinha os elementos verticalmente */
@@ -234,7 +282,7 @@ body {
         width: 100%; /* Largura total */
         max-width: 400px; /* Largura máxima */
         /*width:inherit;*/
-        height: fit-content;/* Largura total */
+        height: fit-content; /* Largura total */
         position: relative;
         /*display:-ms-flexbox;*/
         font-family: "Font Awesome 5 Free";
@@ -242,7 +290,6 @@ body {
         color: white;
 
     }
-
 
 
     h4 {
@@ -268,7 +315,7 @@ body {
 
     .btn-login, .btn-cadastrar {
         width: 80%;
-        padding:10px;
+        padding: 10px;
         /*padding: 14px 20px;*/
         background-color: rgba(118, 186, 165, 0.39);
         color: rgba(118, 186, 165, 0.47);
@@ -329,6 +376,27 @@ body {
         }
 
     }
+    /*@media (max-width: 768px) {*/
+    /*    .rich-table {*/
+    /*        display: block; !* Faz a tabela se comportar como um bloco *!*/
+    /*        overflow-x: auto; !* Permite rolagem horizontal *!*/
+    /*        white-space: nowrap; !* Impede quebra de linha *!*/
+    /*    }*/
+
+    /*    .rich-table th, .rich-table td {*/
+    /*        display: block; !* Faz as células se comportarem como blocos *!*/
+    /*        text-align: right; !* Alinha texto à direita *!*/
+    /*    }*/
+
+    /*    .rich-table th {*/
+    /*        position: absolute; !* Posiciona o cabeçalho *!*/
+    /*        left: -9999px; !* Sai da tela para não aparecer *!*/
+    /*    }*/
+
+    /*    .rich-table tr {*/
+    /*        margin-bottom: 15px; !* Espaçamento entre as linhas *!*/
+    /*    }*/
+    /*}*/
 
 
 
