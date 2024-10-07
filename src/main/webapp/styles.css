@@ -81,9 +81,11 @@ body {
     margin-top: 20px;
 }
 
+
 .rich-table th, .rich-table td {
     border: 1px solid rgba(118, 186, 165, 0.47);
     padding: 8px;
+    color: #608a81;
 }
 
 .rich-table th {

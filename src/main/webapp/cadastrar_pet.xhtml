@@ -28,14 +28,14 @@
                 <h:inputText id="donoContato" value="#{petController.pet.donoContato}" required="true"/>
 
                 <h:panelGrid columns="2">
-                    <h:commandButton value="Cadastrar" action="#{petController.createPet(petController)}"/>
+                    <h:commandButton value="Cadastrar" action="#{petController.createPet()}"/>
                     <h:commandButton value="Cancelar" action="index.xhtml"/>
                 </h:panelGrid>
             </h:panelGrid>
 
 
             <h:dataTable value="#{petController.listarPets()}" var="pet" styleClass="rich-table">
-                <h:column>
+                <h:column >
                     <f:facet name="header">Nome</f:facet>
                     #{pet.nome}
                 </h:column>

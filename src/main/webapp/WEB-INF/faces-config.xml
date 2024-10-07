@@ -7,7 +7,7 @@
 
     <!-- MBs aqui -->
     <managed-bean>
-        <managed-bean-name>customer</managed-bean-name>
+        <managed-bean-name>petController</managed-bean-name>
         <managed-bean-class>com.example.demo.Control.PetController</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
@@ -33,6 +33,7 @@
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
     </application>
 
+    <!--navegacao-->
     <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>

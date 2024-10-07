@@ -12,12 +12,13 @@ import java.util.List;
 public class IBatisPetDao extends SqlMapClientDaoSupport implements PetDao {
 
 
-    private SqlMapClientTemplate sqlMapClientTemplate;
+//    private SqlMapClientTemplate sqlMapClientTemplate;
 
 
     @Override
     public void savePet(Pet pet) {
-
+    System.out.println(pet + toString());
+        getSqlMapClientTemplate().insert("savePet", pet);
     }
 
     @Override

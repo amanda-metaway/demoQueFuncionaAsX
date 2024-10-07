@@ -41,5 +41,7 @@ public class PetService {
         this.batisPetDao = petDao;
     }
 
-
+    public IBatisPetDao getBatisPetDao() {
+        return batisPetDao;
+    }
 }
