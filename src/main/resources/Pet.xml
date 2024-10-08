@@ -17,7 +17,6 @@
         VALUES (#id#, #nome#, #raca#, #dono#, #donoContato#)
     </insert>
 
-
     <update id="updatePet" parameterClass="com.example.demo.Model.Pet">
         UPDATE pets
         SET nome         = #nome#,
@@ -30,7 +29,7 @@
     <delete id="deletePet" parameterClass="java.lang.Integer">
         DELETE
         FROM pets
-        WHERE id = #value#
+        WHERE id = #id#
     </delete>
 
     <select id="listarPets" resultClass="com.example.demo.Model.Pet">

@@ -6,9 +6,9 @@
       xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="template.xhtml">
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:param name="title" value="Cadastrar Usuário"/>
 
@@ -23,19 +23,56 @@
                 <h:inputText id="cpfUsuario" value="#{userController.user.cpfUsuario}" styleClass="input-field"/>
 
                 <h:outputLabel for="profile" value="Perfil:"/>
-                <h:selectOneMenu id="profile" value="#{userController.user}" styleClass="input-field">
+                <h:selectOneRadio id="profile" value="#{userController.user.perfil}">
                     <f:selectItem itemValue="#{com.example.demo.Model.UserProfile.ADMIN}" itemLabel="Admin"/>
                     <f:selectItem itemValue="#{com.example.demo.Model.UserProfile.CLIENTE}" itemLabel="Cliente"/>
-                </h:selectOneMenu>
+                </h:selectOneRadio>
+
 
                 <h:outputLabel for="password" value="SENHA:"/>
-                <h:inputSecret id="password" value="#{userController.user.password}" required="true" styleClass="input-field"/>
+                <h:inputSecret id="password" value="#{userController.user.password}" required="true"
+                               styleClass="input-field"/>
 
                 <h:panelGrid columns="2">
-                    <h:commandButton value="Cadastrar" action="#{userController.createUser()}"/>
+                    <h:commandButton value="Cadastrar" action="#{userController.createUser}"/>
                     <h:commandButton value="Cancelar" action="index"/>
                 </h:panelGrid>
             </h:panelGrid>
+        </h:form>
+        <br>
+
+        </br>
+        <br>
+
+        </br>
+        <h:form styleClass="rich-tableForm">
+            <h:commandButton value="Usuários cadastrados" action="#{userController.listarUsers}"
+                             styleClass="action-buttonForm"/>
+
+            <h:dataTable value="#{userController.users}" var="user" styleClass="rich-table"
+                         rendered="#{not empty userController.users}">
+                <h:column>
+                    <f:facet name="header">Nome</f:facet>
+                    #{user.name}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">CPF</f:facet>
+                    #{user.cpfUsuario}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Tipo de Perfil</f:facet>
+                    #{user.perfil}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Ações</f:facet>
+                    <h:commandButton value="Editar" action="#{userController.updateUser(user)}"
+                                     styleClass="action-button"/>
+
+                    <h:commandButton value="Deletar" action="#{userController.deleteUser(user.id)}"
+                                     styleClass="action-button"/>
+                </h:column>
+            </h:dataTable>
         </h:form>
     </ui:define>
 </ui:composition>

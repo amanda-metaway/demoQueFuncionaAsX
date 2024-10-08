@@ -3,7 +3,7 @@ package com.example.demo.Model;
 public class User {
     private int id;
     private String name;
-    private UserProfile perfil_id;
+    private UserProfile perfil;
     private String cpfUsuario;
     private String password;
 
@@ -24,13 +24,7 @@ public class User {
         this.name = name;
     }
 
-    public UserProfile getPerfil_id() {
-        return perfil_id;
-    }
 
-    public void setPerfil_id(UserProfile perfil_id) {
-        this.perfil_id = perfil_id;
-    }
 
     public String getCpfUsuario() {
         return cpfUsuario;
@@ -46,5 +40,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserProfile getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(UserProfile perfil) {
+        this.perfil = perfil;
     }
 }

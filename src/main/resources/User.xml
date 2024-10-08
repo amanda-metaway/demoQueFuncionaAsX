@@ -3,32 +3,25 @@
 <sqlMap namespace="User">
 
     <select id="getUserById" parameterClass="integer" resultClass="com.example.demo.Model.User">
-        SELECT id, name, perfil_id, cpfusuario, password
+        SELECT id, name, perfil, cpfusuario, password
         FROM users
         WHERE id = #id#
     </select>
 
 
-<!--    <insert id="saveUser" parameterClass="com.example.demo.Model.User">-->
-<!--        INSERT INTO users (name, perfil_id, cpfUsuario, password)-->
-<!--        VALUES (#name#, #perfil_id.id#, #cpfUsuario#, #password#)-->
-<!--    </insert>-->
-
     <insert id="saveUser" parameterClass="com.example.demo.Model.User">
-        <selectKey keyProperty="id" resultClass="int">
-            SELECT nextval('users_id_seq'::regclass))
+        <selectKey keyProperty="id">
+            SELECT nextval('users_id_seq'::regclass)
         </selectKey>
-        INSERT INTO users (id, name, perfil_id, cpfusuario, password)
-        VALUES (#id#, #name#, #perfil_id.id#, #cpfUsuario#, #password#)
+        INSERT INTO users (id, name, perfil, cpfusuario, password)
+        VALUES (#id#, #name#, #perfil#, #cpfUsuario#, #password#)
     </insert>
-
-
 
 
     <update id="updateUser" parameterClass="com.example.demo.Model.User">
         UPDATE users
         SET name       = #name#,
-            perfil_id  = #perfil_id#,
+            perfil  = #perfil#,
             cpfusuario = #cpfUsuario#,
             password   = #password#
         WHERE id = #id#
@@ -37,7 +30,15 @@
     <delete id="deleteUser" parameterClass="java.lang.Integer">
         DELETE
         FROM users
-        WHERE id = #value#
+        WHERE id = #id#
     </delete>
+
+    <select id="listarUsers" resultClass="com.example.demo.Model.User">
+        SELECT id, name, perfil, cpfusuario, password
+        FROM users ORDER BY id DESC
+    </select>
+
+
+
 
 </sqlMap>

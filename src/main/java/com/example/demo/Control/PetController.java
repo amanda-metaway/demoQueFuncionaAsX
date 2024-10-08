@@ -14,12 +14,10 @@ public class PetController implements Serializable {
     private Pet pet = new Pet();
 
     private List<Pet> pets;
-    private boolean tabelaVisivel;
     private PetService petService;
 
     public PetController() {
         this.pets = new ArrayList<>();
-        this.tabelaVisivel = false;
     }
 
     public PetController(PetService petService) {
@@ -48,10 +46,9 @@ public class PetController implements Serializable {
         return petService.getPetById(id);
     }
 
-
-
-
-
+    public Pet getPetById(int id) {
+        return petService.getPetById(id);
+    }
 
     public void createPet() {
         petService.savePet(this.pet);
@@ -65,17 +62,15 @@ public class PetController implements Serializable {
 
     public void carregarPets() {
         pets = petService.listarPets();
-        tabelaVisivel = true;
     }
-    public boolean isTabelaVisivel() {
-        return tabelaVisivel;
-    }
+
 
 
     public void deletePet(int id) {
+        pets.removeIf(pet -> pet.getId() == id);
         petService.deletePet(id);
-    }
 
+    }
 
 
     public List<Pet> getPets() {
@@ -85,4 +80,6 @@ public class PetController implements Serializable {
     public void setPets(List<Pet> pets) {
         this.pets = pets;
     }
+
+
 }

@@ -12,23 +12,15 @@ import java.util.List;
 public class IBatisPetDao extends SqlMapClientDaoSupport implements PetDao {
 
 
-
-
-
     @Override
     public void savePet(Pet pet) {
-    System.out.println(pet + toString());
+        System.out.println(pet + toString());
         getSqlMapClientTemplate().insert("savePet", pet);
     }
 
     @Override
     public Pet getPetById(int id) {
         return (Pet) getSqlMapClientTemplate().queryForObject("getPetById", id);
-    }
-
-    @Override
-    public List<Pet> getListarPet() {
-        return  getSqlMapClientTemplate().queryForList("listarPets");
     }
 
 
@@ -40,6 +32,10 @@ public class IBatisPetDao extends SqlMapClientDaoSupport implements PetDao {
     @Override
     public void deletePet(int id) {
         getSqlMapClientTemplate().delete("deletePet", id);
+    }
 
+    @Override
+    public List<Pet> getListarPet() {
+        return getSqlMapClientTemplate().queryForList("listarPets");
     }
 }

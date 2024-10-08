@@ -1,12 +1,8 @@
 body {
-    /*font-family: 'Arial', sans-serif;*/
-    /*margin: 0;*/
-    /*padding: 0;*/
-    background-color: #f0f4f8; /* Fundo suave */
-    /*height: 100vh; !* Garantir que ocupe toda a altura *!*/
-    flex-direction: column; /* Para alinhar o footer na parte inferior */
+    background-color: #f0f4f8;
+    flex-direction: column; /*  alinhar o footer na parte inferior */
     width: 100%;
-    display:flex;
+    display: flex;
     min-height: 100vh;
     position: relative;
 }
@@ -24,13 +20,13 @@ body {
     color: white;
     padding: 14px 20px;
     text-decoration: none;
-    display:-ms-flexbox;
+    display: -ms-flexbox;
     position: relative;
     transition: background-color 0.3s, color 0.3s;
-    font-weight: bold; /* Texto em negrito */
+    font-weight: bold;
     border-radius: 8px;
     font-size: 18px;
-    font-family:  "Century Gothic";
+    font-family: "Century Gothic";
 }
 
 .nav-link:hover {
@@ -40,25 +36,17 @@ body {
 
 .custom-link {
     color: white;
-    /*color: inherit; !* Mantém a cor do texto do elemento pai *!*/
-    text-decoration: none; /* Remove o sublinhado */
+    text-decoration: none; /* tira o sublinhado */
 }
 
 /* Main content styles */
 .main-content {
-    /*flex: 1;*/
     padding: 20px;
-    /*margin: 20px auto;*/
     min-height: calc(100vh - 160px);
-    /*width: 100%;*/
-    /*width: fit-content;*/
-    /*height: auto;*/
-    /*height: 100%;*/
-    /*background: #bcfdeb;*/
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    /*min-height: calc(100vh - 160px); !* Ajuste para a altura total menos cabeçalho e rodapé *!*/
+
 }
 
 
@@ -71,7 +59,7 @@ body {
     height: 100%;
     nav-down: auto;
     font-size: small;
-    font-weight: bold; /* Negrito no rodapé */
+    font-weight: bold;
 }
 
 /* Estilo geral da tabela */
@@ -79,98 +67,76 @@ body {
     width: 100%;
     border-collapse: collapse;
     border: 2px solid darkgray;
-    overflow-x: auto; /* Permite rolagem horizontal */
+    overflow-x: auto;
 
 }
+
 .rich-tableForm {
     overflow-x: auto;
 }
-.rich-tableForm .action-buttonForm{
+
+.rich-tableForm .action-buttonForm {
     background-color: rgb(118, 186, 165);
     color: #0c0e0e;
     padding: 8px 12px;
     cursor: pointer;
-    transition: background-color 0.3s; /* Animação ao passar o mouse */
+    transition: background-color 0.3s;
     border-radius: 16px;
     font-weight: bold;
 
 }
 
 .rich-tableForm .action-buttonForm:hover {
-    background-color: rgba(105, 237, 203, 0.79); /* Escurece o botão ao passar o mouse */
+    background-color: rgba(105, 237, 203, 0.79);
 }
 
 
 .rich-table tr {
 
-    color: #0c0e0e; /* Cor do texto */
+    color: #0c0e0e; /*  texto */
     border: 2px solid darkgray;
 }
 
-/* Estilo para as células de cabeçalho */
+/*  células de cabeçalho */
 .rich-table th {
-    background-color: #068562; /* Verde escuro */
-    color: white; /* Letras brancas */
-    padding: 12px; /* Espaçamento interno */
-    text-align: left; /* Alinhamento do texto */
+    background-color: #068562;
+    color: white;
+    padding: 12px;
+    text-align: left;
     border: 2px solid darkgray;
 }
 
-/* Estilo para as células */
+/* células */
 .rich-table td {
-    padding: 12px; /* Espaçamento interno */
+    padding: 12px;
     border: 2px solid darkgray;
 }
 
-/* Estilo para as linhas pares */
+/*  linhas pares */
 .rich-table tr:nth-child(even) {
-    background-color: rgba(118, 186, 165, 0.39); /* Fundo sutil para linhas pares */
+    background-color: rgba(118, 186, 165, 0.39);
     border: 2px solid darkgray;
 }
 
-/* Estilo para as linhas ao passar o mouse */
+/*  linhas ao passar o mouse */
 .rich-table tr:hover {
-    background-color: rgb(111, 166, 148); /* Destaque quando o mouse está sobre a linha */
+    background-color: rgb(111, 166, 148);
 }
 
-/* Botões dentro da tabela */
+/* Botoes dentro da tabela */
 .rich-table .action-button {
     background-color: rgb(118, 186, 165);
     color: #0c0e0e;
     padding: 8px 12px;
     cursor: pointer;
-    transition: background-color 0.3s; /* Animação ao passar o mouse */
+    transition: background-color 0.3s;
     border-radius: 16px;
     font-weight: bold;
 }
 
 .rich-table .action-button:hover {
-    background-color: rgba(105, 237, 203, 0.79); /* Escurece o botão ao passar o mouse */
+    background-color: rgba(105, 237, 203, 0.79);
 }
-
-
-
-
-/**/
-/* Button styles */
-/*h\:commandButton {*/
-/*    background-color: #3f51b5;*/
-/*    color: white;*/
-/*    border: none;*/
-/*    padding: 10px;*/
-/*    margin: 10px 0; !* Margem vertical para separar os botões *!*/
-/*    cursor: pointer;*/
-/*    border-radius: 4px;*/
-/*    transition: background-color 0.3s, transform 0.2s;*/
-/*    font-weight: bold; !* Negrito nos botões *!*/
-/*    width: 100%; !* Largura total *!*/
-/*    display: block;*/
-/*}*/
-
-/*h\:commandButton:hover {*/
-/*    background-color: #1e88e5;*/
-/*    transform: translateY(-2px);*/
-/*}*/
 
 
 /* Media queries */
@@ -187,12 +153,7 @@ body {
         margin: 40px auto;
     }
 
-    /*@media (min-width: 1024px) {*/
-    /*      .login-container {*/
-    /*          max-width: 500px; !* Largura maior em telas grandes *!*/
-    /*          padding: 40px; !* Mais padding, se necessário *!*/
-    /*      }*/
-    /*  }*/
+
     .nav-link:hover::before {
         filter: brightness(0.8);
     }
@@ -268,84 +229,9 @@ body {
         font-size: 18px;
     }
 
-    .login-container {
-        display: flex;
-        flex-direction: column; /* Alinha os elementos verticalmente */
-        align-items: center; /* Centraliza os itens horizontalmente */
-        background-color: #07956c;
-        padding: 20px;
-        border-radius: 4px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        margin: 20px auto; /* Centraliza */
-        /*max-width: 400px; !* Largura máxima *!*/
-
-        width: 100%; /* Largura total */
-        max-width: 400px; /* Largura máxima */
-        /*width:inherit;*/
-        height: fit-content; /* Largura total */
-        position: relative;
-        /*display:-ms-flexbox;*/
-        font-family: "Font Awesome 5 Free";
-        font-weight: 700;
-        color: white;
-
-    }
-
-
-    h4 {
-        text-align: center;
-        margin-bottom: 20px;
-        font-family: "Font Awesome 5 Free";
-    }
-
-    .input-container {
-        font-family: "Font Awesome 5 Free";
-        margin-bottom: 15px;
-        text-align: center;
-    }
-
-    .input-field {
-        width: 80%;
-        padding: 10px;
-        border: 1px solid #608a81;
-        border-radius: 4px;
-        box-sizing: border-box;
-        font-family: "Font Awesome 5 Free";
-    }
-
-    .btn-login, .btn-cadastrar {
-        width: 80%;
-        padding: 10px;
-        /*padding: 14px 20px;*/
-        background-color: rgba(118, 186, 165, 0.39);
-        color: rgba(118, 186, 165, 0.47);
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        font-size: medium;
-        font-weight: bold;
-        position: relative;
-        text-align: center;
-        font-family: "Font Awesome 5 Free";
-    }
-
-
-    .btn-login:hover, .btn-cadastrar:hover {
-        background-color: #76baa5;
-        color: #fff;
-        filter: brightness(0.8);
-        font-family: "Font Awesome 5 Free";
-    }
-
     /* Media queries para telas pequenas */
     @media (max-width: 768px) {
 
-
-        .login-container {
-            padding: 20px; /* Ajuste o padding para telas menores */
-            margin: 10px auto; /* Margem menor para o login */
-            width: 90%; /* Largura total em telas pequenas */
-        }
 
         .main-content {
             margin: 10px; /* Margem menor */
@@ -357,47 +243,11 @@ body {
     @media (min-width: 769px) {
 
 
-        .login-container {
-            max-width: 500px; /* Largura máxima em telas maiores */
-            padding: 30px; /* Padding padrão */
-        }
-
         .main-content {
             margin: 20px auto; /* Centraliza horizontalmente */
             padding: 20px; /* Padding padrão */
         }
     }
-
-    /* Media queries para telas muito grandes, se necessário */
-    @media (min-width: 1024px) {
-        .login-container {
-            max-width: 500px;
-            padding: 40px; /* Mais padding para telas grandes */
-        }
-
-    }
-    /*@media (max-width: 768px) {*/
-    /*    .rich-table {*/
-    /*        display: block; !* Faz a tabela se comportar como um bloco *!*/
-    /*        overflow-x: auto; !* Permite rolagem horizontal *!*/
-    /*        white-space: nowrap; !* Impede quebra de linha *!*/
-    /*    }*/
-
-    /*    .rich-table th, .rich-table td {*/
-    /*        display: block; !* Faz as células se comportarem como blocos *!*/
-    /*        text-align: right; !* Alinha texto à direita *!*/
-    /*    }*/
-
-    /*    .rich-table th {*/
-    /*        position: absolute; !* Posiciona o cabeçalho *!*/
-    /*        left: -9999px; !* Sai da tela para não aparecer *!*/
-    /*    }*/
-
-    /*    .rich-table tr {*/
-    /*        margin-bottom: 15px; !* Espaçamento entre as linhas *!*/
-    /*    }*/
-    /*}*/
-
 
 
 }

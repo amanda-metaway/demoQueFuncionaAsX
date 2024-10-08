@@ -23,9 +23,7 @@ public class PetService {
         batisPetDao.savePet(pet);
     }
 
-    public List<Pet> listarPets() {
-        return batisPetDao.getListarPet();
-    }
+
 
     public void updatePet(Pet pet) {
         batisPetDao.updatePet(pet);
@@ -35,6 +33,9 @@ public class PetService {
         batisPetDao.deletePet(id);
     }
 
+    public List<Pet> listarPets() {
+        return batisPetDao.getListarPet();
+    }
 
     public void setPetDao(IBatisPetDao petDao) {
         this.batisPetDao = petDao;

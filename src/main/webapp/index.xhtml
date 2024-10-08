@@ -10,23 +10,23 @@
     <ui:define name="title">Página Inicial - Home</ui:define>
 
     <ui:define name="content">
-        <div class="login-container">
-            <h4>Acesso ao Sistema</h4>
+
+           <!-- <h4>Acesso ao Sistema</h4>
             <h:form>
                 <h:panelGrid columns="1">
-                    <div class="input-container">
+                    <div >
                         <h:outputLabel for="cpf" value="CPF:"/>
                         <h:inputText id="cpf" value="#{UserController.cpf}" required="true" styleClass="input-field"/>
                     </div>
 
 
 
-                    <div class="input-container">
+                    <div>
                         <h:outputLabel for="senha" value="Senha:"/>
                         <h:inputSecret id="senha" value="#{UserController.senha}" required="true" styleClass="input-field"/>
                     </div>
 
-                    <div class="input-container">
+                    <div>
                         <h:outputLabel for="perfil" value="Tipo de Perfil:"/>
                         <h:selectOneMenu id="perfil" value="#{UserController.perfil_id}" required="true" styleClass="input-field">
                             <f:selectItem itemLabel="ADMIN" itemValue="ADMIN"/>
@@ -36,9 +36,9 @@
                 </h:panelGrid>
 
                 <h:commandButton value="Logar" action="#{UserController.logar}" styleClass="btn-login"/>
-<!--                <h:commandButton value="Cadastrar" action="#{UserController.cadastrar}" styleClass="btn-cadastrar"/>-->
-            </h:form>
-        </div>
+               <h:commandButton value="Cadastrar" action="#{UserController.cadastrar}" styleClass="btn-cadastrar"/>
+            </h:form>-->
+
 
     </ui:define>
 </ui:composition>

@@ -14,8 +14,8 @@
 
                 <h:outputLabel for="profile" value="Perfil:"/>
                 <h:selectOneMenu id="profile" value="#{userController.user.perfil_id}">
-                    <f:selectItem itemValue="admin" itemLabel="Admin"/>
-                    <f:selectItem itemValue="cliente" itemLabel="Cliente"/>
+                    <f:selectItem itemValue="#{com.example.demo.Model.UserProfile.ADMIN}" itemLabel="Admin"/>
+                    <f:selectItem itemValue="#{com.example.demo.Model.UserProfile.CLIENTE}" itemLabel="Cliente"/>
                 </h:selectOneMenu>
 
                 <h:panelGrid>

@@ -17,7 +17,7 @@
     <ui:param name="title" value="Cadastrar Pet"/>
 
     <ui:define name="content">
-        <h:form>
+        <h:form >
             <h:panelGrid columns="2">
                 <h:outputLabel for="nome" value="Nome do Pet:"/>
                 <h:inputText id="nome" value="#{petController.pet.nome}"/>
@@ -37,21 +37,16 @@
                 </h:panelGrid>
             </h:panelGrid>
         </h:form>
-
-
             <br>
-
             </br>
             <br>
-
             </br>
-
         <h:form styleClass="rich-tableForm">
             <h:commandButton value="Pets cadastrados" action="#{petController.carregarPets}"
                              styleClass="action-buttonForm"/>
 
             <h:dataTable value="#{petController.pets}" var="pet" styleClass="rich-table"
-                         rendered="#{petController.tabelaVisivel}">
+                         rendered="#{not empty petController.pets}">
                 <h:column>
                     <f:facet name="header">Nome</f:facet>
                     #{pet.nome}
@@ -70,11 +65,11 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">Ações</f:facet>
-                    <h:commandButton value="Editar" action="#{petController.editarPet(pet)}"
+                    <h:commandButton value="Editar" action="#{petController.updatePet(pet)}"
                                      styleClass="action-button"/>
+
                     <h:commandButton value="Deletar" action="#{petController.deletePet(pet.id)}"
-                                     styleClass="action-button"
-                                     onclick="return confirm('Tem certeza que deseja deletar?');"/>
+                                     styleClass="action-button"/>
                 </h:column>
             </h:dataTable>
         </h:form>

@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
 <sqlMapConfig>
+
+    <typeHandler
+            javaType="com.example.demo.Model.UserProfile"
+            jdbcType="VARCHAR"
+            callback="com.example.demo.Model.PerfilValida"/>
+
+
+
+
     <sqlMap resource="User.xml"/>
     <sqlMap resource="Pet.xml"/>
+
+
+
+
 </sqlMapConfig>
