@@ -18,8 +18,8 @@ public class IBatisUserDao extends SqlMapClientDaoSupport implements UserDao {
     }
 
     @Override
-    public User getUserById(int id) {
-        return (User) getSqlMapClientTemplate().queryForObject("getUserById", id);
+    public User getUserByCPF(String cpfUsuario) {
+        return (User) getSqlMapClientTemplate().queryForObject("getUserByCPF", cpfUsuario);
     }
 
     @Override

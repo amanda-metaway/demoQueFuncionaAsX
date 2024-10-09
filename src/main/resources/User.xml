@@ -2,28 +2,39 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="User">
 
-    <select id="getUserById" parameterClass="integer" resultClass="com.example.demo.Model.User">
-        SELECT id, name, perfil, cpfusuario, password
+    <typeAlias alias="user" type="com.example.demo.Model.User"/>
+
+    <resultMap id="userResultMap" class="user">
+        <result property="id"   column="id" />
+        <result property="name"   column="name" />
+        <result property="perfil"   column="perfil" />
+        <result property="cpfUsuario"   column="cpfusuario" />
+        <result property="password"   column="password" />
+    </resultMap>
+
+    <select id="getUserByCPF" parameterClass="java.lang.String" resultMap="userResultMap">
+        SELECT id, name, cpfusuario, password, perfil
         FROM users
-        WHERE id = #id#
+        WHERE cpfusuario = #cpfUsuario#
     </select>
+
 
 
     <insert id="saveUser" parameterClass="com.example.demo.Model.User">
         <selectKey keyProperty="id">
             SELECT nextval('users_id_seq'::regclass)
         </selectKey>
-        INSERT INTO users (id, name, perfil, cpfusuario, password)
-        VALUES (#id#, #name#, #perfil#, #cpfUsuario#, #password#)
+        INSERT INTO users (id, name, cpfusuario, password,perfil)
+        VALUES (#id#, #name#, #cpfUsuario#, #password#,#perfil#)
     </insert>
 
 
     <update id="updateUser" parameterClass="com.example.demo.Model.User">
         UPDATE users
         SET name       = #name#,
-            perfil  = #perfil#,
             cpfusuario = #cpfUsuario#,
-            password   = #password#
+            password   = #password#,
+            perfil  = #perfil#
         WHERE id = #id#
     </update>
 
@@ -33,8 +44,8 @@
         WHERE id = #id#
     </delete>
 
-    <select id="listarUsers" resultClass="com.example.demo.Model.User">
-        SELECT id, name, perfil, cpfusuario, password
+    <select id="listarUsers" resultMap="userResultMap">
+        SELECT id, name, cpfusuario, password, perfil
         FROM users ORDER BY id DESC
     </select>
 

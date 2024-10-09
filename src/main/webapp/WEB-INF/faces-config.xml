@@ -26,14 +26,35 @@
         </managed-property>
     </managed-bean>
 
-    <application>
-        <locale-config>
-            <default-locale>en</default-locale>
-        </locale-config>
-        <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
-    </application>
+    <managed-bean>
+        <managed-bean-name>apoio</managed-bean-name>
+        <managed-bean-class>com.example.demo.Control.Apoio</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <!---->
 
-    <!--navegacao-->
+
+
+    <!-- converters aqui-->
+    <converter>
+        <converter-for-class>com.example.demo.Model.UserProfile</converter-for-class>
+        <converter-class>com.example.demo.Converter.UserProfileConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>userCpfConverter</converter-id>
+        <converter-class>com.example.demo.Converter.UserCpfConverter</converter-class>
+    </converter>
+
+
+    <!-- validators aqui-->
+    <validator>
+        <validator-id>cpfValidator</validator-id>
+        <validator-class>com.example.demo.Validators.CpfValidator</validator-class>
+    </validator>
+
+
+
+    <!--navegacao aqui-->
     <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
@@ -49,6 +70,16 @@
             <to-view-id>/cadastrar_pet.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+
+
+
+
+    <application>
+        <locale-config>
+            <default-locale>en</default-locale>
+        </locale-config>
+        <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+    </application>
 
 
 

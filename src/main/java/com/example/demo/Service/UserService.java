@@ -1,11 +1,9 @@
 package com.example.demo.Service;
 
 
-import com.example.demo.Dao.IBatisPetDao;
 import com.example.demo.Dao.IBatisUserDao;
 
 
-import com.example.demo.Model.Pet;
 import com.example.demo.Model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +18,8 @@ public class UserService {
     private IBatisUserDao userIbatisUserDao;
 
 
-    public User getUserById(int id) {
-        return userIbatisUserDao.getUserById(id);
+    public User getUserByCPF(String cpfUsuario) {
+        return userIbatisUserDao.getUserByCPF(cpfUsuario);
     }
 
     public void saveUser(User user) {

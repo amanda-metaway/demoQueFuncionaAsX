@@ -3,29 +3,50 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+
 
 <ui:composition template="template.xhtml">
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
 
+
     <ui:param name="title" value="Cadastrar Usuário"/>
 
     <ui:define name="content">
         <h2>Cadastrar Usuário</h2>
-        <h:form>
-            <h:panelGrid columns="2">
+        <rich:panel id="formPanel">
+        <h:form styleClass="rich-tableForm">
+
+            <rich:messages styleClass="error-messages" globalOnly="false"/>
+
+            <h:panelGrid columns="1">
                 <h:outputLabel for="name" value="Nome:"/>
                 <h:inputText id="name" value="#{userController.user.name}" styleClass="input-field"/>
 
                 <h:outputLabel for="cpfUsuario" value="CPF:"/>
-                <h:inputText id="cpfUsuario" value="#{userController.user.cpfUsuario}" styleClass="input-field"/>
+                <h:inputText id="cpfUsuario"
+                             value="#{userController.user.cpfUsuario}"
+                             styleClass="input-field"
+                             required="true"
+                             onkeypress="applyCpfMask()">
+
+                    <f:validator validatorId="cpfValidator"/>
+                </h:inputText>
+
+
+
+
+                <h:outputText value="#{userController.mensagemSucesso}"
+                              rendered="#{not empty userController.mensagemSucesso}" styleClass="success-message">
+                </h:outputText>
+
 
                 <h:outputLabel for="profile" value="Perfil:"/>
                 <h:selectOneRadio id="profile" value="#{userController.user.perfil}">
-                    <f:selectItem itemValue="#{com.example.demo.Model.UserProfile.ADMIN}" itemLabel="Admin"/>
-                    <f:selectItem itemValue="#{com.example.demo.Model.UserProfile.CLIENTE}" itemLabel="Cliente"/>
+                    <f:selectItems value="#{apoio.list}"/>
                 </h:selectOneRadio>
 
 
@@ -34,20 +55,34 @@
                                styleClass="input-field"/>
 
                 <h:panelGrid columns="2">
-                    <h:commandButton value="Cadastrar" action="#{userController.createUser}"/>
-                    <h:commandButton value="Cancelar" action="index"/>
+                    <h:commandButton value="Cadastrar" action="#{userController.createUser}"
+                                     styleClass="action-buttonForm"/>
+                    <h:commandButton value="Cancelar" action="index" styleClass="action-buttonForm"/>
                 </h:panelGrid>
             </h:panelGrid>
         </h:form>
+        </rich:panel>
         <br>
-
         </br>
         <br>
-
         </br>
         <h:form styleClass="rich-tableForm">
-            <h:commandButton value="Usuários cadastrados" action="#{userController.listarUsers}"
-                             styleClass="action-buttonForm"/>
+
+            <h:column>
+                <h:commandButton value="Listar Usuários" action="#{userController.listarUsers}"
+                                 styleClass="action-buttonForm"/>
+            </h:column>
+
+
+            <h:column>
+                <h:outputLabel for="cpfUsuario" value="Buscar usuário por CPF:"
+                               style="padding: 10px; margin-left: 100px;"/>
+                <h:inputText id="cpfUsuarioBusca" value="#{userController.user.cpfUsuario}"/>
+                <h:commandButton value="Buscar" action="#{userController.prepararBusca}"
+                                 styleClass="action-buttonForm">
+                    <f:param name="cpfUsuario" value="#{userController.user.cpfUsuario}"/>
+                </h:commandButton>
+            </h:column>
 
             <h:dataTable value="#{userController.users}" var="user" styleClass="rich-table"
                          rendered="#{not empty userController.users}">
@@ -57,23 +92,21 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">CPF</f:facet>
-                    #{user.cpfUsuario}
+                    <h:outputText value="#{user.cpfUsuario}" converter="userCpfConverter"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Tipo de Perfil</f:facet>
-                    #{user.perfil}
+                    #{user.perfil.perfil}
                 </h:column>
 
-                <h:column>
-                    <f:facet name="header">Ações</f:facet>
-                    <h:commandButton value="Editar" action="#{userController.updateUser(user)}"
-                                     styleClass="action-button"/>
-
-                    <h:commandButton value="Deletar" action="#{userController.deleteUser(user.id)}"
-                                     styleClass="action-button"/>
-                </h:column>
             </h:dataTable>
         </h:form>
     </ui:define>
+    <script type="text/javascript">
+        function applyCpfMask() {
+            $('#cpfUsuario').mask('000.000.000-00', {placeholder: "___.___.___-__"});
+        }
+    </script>
+
 </ui:composition>
 </html>

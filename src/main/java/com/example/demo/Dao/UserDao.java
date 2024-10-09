@@ -7,7 +7,7 @@ import java.util.List;
 public interface UserDao {
     void saveUser(User user);
 
-    User getUserById(int id);
+    User getUserByCPF(String cpfUsuario);
 
     List<User> getListarUser();
 

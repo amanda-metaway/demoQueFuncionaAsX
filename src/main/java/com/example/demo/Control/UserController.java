@@ -1,11 +1,11 @@
 package com.example.demo.Control;
 
 
-import com.example.demo.Model.Pet;
 import com.example.demo.Model.User;
-import com.example.demo.Model.UserProfile;
 import com.example.demo.Service.UserService;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +14,9 @@ public class UserController {
 
     private User user = new User();
     private List<User> users;
+    private User buscaUser;
+    private String mensagemSucesso;
+
 
     private UserService userService;
 
@@ -28,16 +31,33 @@ public class UserController {
     }
 
 
-    public void createUser() {
-        userService.saveUser(this.user);
-        this.user = new User();
-
+    public String createUser() {
+        try {
+            userService.saveUser(this.user);
+            this.user = new User();
+            this.mensagemSucesso = "Usuário cadastrado com sucesso!";//deixar mais bonita na tela
+            return "sucesso";
+        } catch (Exception e) {
+            //aqui vai a global
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erro ao cadastrar usuário: " + e.getMessage()));
+            return null; // fica na mesma pagina
+        }
     }
+
+
+    public User getUserByCPF(String cpfUsuario) {
+        return userService.getUserByCPF(cpfUsuario);
+    }
+
+
+    public void prepararBusca() {
+        buscaUser = getUserByCPF(user.getCpfUsuario());
+    }
+
 
     public void updateUser(User user) {
         userService.updateUser(user);
     }
-
 
 
     public void deleteUser(int id) {
@@ -45,14 +65,13 @@ public class UserController {
     }
 
     public List<User> listarUsers() {
-       return  users = userService.listarUsers();
+        return users = userService.listarUsers();
     }
 
 
     public List<User> getUsers() {
         return users;
     }
-
 
 
     public void setUsers(List<User> users) {
@@ -70,4 +89,18 @@ public class UserController {
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
+
+
+    public User getBuscaUser() {
+        return buscaUser;
+    }
+
+    public void setBuscaUser(User buscaUser) {
+        this.buscaUser = buscaUser;
+    }
+
+    public String getMensagemSucesso() {
+        return mensagemSucesso;
+    }
+
 }

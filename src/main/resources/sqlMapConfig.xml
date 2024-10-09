@@ -5,7 +5,6 @@
 
     <typeHandler
             javaType="com.example.demo.Model.UserProfile"
-            jdbcType="VARCHAR"
             callback="com.example.demo.Model.PerfilValida"/>
 
 
