@@ -33,11 +33,11 @@ public class UserService {
         String cpfSemMascara = user.getCpfUsuario().replaceAll("[^\\d]", "");
         user.setCpfUsuario(cpfSemMascara);
 
-        if (cpfSemMascara.length() != 11) {
-            throw new PetShopException("O CPF deve conter 11 dígitos numéricos!");
-        }
+//        if (cpfSemMascara.length() != 11) {
+//            throw new PetShopException("O CPF deve conter 11 dígitos numéricos!");
+//        }
 
-
+//busca
         if (getUserByCPF(user.getCpfUsuario()) != null) {
             throw new PetShopException("O CPF já está cadastrado!");
         }

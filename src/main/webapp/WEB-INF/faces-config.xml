@@ -27,6 +27,12 @@
     </managed-bean>
 
     <managed-bean>
+        <managed-bean-name>loginController</managed-bean-name>
+        <managed-bean-class>com.example.demo.Control.LoginController</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
         <managed-bean-name>apoio</managed-bean-name>
         <managed-bean-class>com.example.demo.Control.Apoio</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>

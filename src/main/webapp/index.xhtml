@@ -3,43 +3,41 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
 
 <ui:composition template="template.xhtml">
-
     <ui:define name="title">Página Inicial - Home</ui:define>
 
     <ui:define name="content">
+        <h4>Acesso ao Sistema</h4>
+        <h:form>
+            <h:panelGrid columns="1">
+                <div>
+                    <h:outputLabel for="cpfUsuario" value="CPF:" />
+                    <h:inputText id="cpfUsuario" value="#{loginController.cpfUsuario}" required="true" styleClass="input-field" />
+                </div>
 
-           <!-- <h4>Acesso ao Sistema</h4>
-            <h:form>
-                <h:panelGrid columns="1">
-                    <div >
-                        <h:outputLabel for="cpf" value="CPF:"/>
-                        <h:inputText id="cpf" value="#{UserController.cpf}" required="true" styleClass="input-field"/>
-                    </div>
+                <div>
+                    <h:outputLabel for="password" value="Senha:" />
+                    <h:inputSecret id="password" value="#{loginController.password}" required="true" styleClass="input-field" />
+                </div>
 
+                <div>
+                    <h:selectBooleanCheckbox value="#{loginController.manterConectado}" />
+                    <h:outputLabel value="Manter Conectado" />
+                </div>
+            </h:panelGrid>
 
+            <h:commandButton value="Login" action="#{loginController.login()}" styleClass="btn-login" />
+            <h:commandButton value="Sair" action="#{loginController.logout()}" styleClass="btn-logout" />
 
-                    <div>
-                        <h:outputLabel for="senha" value="Senha:"/>
-                        <h:inputSecret id="senha" value="#{UserController.senha}" required="true" styleClass="input-field"/>
-                    </div>
+            <h:messages styleClass="error-messages" globalOnly="true"/>
 
-                    <div>
-                        <h:outputLabel for="perfil" value="Tipo de Perfil:"/>
-                        <h:selectOneMenu id="perfil" value="#{UserController.perfil_id}" required="true" styleClass="input-field">
-                            <f:selectItem itemLabel="ADMIN" itemValue="ADMIN"/>
-                            <f:selectItem itemLabel="CLIENTE" itemValue="CLIENTE"/>
-                        </h:selectOneMenu>
-                    </div>
-                </h:panelGrid>
-
-                <h:commandButton value="Logar" action="#{UserController.logar}" styleClass="btn-login"/>
-               <h:commandButton value="Cadastrar" action="#{UserController.cadastrar}" styleClass="btn-cadastrar"/>
-            </h:form>-->
-
-
+            <h:outputText value="Ainda não tem cadastro? " />
+            <h:outputLink value="cadastro_usuario.xhtml">Clique aqui para se cadastrar</h:outputLink>
+        </h:form>
     </ui:define>
 </ui:composition>
 </html>

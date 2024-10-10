@@ -1,6 +1,8 @@
 package com.example.demo.Validators;
 
 
+import com.example.demo.exception.PetShopException;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -17,11 +19,14 @@ public class CpfValidator implements Validator {
             throw new ValidatorException(new FacesMessage("O CPF deve ser informado!"));
         }
 
+
         // remov a mascara
         String cpfSemMascara = cpfUsuario.replaceAll("[^\\d]", "");
         if (cpfSemMascara.length() != 11) {
             throw new ValidatorException(new FacesMessage("O CPF deve conter 11 dígitos numéricos!"));
         }
+
+
 
 
     }

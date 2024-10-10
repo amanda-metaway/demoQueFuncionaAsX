@@ -28,13 +28,7 @@ public class PetShopException extends RuntimeException {
 
 
 
-    public static void cpfAlreadyExists() {
-        addErrorMessage("O CPF já está cadastrado!");
-    }
 
-    public static void passwordNotProvided() {
-        addErrorMessage("A senha deve ser informada!");
-    }
 
     public static void genericSupportError() {
         addErrorMessage("Erro na operacao, contate o suporte");
