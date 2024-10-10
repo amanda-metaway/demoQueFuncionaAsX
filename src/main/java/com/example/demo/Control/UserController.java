@@ -3,6 +3,8 @@ package com.example.demo.Control;
 
 import com.example.demo.Model.User;
 import com.example.demo.Service.UserService;
+import com.example.demo.Validators.CpfValidator;
+import com.example.demo.exception.PetShopException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -35,13 +37,15 @@ public class UserController {
         try {
             userService.saveUser(this.user);
             this.user = new User();
-            this.mensagemSucesso = "Usuário cadastrado com sucesso!";//deixar mais bonita na tela
-            return "sucesso";
+            String mensagemSucesso = "Usuário cadastrado com sucesso!";
+            PetShopException.addSuccessMessage(mensagemSucesso);
+            return "pagina de sucesso-que ainda nao tem";
+        } catch (PetShopException e) {
+            PetShopException.addErrorMessage(e.getMessage()); // msg especifica
         } catch (Exception e) {
-            //aqui vai a global
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erro ao cadastrar usuário: " + e.getMessage()));
-            return null; // fica na mesma pagina
+            PetShopException.addErrorMessage("Erro ao cadastrar usuário, contate o suporte"); // msg generica
         }
+        return null; //  mesma página
     }
 
 
@@ -102,5 +106,6 @@ public class UserController {
     public String getMensagemSucesso() {
         return mensagemSucesso;
     }
+
 
 }
