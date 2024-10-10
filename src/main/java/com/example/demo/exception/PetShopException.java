@@ -13,11 +13,31 @@ public class PetShopException extends RuntimeException {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, ""));
     }
 
-
-
-
     public static void addErrorMessage(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, ""));
+    }
+
+    //  mensagens pre definidas
+    public static void userCreatedSuccessfully() {
+        addSuccessMessage("Usuário cadastrado com sucesso!");
+    }
+
+    public static void userCreationError() {
+        addErrorMessage("Erro ao cadastrar usuário, contate o suporte");
+    }
+
+
+
+    public static void cpfAlreadyExists() {
+        addErrorMessage("O CPF já está cadastrado!");
+    }
+
+    public static void passwordNotProvided() {
+        addErrorMessage("A senha deve ser informada!");
+    }
+
+    public static void genericSupportError() {
+        addErrorMessage("Erro na operacao, contate o suporte");
     }
 
 

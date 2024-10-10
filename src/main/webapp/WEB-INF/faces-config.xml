@@ -54,6 +54,9 @@
 
 
 
+
+
+
     <!--navegacao aqui-->
     <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>

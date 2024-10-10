@@ -3,11 +3,8 @@ package com.example.demo.Control;
 
 import com.example.demo.Model.User;
 import com.example.demo.Service.UserService;
-import com.example.demo.Validators.CpfValidator;
 import com.example.demo.exception.PetShopException;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,16 +34,16 @@ public class UserController {
         try {
             userService.saveUser(this.user);
             this.user = new User();
-            String mensagemSucesso = "Usuário cadastrado com sucesso!";
-            PetShopException.addSuccessMessage(mensagemSucesso);
+            PetShopException.userCreatedSuccessfully();
             return "pagina de sucesso-que ainda nao tem";
         } catch (PetShopException e) {
-            PetShopException.addErrorMessage(e.getMessage()); // msg especifica
+            PetShopException.addErrorMessage(e.getMessage());
         } catch (Exception e) {
-            PetShopException.addErrorMessage("Erro ao cadastrar usuário, contate o suporte"); // msg generica
+            PetShopException.userCreationError();
         }
-        return null; //  mesma página
+        return null;
     }
+
 
 
     public User getUserByCPF(String cpfUsuario) {

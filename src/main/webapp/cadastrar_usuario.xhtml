@@ -30,8 +30,10 @@
                         <h:panelGrid columns="2">
                             <h:inputText id="cpfUsuario"
                                          value="#{userController.user.cpfUsuario}"
+                                         converter="userCpfConverter"
                                          styleClass="mascaraCPF">
                                 <f:validator validatorId="cpfValidator"/>
+
                                 <rich:jQuery selector="#cpfUsuario" timing="onload"
                                              query="mask('999.999.999-99',{reverse: true, byPassKeys: [8]})"/>
                             </h:inputText>
@@ -51,8 +53,9 @@
 
 
                     <h:outputLabel for="password" value="SENHA:"/>
-                    <h:inputSecret id="password" value="#{userController.user.password}" required="true"
+                    <h:inputSecret id="password" value="#{userController.user.password}"
                                    styleClass="input-field"/>
+                    <rich:message for="password"/>
 
                     <h:panelGrid columns="2">
                         <h:commandButton value="Cadastrar" action="#{userController.createUser}"
@@ -60,9 +63,7 @@
                         <h:commandButton value="Cancelar" action="index" styleClass="action-buttonForm"/>
                     </h:panelGrid>
                 </h:panelGrid>
-
                 <rich:messages styleClass="error-messages" globalOnly="true"/>
-
             </h:form>
         </rich:panel>
         <br>

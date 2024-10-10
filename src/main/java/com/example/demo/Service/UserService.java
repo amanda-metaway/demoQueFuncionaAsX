@@ -24,24 +24,34 @@ public class UserService {
     }
 
     public void saveUser(User user) {
-        // valida aqui agora
+
         if (user.getCpfUsuario() == null || user.getCpfUsuario().isEmpty()) {
             throw new PetShopException("O CPF deve ser informado!");
         }
 
 
         String cpfSemMascara = user.getCpfUsuario().replaceAll("[^\\d]", "");
+        user.setCpfUsuario(cpfSemMascara);
 
         if (cpfSemMascara.length() != 11) {
             throw new PetShopException("O CPF deve conter 11 dígitos numéricos!");
         }
 
+
         if (getUserByCPF(user.getCpfUsuario()) != null) {
             throw new PetShopException("O CPF já está cadastrado!");
         }
 
+
+        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+            throw new PetShopException("A senha deve ser informada!");
+        }
+
+
         userIbatisUserDao.saveUser(user);
     }
+
+
 
     public List<User> listarUsers() {
         return userIbatisUserDao.getListarUser();
