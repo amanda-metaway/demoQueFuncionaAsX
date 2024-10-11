@@ -252,5 +252,25 @@ body {
     /*estilo das mensagens*/
 
 
+    .input-field {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .btn-login, .btn-logout {
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .error-messages {
+        color: red;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+
+
+
+
 
 }

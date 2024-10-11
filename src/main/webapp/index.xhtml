@@ -7,37 +7,57 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:rich="http://richfaces.org/rich">
 
-<ui:composition template="template.xhtml">
+<ui:composition template="assets/template.xhtml">
     <ui:define name="title">Página Inicial - Home</ui:define>
 
     <ui:define name="content">
-        <h4>Acesso ao Sistema</h4>
-        <h:form>
-            <h:panelGrid columns="1">
-                <div>
-                    <h:outputLabel for="cpfUsuario" value="CPF:" />
-                    <h:inputText id="cpfUsuario" value="#{loginController.cpfUsuario}" required="true" styleClass="input-field" />
-                </div>
 
-                <div>
-                    <h:outputLabel for="password" value="Senha:" />
-                    <h:inputSecret id="password" value="#{loginController.password}" required="true" styleClass="input-field" />
-                </div>
+        <rich:panel style="width: 200px;height: fit-content; margin: 0 auto;">
+            <h4>Acesso ao Sistema</h4>
+            <h:form>
+                <h:panelGrid columns="1">
 
-                <div>
-                    <h:selectBooleanCheckbox value="#{loginController.manterConectado}" />
-                    <h:outputLabel value="Manter Conectado" />
-                </div>
-            </h:panelGrid>
+                    <div>
+                        <h:outputLabel for="perfil" value="Perfil:"/>
+                        <h:selectOneMenu id="perfil" value="#{loginController.perfilSelecionado}">
+                            <f:selectItems value="#{apoio.list}"/>
+                        </h:selectOneMenu>
+                    </div>
 
-            <h:commandButton value="Login" action="#{loginController.login()}" styleClass="btn-login" />
-            <h:commandButton value="Sair" action="#{loginController.logout()}" styleClass="btn-logout" />
+                    <div>
+                        <h:outputLabel for="cpfUsuario" value="CPF:"/>
+                        <h:inputText id="cpfUsuario" value="#{loginController.cpfUsuario}"
+                                     styleClass="input-field"/>
+                    </div>
 
-            <h:messages styleClass="error-messages" globalOnly="true"/>
+                    <div>
+                        <h:outputLabel for="password" value="Senha:"/>
+                        <h:inputSecret id="password" value="#{loginController.password}"
+                                       styleClass="input-field"/>
+                    </div>
 
-            <h:outputText value="Ainda não tem cadastro? " />
-            <h:outputLink value="cadastro_usuario.xhtml">Clique aqui para se cadastrar</h:outputLink>
-        </h:form>
+                    <div align="center">
+                        <h:selectBooleanCheckbox value="#{loginController.manterConectado}"/>
+                        <h:outputLabel value="Manter Conectado"/>
+                    </div>
+
+                    <div>
+                        <h:commandButton value="Login" action="#{loginController.login()}" styleClass="btn-login"/>
+                        <h:commandButton value="Sair" action="#{loginController.logout()}" styleClass="btn-logout"/>
+
+                        <h:messages styleClass="error-messages" globalOnly="true"/>
+                        <p>
+                        </p>
+                    </div>
+                    <div>
+                        <h:outputText value="Ainda não tem cadastro? "/>
+                        <h:commandLink value="Clique aqui para se cadastrar" action="cadastrar_usuario"/>
+                    </div>
+
+
+                </h:panelGrid>
+            </h:form>
+        </rich:panel>
     </ui:define>
 </ui:composition>
 </html>

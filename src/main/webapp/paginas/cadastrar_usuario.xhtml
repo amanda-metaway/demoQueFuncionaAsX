@@ -7,7 +7,7 @@
       xmlns:rich="http://richfaces.org/rich">
 
 
-<ui:composition template="template.xhtml">
+<ui:composition template="../assets/template.xhtml">
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
@@ -16,8 +16,9 @@
     <ui:param name="title" value="Cadastrar Usuário"/>
 
     <ui:define name="content">
-        <h2>Cadastrar Usuário</h2>
-        <rich:panel id="formPanel">
+
+        <rich:panel style="width: 200px;height: fit-content; margin: 0 auto;">
+            <h4>Cadastrar Usuário</h4>
             <h:form styleClass="rich-tableForm">
 
 
@@ -70,6 +71,7 @@
         </br>
         <br>
         </br>
+
         <h:form styleClass="rich-tableForm">
 
             <h:column>
