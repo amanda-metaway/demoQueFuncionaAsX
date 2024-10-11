@@ -2,6 +2,7 @@ package com.example.demo.Control;
 
 import com.example.demo.Model.User;
 import com.example.demo.Model.UserProfile;
+import com.example.demo.Service.AuditoriaService;
 import com.example.demo.Service.UserService;
 
 import javax.annotation.PostConstruct;
@@ -18,9 +19,13 @@ public class LoginController {
     private String cpfUsuario;
     private String password;
     private boolean manterConectado;
+    private AuditoriaController auditoriaController;
+
+
 
     private User user;
     private UserService userService;
+    private AuditoriaService auditoriaService;
 
     @PostConstruct
     public void init() {
@@ -63,9 +68,15 @@ public class LoginController {
         session.setAttribute("perfil", perfil);
         session.setAttribute("senha", password);
         session.setAttribute("login", manterConectado);
+
         System.out.println("========================================================================================================================================");
         System.out.println("Usuario conectado na sessao: " + " cpf = " + " " + cpfUsuario +  " " + "  perfil acesso = " + perfil.toString() + " " +  " mantem sessao = "+ " " + manterConectado);
         System.out.println("========================================================================================================================================");
+
+        System.out.println("======AUDITORIA======");
+        auditoriaService.saveAuditoria(auditoriaController);
+        System.out.println("Auditado:" + "  " + getAuditoriaController().getUser().getCpfUsuario() + "  " + getAuditoriaController().getAcao().toString() + "   " + getAuditoriaController().getDataHora().toString() + "  ");
+        System.out.println("=================================================");
 
         if (manterConectado) {
             Cookie cookie = new Cookie("usuario", cpfUsuario);
@@ -193,6 +204,30 @@ public class LoginController {
 
     public void setPerfilSelecionado(UserProfile perfilSelecionado) {
         this.perfilSelecionado = perfilSelecionado;
+    }
+
+    public UserProfile getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(UserProfile perfil) {
+        this.perfil = perfil;
+    }
+
+    public AuditoriaController getAuditoriaController() {
+        return auditoriaController;
+    }
+
+    public void setAuditoriaController(AuditoriaController auditoriaController) {
+        this.auditoriaController = auditoriaController;
+    }
+
+    public AuditoriaService getAuditoriaService() {
+        return auditoriaService;
+    }
+
+    public void setAuditoriaService(AuditoriaService auditoriaService) {
+        this.auditoriaService = auditoriaService;
     }
 
 }

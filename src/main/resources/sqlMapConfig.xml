@@ -12,6 +12,7 @@
 
     <sqlMap resource="User.xml"/>
     <sqlMap resource="Pet.xml"/>
+    <sqlMap resource="Auditoria.xml"/>
 
 
 

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Auditoria">
+
+    <insert id="inserirAuditoria" parameterClass="com.example.demo.Control.AuditoriaController">
+        INSERT INTO auditoria (id, user_id, acao, data_hora)
+        VALUES (#id#, #user_id#, #acao#, #dataHora#)
+    </insert>
+
+</sqlMap>
