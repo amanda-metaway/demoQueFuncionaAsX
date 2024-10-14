@@ -1,22 +1,49 @@
 package com.example.demo.Control;
 
+import com.example.demo.Model.Auditoria;
 import com.example.demo.Model.User;
+import com.example.demo.Service.AuditoriaService;
 import com.example.demo.Service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 
 public class AuditoriaController {
     private int id;
-    private User user;
+    private User userId;
     private String acao;
     private LocalDateTime dataHora;
 
 
+    @Autowired
     private UserService userService;
+    @Autowired
+    private AuditoriaService auditoriaService;
 
 
+    @Autowired
+    public AuditoriaController(UserService userService, AuditoriaService auditoriaService) {
+        this.userService = userService;
+        this.auditoriaService = auditoriaService;
+    }
 
+    public AuditoriaController() {
+    }
 
+    public Auditoria createAuditoria(String cpfUsuario, String acao) {
+        User user = userService.getUserByCPF(cpfUsuario);
+        if (user == null) {
+            return null;
+        }
+
+        Auditoria auditoria = new Auditoria();
+        auditoria.setUserId(user);
+        auditoria.setAcao(acao);
+        auditoria.setDataHora(LocalDateTime.now());
+        auditoriaService.saveAuditoria(auditoria);
+        System.out.println("Auditado: " + auditoria.getUserId().getCpfUsuario() + " " + auditoria.getAcao() + " " + auditoria.getDataHora());
+        return auditoria;
+    }
 
 
     public int getId() {
@@ -27,12 +54,12 @@ public class AuditoriaController {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public User getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 
     public String getAcao() {
@@ -57,6 +84,14 @@ public class AuditoriaController {
 
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    public AuditoriaService getAuditoriaService() {
+        return auditoriaService;
+    }
+
+    public void setAuditoriaService(AuditoriaService auditoriaService) {
+        this.auditoriaService = auditoriaService;
     }
 
 

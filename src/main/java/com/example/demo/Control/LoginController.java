@@ -1,9 +1,12 @@
 package com.example.demo.Control;
 
+
+import com.example.demo.Model.Auditoria;
 import com.example.demo.Model.User;
 import com.example.demo.Model.UserProfile;
 import com.example.demo.Service.AuditoriaService;
 import com.example.demo.Service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -11,6 +14,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 
 public class LoginController {
 
@@ -19,13 +23,17 @@ public class LoginController {
     private String cpfUsuario;
     private String password;
     private boolean manterConectado;
-    private AuditoriaController auditoriaController;
 
 
-
+    @Autowired
     private User user;
+
+    @Autowired
     private UserService userService;
+
+    @Autowired
     private AuditoriaService auditoriaService;
+
 
     @PostConstruct
     public void init() {
@@ -70,13 +78,18 @@ public class LoginController {
         session.setAttribute("login", manterConectado);
 
         System.out.println("========================================================================================================================================");
-        System.out.println("Usuario conectado na sessao: " + " cpf = " + " " + cpfUsuario +  " " + "  perfil acesso = " + perfil.toString() + " " +  " mantem sessao = "+ " " + manterConectado);
+        System.out.println("Usuario conectado na sessao: " + " cpf = " + " " + cpfUsuario + " " + "  perfil acesso = " + perfil.toString() + " " + " mantem sessao = " + " " + manterConectado);
         System.out.println("========================================================================================================================================");
 
-        System.out.println("======AUDITORIA======");
-        auditoriaService.saveAuditoria(auditoriaController);
-        System.out.println("Auditado:" + "  " + getAuditoriaController().getUser().getCpfUsuario() + "  " + getAuditoriaController().getAcao().toString() + "   " + getAuditoriaController().getDataHora().toString() + "  ");
-        System.out.println("=================================================");
+        // auditoria
+        Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "logou no sistema");
+        if (auditoria != null && auditoria.getUserId() != null) {
+            auditoriaService.saveAuditoria(auditoria);
+            System.out.println("Auditado: " + auditoria.getUserId().getCpfUsuario() + " " + auditoria.getAcao() + " " + auditoria.getDataHora());
+        } else {
+            System.out.println("Erro: auditoria não foi criada ou usuário não encontrado.");
+        }
+
 
         if (manterConectado) {
             Cookie cookie = new Cookie("usuario", cpfUsuario);
@@ -152,7 +165,7 @@ public class LoginController {
         manterConectado = false;
         cpfUsuario = null;
         password = null;
-        return user =  null;
+        return user = null;
     }
 
 
@@ -212,14 +225,6 @@ public class LoginController {
 
     public void setPerfil(UserProfile perfil) {
         this.perfil = perfil;
-    }
-
-    public AuditoriaController getAuditoriaController() {
-        return auditoriaController;
-    }
-
-    public void setAuditoriaController(AuditoriaController auditoriaController) {
-        this.auditoriaController = auditoriaController;
     }
 
     public AuditoriaService getAuditoriaService() {

@@ -1,28 +1,69 @@
 package com.example.demo.Service;
 
-
-import com.example.demo.Control.AuditoriaController;
 import com.example.demo.Dao.IBatisAuditoriaDao;
-import com.example.demo.Dao.IBatisUserDao;
-import org.apache.tomcat.jni.User;
+import com.example.demo.Model.Auditoria;
+import com.example.demo.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
-
 @Service
 public class AuditoriaService {
-
     @Autowired
-    private IBatisAuditoriaDao auditoriaIbatisDao;
+    private IBatisAuditoriaDao auditoriaDao;
+    @Autowired
+    private UserService userService;
 
 
-    public void saveAuditoria(AuditoriaController auditoriaController) {
-        auditoriaController.setUser(auditoriaController.getUser());
-        auditoriaController.setAcao(String.valueOf(auditoriaController.getAcao()));
-        auditoriaController.setDataHora(LocalDateTime.now());
-        auditoriaIbatisDao.saveAuditoria(auditoriaController);
+    public AuditoriaService() {
+
+    }
+    public AuditoriaService(IBatisAuditoriaDao auditoriaDao) {
+        this.auditoriaDao = auditoriaDao;
     }
 
+
+    public void saveAuditoria(Auditoria auditoria) {
+        System.out.println("Auditoria: " + auditoria);
+        System.out.println("User ID: " + (auditoria.getUserId() != null ? auditoria.getUserId().getId() : "null"));
+        System.out.println("User ID Value: " + auditoria.getUserIdValue());
+        auditoriaDao.inserirAuditoria(auditoria);
+    }
+
+
+
+
+
+    public Auditoria createAuditoria(String cpfUsuario, String acao) {
+        User user = userService.getUserByCPF(cpfUsuario);
+        if (user == null) {
+            return null;
+        }
+
+        Auditoria auditoria = new Auditoria();
+        auditoria.setUserId(user);
+        auditoria.setAcao(acao);
+        auditoria.setDataHora(LocalDateTime.now());
+
+        return auditoria;
+    }
+
+
+    public void setAuditoriaDao(IBatisAuditoriaDao auditoriaDao) {
+    }
+
+
+
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    public IBatisAuditoriaDao getAuditoriaDao() {
+        return auditoriaDao;
+    }
 }

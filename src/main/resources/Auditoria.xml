@@ -2,9 +2,34 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="Auditoria">
 
-    <insert id="inserirAuditoria" parameterClass="com.example.demo.Control.AuditoriaController">
+    <typeAlias alias="auditoria" type="com.example.demo.Model.Auditoria"/>
+    <typeAlias alias="user" type="com.example.demo.Model.User"/>
+
+    <resultMap id="auditoriaResultMap" class="com.example.demo.Model.Auditoria">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id" typeHandler="com.example.demo.Model.AuditoriatypeHandler" />
+        <result property="acao" column="acao"/>
+        <result property="dataHora" column="data_hora" typeHandler="com.example.demo.Model.LocalDateTimeTypeHandler"/>
+    </resultMap>
+
+
+    <select id="getAuditoriaById" parameterClass="java.lang.Integer" resultMap="auditoriaResultMap">
+        SELECT id, user_id, acao, data_hora
+        FROM auditoria
+        WHERE id = #id#
+    </select>
+
+    <insert id="inserirAuditoria" parameterClass="com.example.demo.Model.Auditoria">
         INSERT INTO auditoria (id, user_id, acao, data_hora)
-        VALUES (#id#, #user_id#, #acao#, #dataHora#)
+        VALUES (#id#, #userIdValue#, #acao#, #dataHora#)
     </insert>
 
+
+
+
+    <select id="listarAuditorias" resultMap="auditoriaResultMap">
+        SELECT id, user_id, acao, data_hora
+        FROM auditoria
+        ORDER BY data_hora DESC
+    </select>
 </sqlMap>

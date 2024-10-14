@@ -1,14 +1,14 @@
 package com.example.demo.Model;
 
 public class User {
-    private int id;
+    private Integer id;
     private String name;
     private UserProfile perfil;
     private String cpfUsuario;
     private String password;
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -26,10 +26,15 @@
         </managed-property>
     </managed-bean>
 
+
     <managed-bean>
         <managed-bean-name>loginController</managed-bean-name>
         <managed-bean-class>com.example.demo.Control.LoginController</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>auditoriaService</property-name>
+            <value>#{auditoriaService}</value>
+        </managed-property>
         <managed-property>
             <property-name>userService</property-name>
             <value>#{userService}</value>
@@ -37,13 +42,14 @@
     </managed-bean>
 
 
+
     <managed-bean>
         <managed-bean-name>auditoriaController</managed-bean-name>
         <managed-bean-class>com.example.demo.Control.AuditoriaController</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
-            <property-name>userService</property-name>
-            <value>#{userService}</value>
+            <property-name>auditoriaService</property-name>
+            <value>#{auditoriaService}</value>
         </managed-property>
     </managed-bean>
 

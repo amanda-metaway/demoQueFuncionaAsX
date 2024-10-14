@@ -8,14 +8,19 @@
             callback="com.example.demo.Model.PerfilValida"/>
 
 
+    <typeHandler
+            javaType="java.lang.Integer"
+            callback="com.example.demo.Model.AuditoriatypeHandler"/>
+
+    <typeHandler
+            javaType="java.time.LocalDateTime"
+            callback="com.example.demo.Model.LocalDateTimeTypeHandler"/>
+
 
 
     <sqlMap resource="User.xml"/>
     <sqlMap resource="Pet.xml"/>
     <sqlMap resource="Auditoria.xml"/>
-
-
-
 
 
 </sqlMapConfig>

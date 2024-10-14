@@ -19,6 +19,8 @@ public class UserService {
     private IBatisUserDao userIbatisUserDao;
 
 
+
+
     public User getUserByCPF(String cpfUsuario) {
         return userIbatisUserDao.getUserByCPF(cpfUsuario);
     }
@@ -52,7 +54,6 @@ public class UserService {
     }
 
 
-
     public List<User> listarUsers() {
         return userIbatisUserDao.getListarUser();
     }
@@ -69,6 +70,15 @@ public class UserService {
 
     public void setUserDao(IBatisUserDao userDao) {
         this.userIbatisUserDao = userDao;
+    }
+
+
+    public IBatisUserDao getUserIbatisUserDao() {
+        return userIbatisUserDao;
+    }
+
+    public void setUserIbatisUserDao(IBatisUserDao userIbatisUserDao) {
+        this.userIbatisUserDao = userIbatisUserDao;
     }
 
 
