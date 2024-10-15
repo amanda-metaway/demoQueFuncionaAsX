@@ -6,9 +6,9 @@
     <typeAlias alias="user" type="com.example.demo.Model.User"/>
 
     <resultMap id="auditoriaResultMap" class="com.example.demo.Model.Auditoria">
-        <result property="userId" column="user_id" typeHandler="com.example.demo.Model.AuditoriatypeHandler" />
+        <result property="userId.id" column="user_id"  />
         <result property="acao" column="acao"/>
-        <result property="dataHora" column="data_hora" typeHandler="com.example.demo.Model.LocalDateTimeTypeHandler"/>
+        <result property="dataHora" column="data_hora"/>
     </resultMap>
 
 
@@ -16,7 +16,7 @@
 
     <insert id="inserirAuditoria" parameterClass="com.example.demo.Model.Auditoria">
         INSERT INTO auditoria (user_id, acao, data_hora)
-        VALUES (#userIdValue#, #acao#, #dataHora#)
+        VALUES (#userId.id#, #acao#, #dataHora#)
     </insert>
 
 

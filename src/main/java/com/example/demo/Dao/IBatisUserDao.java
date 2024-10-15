@@ -12,6 +12,7 @@ public class IBatisUserDao extends SqlMapClientDaoSupport implements UserDao {
     public void saveUser(User user) {
 
         getSqlMapClientTemplate().insert("saveUser", user);
+
     }
 
     @Override

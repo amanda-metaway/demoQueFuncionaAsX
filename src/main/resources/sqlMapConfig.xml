@@ -8,9 +8,7 @@
             callback="com.example.demo.Model.PerfilValida"/>
 
 
-    <typeHandler
-            javaType="java.lang.Integer"
-            callback="com.example.demo.Model.AuditoriatypeHandler"/>
+
 
     <typeHandler
             javaType="java.time.LocalDateTime"

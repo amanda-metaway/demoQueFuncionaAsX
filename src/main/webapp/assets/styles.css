@@ -165,7 +165,7 @@ body {
 
     /* Ícones usando Font Awesome */
     .home-link::before {
-        content: "\f015"; /* Código do ícone da casa */
+        content: "\f1ae"; /* Código do ícone da casa */
         font-family: "Font Awesome 5 Free";
         font-weight: 900;
         position: absolute;
@@ -176,7 +176,7 @@ body {
     }
 
     .pet-link::before {
-        content: "\f1ae"; /* Código do ícone de pet */
+        content: "\f1b0"; /* Código do ícone de pet */
         font-family: "Font Awesome 5 Free";
         font-weight: 900;
         position: absolute;
@@ -218,6 +218,23 @@ body {
         transform: translateY(-50%);
         color: white;
     }
+
+    .logout-link::before {
+        content: "\f2f5"; /* Código correto do ícone de sair */
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: white; /* Cor do ícone */
+    }
+
+
+    .nav-link {
+        position: relative; /* Necessário para o posicionamento do ícone */
+    }
+
 
     .nav-link {
         padding: 14px 20px;
