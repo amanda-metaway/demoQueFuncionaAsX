@@ -19,10 +19,10 @@
 <div class="nav">
     <h:form>
         <h:panelGroup>
-            <h:commandLink value="Home" action="index" styleClass="nav-link home-link"/>
+            <h:commandLink value="Home" action="index" styleClass="nav-link home-link" rendered="#{session.getAttribute('usuario') != null}"/>
             <h:commandLink value="Cadastrar Pet" action="cadastrar_pet" styleClass="nav-link pet-link custom-link"/>
 
-            <h:commandLink value="Cadastrar Usuário" action="cadastrar_usuario" styleClass="nav-link user-link custom-link"/>
+            <h:commandLink value="Cadastrar Usuário" action="cadastrar_usuario" styleClass="nav-link user-link custom-link" rendered="#{session.getAttribute('perfil')== 'ADMIN'}"/>
 
             <h:commandLink value="Serviços" action="servicos" styleClass="nav-link service-link"/>
             <h:commandLink value="Loja Agro - Confira" action="loja_produtos" styleClass="nav-link shop-link"/>

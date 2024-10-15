@@ -81,6 +81,8 @@ public class LoginController {
         System.out.println("Usuario conectado na sessao: " + " cpf = " + " " + cpfUsuario + " " + "  perfil acesso = " + perfil.toString() + " " + " mantem sessao = " + " " + manterConectado);
         System.out.println("========================================================================================================================================");
 
+
+
         // auditoria
         Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "logou no sistema");
         if (auditoria != null && auditoria.getUserId() != null) {
@@ -110,20 +112,7 @@ public class LoginController {
         } else {
             limparCampos();
         }
-
-        if (perfil.equals(UserProfile.ADMIN)) {
-            System.out.println("Redirecionando para pagina acesso Admin");
-            return "paginaAdmin";
-        } else if (perfil.equals(UserProfile.CLIENTE)) {
-            System.out.println("Redirecionando para pagina acesso Cliente");
-            return "paginaCliente";
-
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new javax.faces.application.FacesMessage("Erro inesperado!Contate o suporte."));
-            limparCampos();
-            return "logout";
-        }
+        return redirecionarHome(perfil);
     }
 
 
@@ -167,6 +156,22 @@ public class LoginController {
         password = null;
         return user = null;
     }
+
+    private String redirecionarHome(UserProfile perfil) {
+        if (perfil.equals(UserProfile.ADMIN)) {
+            System.out.println("Redirecionando para página de acesso Admin");
+            return "paginaAdmin";
+        } else if (perfil.equals(UserProfile.CLIENTE)) {
+            System.out.println("Redirecionando para página de acesso Cliente");
+            return "paginaCliente";
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new javax.faces.application.FacesMessage("Erro inesperado! Contate o suporte."));
+            limparCampos();
+            return "logout";
+        }
+    }
+
 
 
     public User getUser() {
