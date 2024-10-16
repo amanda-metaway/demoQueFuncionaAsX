@@ -49,7 +49,10 @@
     </select>
 
     <select id="listarPetsPorUsuario" parameterClass="int" resultClass="com.example.demo.Model.Pet">
-        SELECT p.id, p.nome, p.raca, u.id AS dono_id
+        SELECT p.id, p.nome, p.raca,
+               u.id AS dono_id,
+               u.name AS dono_nome,
+               u.contato AS dono_contato
         FROM pets p
                  JOIN users u ON p.user_id = u.id
         WHERE p.user_id = #userId#

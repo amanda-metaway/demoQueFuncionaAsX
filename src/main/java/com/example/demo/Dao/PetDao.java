@@ -15,5 +15,6 @@ public interface PetDao {
 
     void deletePet(int id);
 
+    public List<Pet> listarPetsPorUsuario(int userId);
 
 }

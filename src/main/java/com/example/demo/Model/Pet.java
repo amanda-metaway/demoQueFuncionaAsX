@@ -6,12 +6,27 @@ public class Pet {
     private String nome;
     private String raca;
     private User user;
+    private String donoNome;
+    private String donoContato;
 
 
 
+    
+    public String getDonoNome() {
+        return donoNome;
+    }
 
+    public void setDonoNome(String donoNome) {
+        this.donoNome = donoNome;
+    }
 
+    public String getDonoContato() {
+        return donoContato;
+    }
 
+    public void setDonoContato(String donoContato) {
+        this.donoContato = donoContato;
+    }
 
     public int getId() {
         return id;

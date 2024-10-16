@@ -39,7 +39,7 @@ public class PetService {
         return batisPetDao.getListarPet();
     }
     public List<Pet> listarPetsPorUsuario(int userId) {
-        return petDao.listarPetsPorUsuario(userId);
+        return batisPetDao.listarPetsPorUsuario(userId);
     }
 
 

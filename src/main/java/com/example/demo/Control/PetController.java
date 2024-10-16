@@ -81,7 +81,7 @@ public class PetController implements Serializable {
 
     public void carregarPetsDoUsuario() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        Integer userId = (Integer) session.getAttribute("user_id");
+        Integer userId = (Integer) session.getAttribute("user_id");//do logado
         if (userId != null) {
             pets = petService.listarPetsPorUsuario(userId);
         } else {
