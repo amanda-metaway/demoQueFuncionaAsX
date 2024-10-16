@@ -17,58 +17,54 @@
 
     <ui:define name="content">
 
-        <rich:panel style="width: 200px;height: fit-content; margin: 0 auto;">
-            <h4>Cadastrar Usuário</h4>
-            <h:form styleClass="rich-tableForm">
+        <rich:panel style="width: fit-content;height: fit-content; margin: 0 auto;">
+            <rich:tabPanel>
+                <rich:tab title="Cadastrar Usuário">
+                    <h:form>
+                        <h:panelGrid columns="1">
+                            <h:outputLabel for="name" value="Nome:"/>
+                            <h:inputText id="name" value="#{userController.user.name}"/>
 
-
-                <h:panelGrid columns="1">
-                    <h:outputLabel for="name" value="Nome:"/>
-                    <h:inputText id="name" value="#{userController.user.name}" styleClass="input-field"/>
-
-
-                    <h:outputLabel for="cpfUsuario" value="CPF:"/>
-                        <h:panelGrid columns="2">
-                            <h:inputText id="cpfUsuario"
-                                         value="#{userController.user.cpfUsuario}"
-                                         converter="userCpfConverter"
-                                         styleClass="mascaraCPF">
-                                <f:validator validatorId="cpfValidator"/>
-
-                                <rich:jQuery selector="#cpfUsuario" timing="onload"
-                                             query="mask('999.999.999-99',{reverse: true, byPassKeys: [8]})"/>
-                            </h:inputText>
+                            <h:outputLabel for="cpfUsuario" value="CPF:"/>
+                            <h:inputText id="cpfUsuario" value="#{userController.user.cpfUsuario}"
+                                         converter="userCpfConverter"/>
                             <rich:message for="cpfUsuario"/>
+
+                            <h:outputLabel for="contato" value="Contato:"/>
+                            <h:inputText id="contato" value="#{userController.user.contato}"/>
+
+                            <h:outputLabel for="password" value="SENHA:"/>
+                            <h:inputSecret id="password" value="#{userController.user.password}"/>
+                            <rich:message for="password"/>
+
+                            <h:panelGrid columns="2">
+                                <h:commandButton value="Cadastrar Usuário"
+                                                 action="#{userController.createUserAndPets}"/>
+                                <h:commandButton value="Cancelar" action="index.xhtml"/>
+                            </h:panelGrid>
                         </h:panelGrid>
+                    </h:form>
+                </rich:tab>
 
+                <rich:tab title="Cadastrar Pets">
+                    <h:form>
+                        <h:panelGrid columns="1">
+                            <h:outputLabel for="nome" value="Nome do Pet:"/>
+                            <h:inputText id="nome" value="#{petController.pet.nome}"/>
 
-                    <h:outputText value="#{userController.mensagemSucesso}"
-                                  rendered="#{not empty userController.mensagemSucesso}" styleClass="success-message">
-                    </h:outputText>
+                            <h:outputLabel for="raca" value="Raça:"/>
+                            <h:inputText id="raca" value="#{petController.pet.raca}"/>
 
-                    <h:outputLabel for="contato" value="Contato:"/>
-                    <h:inputText id="contato" value="#{userController.user.contato}" styleClass="input-field"/>
-
-                    <h:outputLabel for="profile" value="Perfil:"/>
-                    <h:selectOneRadio id="profile" value="#{userController.user.perfil}">
-                        <f:selectItems value="#{apoio.list}"/>
-                    </h:selectOneRadio>
-
-
-                    <h:outputLabel for="password" value="SENHA:"/>
-                    <h:inputSecret id="password" value="#{userController.user.password}"
-                                   styleClass="input-field"/>
-                    <rich:message for="password"/>
-
-                    <h:panelGrid columns="2">
-                        <h:commandButton value="Cadastrar" action="#{userController.createUser}"
-                                         styleClass="action-buttonForm"/>
-                        <h:commandButton value="Cancelar" action="index" styleClass="action-buttonForm"/>
-                    </h:panelGrid>
-                </h:panelGrid>
-                <rich:messages styleClass="error-messages" globalOnly="true"/>
-            </h:form>
+                            <h:panelGrid columns="2">
+                                <h:commandButton value="Cadastrar Pet" action="#{petController.createPet()}"/>
+                                <h:commandButton value="Cancelar" action="index.xhtml"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </h:form>
+                </rich:tab>
+            </rich:tabPanel>
         </rich:panel>
+
         <br>
         </br>
         <br>

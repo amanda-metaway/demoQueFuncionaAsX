@@ -1,6 +1,7 @@
 package com.example.demo.Service;
 
 
+import com.example.demo.Dao.IBatisPetDao;
 import com.example.demo.Dao.IBatisUserDao;
 
 
@@ -18,6 +19,9 @@ public class UserService {
 
     @Autowired
     private IBatisUserDao userIbatisUserDao;
+
+    @Autowired
+    private IBatisPetDao batisPetDao;
 
 
 
@@ -60,6 +64,17 @@ public class UserService {
     }
 
 
+    public void createUserAndPets(User user, List<Pet> pets) {
+        userIbatisUserDao.saveUser(user); // da save no user primeiro
+
+        for (Pet pet : pets) {
+            pet.setUser(user); // vincula o usuario com pets
+            batisPetDao.savePet(pet); // da save no pet
+        }
+    }
+
+
+
     public List<User> listarUsers() {
         return userIbatisUserDao.getListarUser();
     }
@@ -88,4 +103,6 @@ public class UserService {
     }
 
 
+    public void setPetDao(IBatisPetDao petDao) {
+    }
 }

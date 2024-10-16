@@ -2,13 +2,16 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/tx
-       http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
@@ -17,17 +20,14 @@
         <property name="password" value="postgres"/>
     </bean>
 
-
-    <bean id="sqlMapClientTemplate"
-          class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+    <bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
         <property name="sqlMapClient" ref="sqlMapClient"/>
     </bean>
-    <bean id="sqlMapClient"
-          class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+
+    <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:sqlMapConfig.xml"/>
     </bean>
-
 
     <bean id="petDao" class="com.example.demo.Dao.IBatisPetDao">
         <property name="sqlMapClient" ref="sqlMapClient"/>
@@ -37,15 +37,23 @@
         <property name="petDao" ref="petDao"/>
     </bean>
 
-
     <bean id="userDao" class="com.example.demo.Dao.IBatisUserDao">
         <property name="sqlMapClient" ref="sqlMapClient"/>
     </bean>
 
-    <bean id="userService" class="com.example.demo.Service.UserService">
+    <bean id="userServiceTransaction" class="com.example.demo.Service.UserService">
         <property name="userDao" ref="userDao"/>
+        <property name="petDao" ref="petDao"/>
     </bean>
 
+    <bean id="userController" class="com.example.demo.Control.UserController">
+        <property name="userServiceTransaction" ref="userServiceTransaction"/>
+        <property name="petController" ref="petController"/>
+    </bean>
+
+    <bean id="petController" class="com.example.demo.Control.PetController">
+        <property name="petService" ref="petService"/>
+    </bean>
 
     <bean id="auditoriaDao" class="com.example.demo.Dao.IBatisAuditoriaDao">
         <property name="sqlMapClient" ref="sqlMapClient"/>
@@ -55,31 +63,25 @@
         <property name="auditoriaDao" ref="auditoriaDao"/>
     </bean>
 
-
-    <!--transations aqui-->
-
-    <!--para o spring-config do TransactionManager-->
+    <!-- Transaction Manager -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <!--vai gerenciar as transacoes por metodos-->
-    <bean id="userServiceTransaction" class="com.example.demo.Service.UserService" >
-        <property name="userDao" ref="userDao"/>
-    </bean>
-
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="saveUser" propagation="REQUIRED"/>
-            <tx:method name="*" propagation="REQUIRED"/>
-        </tx:attributes>
-    </tx:advice>
-
+    <!-- AOP Configuration -->
     <aop:config>
         <aop:pointcut id="serviceLayer" expression="execution(* com.example.demo.Service.UserService.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceLayer"/>
     </aop:config>
 
-    <context:component-scan base-package="com.example.demo"/>
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="createUserAndPets" propagation="REQUIRED"/>
+            <tx:method name="saveUser" propagation="REQUIRED"/>
+            <tx:method name="savePet" propagation="REQUIRED"/>
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
 
+    <context:component-scan base-package="com.example.demo"/>
 </beans>
