@@ -3,7 +3,8 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
 
 
 <link rel="stylesheet" type="text/css" href="../assets/styles.css"/>
@@ -17,44 +18,26 @@
     <ui:param name="title" value="Cadastrar Pet"/>
 
     <ui:define name="content">
-        <h:form>
-            <h:panelGrid columns="2">
-                <h:outputLabel for="nome" value="Nome do Pet:"/>
-                <h:inputText id="nome" value="#{petController.pet.nome}"/>
+        <rich:panel style="width: fit-content;height: fit-content; margin: 0 auto;">
+            <div>
+                <h:form>
+                    <h:panelGrid columns="1" styleClass="rich-tableForm">
+                        <h:outputLabel for="nome" value="Nome do Pet:"/>
+                        <h:inputText id="nome" value="#{petController.pet.nome}"/>
 
-                <h:outputLabel for="raca" value="Raça:"/>
-                <h:inputText id="raca" value="#{petController.pet.raca}"/>
+                        <h:outputLabel for="raca" value="Raça:"/>
+                        <h:inputText id="raca" value="#{petController.pet.raca}"/>
 
 
-                <h:panelGrid columns="2">
-                    <h:commandButton value="Cadastrar" action="#{petController.createPet()}"/>
-                    <h:commandButton value="Cancelar" action="index.xhtml"/>
-                </h:panelGrid>
-            </h:panelGrid>
-        </h:form>
-        <br>
-        </br>
-        <br>
-        </br>
-        <h:form styleClass="rich-tableForm">
-            <h:commandButton value="Carregar Pets do Usuário" action="#{petController.carregarPetsDoUsuario}" styleClass="action-buttonForm"/>
+                        <h:panelGrid columns="2">
+                            <h:commandButton value="Cadastrar" action="#{petController.createPet()}"/>
+                            <h:commandButton value="Cancelar" action="index.xhtml"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </rich:panel>
 
-        <h:dataTable value="#{petController.pets}" var="pet" rendered="#{not empty petController.pets}" styleClass="rich-table">
-            <h:panelGroup rendered="#{empty petController.pets}">
-                <h:outputText value="Nenhum pet encontrado." />
-            </h:panelGroup>
-
-            <h:column>
-                <f:facet name="header">Nome do Pet</f:facet>
-                #{pet.nome}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Raça</f:facet>
-                #{pet.raca}
-            </h:column>
-
-        </h:dataTable>
-        </h:form>
 
     </ui:define>
 </ui:composition>

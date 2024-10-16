@@ -17,9 +17,31 @@
     <ui:define name="content">
         <h:form>
             <h:form>
-                <h3>dentro perfil cliente</h3>
+                <h3>Cliente Perfil</h3>
             </h:form>
         </h:form>
+
+        <div>
+            <h:form styleClass="rich-tableForm">
+                <h:commandButton value="Veja seus Pets" action="#{petController.carregarPetsDoUsuario}" styleClass="action-buttonForm"/>
+
+                <h:dataTable value="#{petController.pets}" var="pet" rendered="#{not empty petController.pets}" styleClass="rich-table">
+                    <h:panelGroup rendered="#{empty petController.pets}">
+                        <h:outputText value="Nenhum pet encontrado." />
+                    </h:panelGroup>
+
+                    <h:column>
+                        <f:facet name="header">Nome do Pet</f:facet>
+                        #{pet.nome}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Raça</f:facet>
+                        #{pet.raca}
+                    </h:column>
+
+                </h:dataTable>
+            </h:form>
+        </div>
     </ui:define>
 </ui:composition>
 </html>
