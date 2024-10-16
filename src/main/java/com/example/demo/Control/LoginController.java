@@ -5,6 +5,7 @@ import com.example.demo.Model.Auditoria;
 import com.example.demo.Model.User;
 import com.example.demo.Model.UserProfile;
 import com.example.demo.Service.AuditoriaService;
+import com.example.demo.Service.PetService;
 import com.example.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,14 +26,18 @@ public class LoginController {
     private boolean manterConectado;
 
 
+
     @Autowired
     private User user;
+
 
     @Autowired
     private UserService userService;
 
     @Autowired
     private AuditoriaService auditoriaService;
+
+
 
 
     @PostConstruct
@@ -69,6 +74,8 @@ public class LoginController {
             return "logout";
         }
 
+
+
         manterConectado = isManterConectado();
         //login sessao
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
@@ -76,10 +83,10 @@ public class LoginController {
         session.setAttribute("perfil", perfil);
         session.setAttribute("senha", password);
         session.setAttribute("login", manterConectado);
+        //manter o user_id para o pet depois
+        HttpSession session2 = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        session.setAttribute("user_id", user.getId());  // Aqui está a modificação
 
-        System.out.println("========================================================================================================================================");
-        System.out.println("Usuario conectado na sessao: " + " cpf = " + " " + cpfUsuario + " " + "  perfil acesso = " + perfil.toString() + " " + " mantem sessao = " + " " + manterConectado);
-        System.out.println("========================================================================================================================================");
 
 
 
@@ -240,4 +247,7 @@ public class LoginController {
         this.auditoriaService = auditoriaService;
     }
 
+
+    public void setPetService(Object petService) {
+    }
 }

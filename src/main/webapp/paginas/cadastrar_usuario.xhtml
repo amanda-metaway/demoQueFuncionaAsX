@@ -46,6 +46,8 @@
                                   rendered="#{not empty userController.mensagemSucesso}" styleClass="success-message">
                     </h:outputText>
 
+                    <h:outputLabel for="contato" value="Contato:"/>
+                    <h:inputText id="contato" value="#{userController.user.contato}" styleClass="input-field"/>
 
                     <h:outputLabel for="profile" value="Perfil:"/>
                     <h:selectOneRadio id="profile" value="#{userController.user.perfil}">
@@ -103,6 +105,11 @@
                 <h:column>
                     <f:facet name="header">Tipo de Perfil</f:facet>
                     #{user.perfil.perfil}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Contato</f:facet>
+                    #{user.contato}
                 </h:column>
 
             </h:dataTable>

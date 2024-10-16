@@ -1,11 +1,16 @@
 package com.example.demo.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     private Integer id;
     private String name;
     private UserProfile perfil;
     private String cpfUsuario;
     private String password;
+    private String contato;
+    private List<Pet> pets = new ArrayList<>();
 
 
     public Integer getId() {
@@ -16,6 +21,14 @@ public class User {
         this.id = id;
     }
 
+    public String getContato() {
+        return contato;
+    }
+
+    public void setContato(String contato) {
+        this.contato = contato;
+    }
+
     public String getName() {
         return name;
     }
@@ -24,7 +37,17 @@ public class User {
         this.name = name;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
+    public List<Pet> getPets() {
+        return pets;
+    }
+
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
+    }
 
     public String getCpfUsuario() {
         return cpfUsuario;

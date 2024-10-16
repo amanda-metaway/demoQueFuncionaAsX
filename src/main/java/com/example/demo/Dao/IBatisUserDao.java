@@ -1,6 +1,7 @@
 package com.example.demo.Dao;
 
 
+import com.example.demo.Model.Pet;
 import com.example.demo.Model.User;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import java.util.List;
@@ -35,5 +36,15 @@ public class IBatisUserDao extends SqlMapClientDaoSupport implements UserDao {
         return getSqlMapClientTemplate().queryForList("listarUsers");
     }
 
+    @Override
+    public User getUserById(Integer id) {
+        System.out.println("Buscando usuário com ID: " + id);
+        User user = (User) getSqlMapClientTemplate().queryForObject("getUserById", id);
+        if (user == null) {
+            System.out.println("Usuário não encontrado para ID: " + id);
+        }
+        return user;
+
+    }
 
 }

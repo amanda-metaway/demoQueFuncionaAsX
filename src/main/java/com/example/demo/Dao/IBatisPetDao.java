@@ -2,11 +2,8 @@ package com.example.demo.Dao;
 
 
 import com.example.demo.Model.Pet;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class IBatisPetDao extends SqlMapClientDaoSupport implements PetDao {
@@ -14,7 +11,7 @@ public class IBatisPetDao extends SqlMapClientDaoSupport implements PetDao {
 
     @Override
     public void savePet(Pet pet) {
-        System.out.println(pet + toString());
+//        System.out.println(pet + toString());
         getSqlMapClientTemplate().insert("savePet", pet);
     }
 
@@ -38,4 +35,10 @@ public class IBatisPetDao extends SqlMapClientDaoSupport implements PetDao {
     public List<Pet> getListarPet() {
         return getSqlMapClientTemplate().queryForList("listarPets");
     }
+
+
+    public List<Pet> listarPetsPorUsuario(int userId) {
+        return getSqlMapClientTemplate().queryForList("listarPetsPorUsuario", userId);
+    }
+
 }

@@ -3,8 +3,20 @@
 
 <sqlMap namespace="Pet">
 
+    <typeAlias alias="pet" type="com.example.demo.Model.Pet"/>
+
+    <resultMap id="petResultMap" class="com.example.demo.Model.Pet">
+        <result property="id" column="id"/>
+        <result property="nome" column="nome"/>
+        <result property="raca" column="raca"/>
+        <result property="user.id" column="id"/>
+        <result property="user.name" column="name"/>
+        <result property="user.contato" column="contato"/>
+    </resultMap>
+
+
     <select id="getPetById" parameterClass="integer" resultClass="com.example.demo.Model.Pet">
-        SELECT id, nome, raca, dono, dono_contato AS donoContato
+        SELECT id, nome, raca,user_id AS donoDele
         FROM pets
         WHERE id = #id#
     </select>
@@ -13,16 +25,15 @@
         <selectKey keyProperty="id" resultClass="int">
             SELECT nextval('pets_id_seq'::regclass)
         </selectKey>
-        INSERT INTO pets (id, nome, raca, dono, dono_contato)
-        VALUES (#id#, #nome#, #raca#, #dono#, #donoContato#)
+        INSERT INTO pets (id, nome, raca,user_id)
+        VALUES (#id#, #nome#, #raca#,#user.id#)
     </insert>
 
     <update id="updatePet" parameterClass="com.example.demo.Model.Pet">
         UPDATE pets
         SET nome         = #nome#,
             raca         = #raca#,
-            dono         = #dono#,
-            dono_contato = #donoContato#
+            user_id     =#user.id#
         WHERE id = #id#
     </update>
 
@@ -32,9 +43,18 @@
         WHERE id = #id#
     </delete>
 
-    <select id="listarPets" resultClass="com.example.demo.Model.Pet">
-        SELECT id, nome, raca, dono, dono_contato AS donoContato
+    <select id="listarPets"  resultMap="petResultMap">
+        SELECT id, nome, raca,user_id AS donoDele
         FROM pets ORDER BY id DESC
     </select>
+
+    <select id="listarPetsPorUsuario" parameterClass="int" resultClass="com.example.demo.Model.Pet">
+        SELECT p.id, p.nome, p.raca, u.id AS dono_id
+        FROM pets p
+                 JOIN users u ON p.user_id = u.id
+        WHERE p.user_id = #userId#
+        ORDER BY p.id DESC
+    </select>
+
 
 </sqlMap>

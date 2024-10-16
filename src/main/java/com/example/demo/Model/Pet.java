@@ -5,8 +5,13 @@ public class Pet {
     private int id;
     private String nome;
     private String raca;
-    private String dono;
-    private String donoContato;
+    private User user;
+
+
+
+
+
+
 
     public int getId() {
         return id;
@@ -32,42 +37,15 @@ public class Pet {
         this.raca = raca;
     }
 
-    public String getDono() {
-        return dono;
-    }
-
-    public void setDono(String dono) {
-        this.dono = dono;
-    }
-
-    public String getDonoContato() {
-        return donoContato;
-    }
-
-    public void setDonoContato(String donoContato) {
-        this.donoContato = donoContato;
-    }
-
     public Pet() {
     }
 
-//    public Pet(String nome, String raca, String dono, String donoContato) {
-//        this.nome = nome;
-//        this.raca = raca;
-//        this.dono = dono;
-//        this.donoContato = donoContato;
-//    }
-
-
-
-    @Override
-    public String toString() {
-        return "Pet{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", raca='" + raca + '\'' +
-                ", dono='" + dono + '\'' +
-                ", donoContato='" + donoContato + '\'' +
-                '}';
+    public User getUser() {
+        return user;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }

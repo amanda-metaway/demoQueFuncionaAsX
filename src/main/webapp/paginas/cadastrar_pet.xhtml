@@ -25,11 +25,6 @@
                 <h:outputLabel for="raca" value="Raça:"/>
                 <h:inputText id="raca" value="#{petController.pet.raca}"/>
 
-                <h:outputLabel for="dono" value="Nome do Dono:"/>
-                <h:inputText id="dono" value="#{petController.pet.dono}"/>
-
-                <h:outputLabel for="donoContato" value="Contato do Dono:"/>
-                <h:inputText id="donoContato" value="#{petController.pet.donoContato}"/>
 
                 <h:panelGrid columns="2">
                     <h:commandButton value="Cadastrar" action="#{petController.createPet()}"/>
@@ -42,13 +37,11 @@
             <br>
             </br>
         <h:form styleClass="rich-tableForm">
-            <h:commandButton value="Pets cadastrados" action="#{petController.carregarPets}"
-                             styleClass="action-buttonForm"/>
+            <h:commandButton value="Carregar Pets do Usuário" action="#{petController.carregarPetsDoUsuario}" styleClass="action-buttonForm"/>
 
-            <h:dataTable value="#{petController.pets}" var="pet" styleClass="rich-table"
-                         rendered="#{not empty petController.pets}">
+            <h:dataTable value="#{petController.pets}" var="pet">
                 <h:column>
-                    <f:facet name="header">Nome</f:facet>
+                    <f:facet name="header">Nome do Pet</f:facet>
                     #{pet.nome}
                 </h:column>
                 <h:column>
@@ -56,23 +49,21 @@
                     #{pet.raca}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Dono</f:facet>
-                    #{pet.dono}
+                    <f:facet name="header">Dono ID</f:facet>
+                    #{pet.user.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Nome do Dono</f:facet>
+                    #{pet.user.name}
                 </h:column>
                 <h:column>
                     <f:facet name="header">Contato do Dono</f:facet>
-                    #{pet.donoContato}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Ações</f:facet>
-                    <h:commandButton value="Editar" action="#{petController.updatePet(pet)}"
-                                     styleClass="action-button"/>
-
-                    <h:commandButton value="Deletar" action="#{petController.deletePet(pet.id)}"
-                                     styleClass="action-button"/>
+                    #{pet.user.contato}
                 </h:column>
             </h:dataTable>
         </h:form>
+
+
 
     </ui:define>
 </ui:composition>

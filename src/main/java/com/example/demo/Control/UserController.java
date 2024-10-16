@@ -1,12 +1,16 @@
 package com.example.demo.Control;
 
 
+import com.example.demo.Model.Pet;
 import com.example.demo.Model.User;
 import com.example.demo.Service.UserService;
 import com.example.demo.exception.PetShopException;
+import com.ibatis.sqlmap.client.SqlMapExecutor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class UserController {
@@ -68,8 +72,6 @@ public class UserController {
     public List<User> listarUsers() {
         return users = userService.listarUsers();
     }
-
-
     public List<User> getUsers() {
         return users;
     }

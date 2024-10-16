@@ -4,6 +4,7 @@ package com.example.demo.Service;
 import com.example.demo.Dao.IBatisUserDao;
 
 
+import com.example.demo.Model.Pet;
 import com.example.demo.Model.User;
 
 import com.example.demo.exception.PetShopException;
@@ -20,6 +21,10 @@ public class UserService {
 
 
 
+    public User getUserById(int id) {
+
+        return userIbatisUserDao.getUserById(id);
+    }
 
     public User getUserByCPF(String cpfUsuario) {
         return userIbatisUserDao.getUserByCPF(cpfUsuario);
@@ -51,6 +56,7 @@ public class UserService {
 
 
         userIbatisUserDao.saveUser(user);
+        //add transaction e auditoria
     }
 
 

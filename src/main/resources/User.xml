@@ -10,12 +10,20 @@
         <result property="perfil"   column="perfil" />
         <result property="cpfUsuario"   column="cpfusuario" />
         <result property="password"   column="password" />
+        <result property="contato"   column="contato" />
     </resultMap>
 
     <select id="getUserByCPF" parameterClass="java.lang.String" resultMap="userResultMap">
-        SELECT id, name, cpfusuario, password, perfil
+        SELECT id, name, cpfusuario, password, perfil,contato
         FROM users
         WHERE cpfusuario = #cpfUsuario#
+    </select>
+
+
+    <select id="getUserById" parameterClass="java.lang.Integer" resultClass="com.example.demo.Model.User">
+        SELECT id, name,cpfusuario, password, perfil,contato
+        FROM users
+        WHERE id = #id#
     </select>
 
 
@@ -24,8 +32,8 @@
         <selectKey keyProperty="id">
             SELECT nextval('users_id_seq'::regclass)
         </selectKey>
-        INSERT INTO users (id, name, cpfusuario, password,perfil)
-        VALUES (#id#, #name#, #cpfUsuario#, #password#,#perfil#)
+        INSERT INTO users (id, name, cpfusuario, password,perfil,contato)
+        VALUES (#id#, #name#, #cpfUsuario#, #password#,#perfil#,#contato#)
     </insert>
 
 
@@ -34,7 +42,8 @@
         SET name       = #name#,
             cpfusuario = #cpfUsuario#,
             password   = #password#,
-            perfil  = #perfil#
+            perfil  = #perfil#,
+            contato = #contato#
         WHERE id = #id#
     </update>
 
@@ -45,10 +54,9 @@
     </delete>
 
     <select id="listarUsers" resultMap="userResultMap">
-        SELECT id, name, cpfusuario, password, perfil
+        SELECT id, name, cpfusuario, password, perfil,contato
         FROM users ORDER BY id DESC
     </select>
-
 
 
 
