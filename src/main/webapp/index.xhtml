@@ -7,53 +7,40 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:rich="http://richfaces.org/rich">
 
-<ui:composition template="assets/templateEntrada.xhtml">
+<ui:composition template="/assets/templateEntrada.xhtml">
     <ui:define name="title">Página Inicial - Home</ui:define>
 
     <ui:define name="content">
-
-        <rich:panel style="width: 200px;height: fit-content; margin: 0 auto;">
-            <h4>Acesso ao Sistema</h4>
+        <rich:panel style="max-width: 200px; margin: 0 auto; padding: 30px; border-radius: 10px; background-color: #ffffff; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+            <h4 style="text-align: center; color: #333; margin-bottom: 20px;">Acesso ao Sistema</h4>
             <h:form>
-                <h:panelGrid columns="1">
+                <h:panelGrid columns="1" style="width: 100%;">
 
-                    <div>
-                        <h:outputLabel for="perfil" value="Perfil:"/>
-                        <h:selectOneMenu id="perfil" value="#{loginController.perfilSelecionado}">
-                            <f:selectItems value="#{apoio.list}"/>
-                        </h:selectOneMenu>
+                    <h:outputLabel for="perfil" value="Perfil:" style="color: #555;"/>
+                    <h:selectOneMenu id="perfil" value="#{loginController.perfilSelecionado}" required="true" style="border: 1px solid #76baa5; border-radius: 5px; padding: 10px; background-color: #f9f9f9;">
+                        <f:selectItems value="#{apoio.list}"/>
+                    </h:selectOneMenu>
+
+                    <h:outputLabel for="cpfUsuario" value="CPF:" style="color: #555;"/>
+                    <h:inputText id="cpfUsuario" value="#{loginController.cpfUsuario}" required="true" style="border: 1px solid #76baa5; border-radius: 5px; padding: 10px; background-color: #f9f9f9;"/>
+
+                    <h:outputLabel for="password" value="Senha:" style="color: #555;"/>
+                    <h:inputSecret id="password" value="#{loginController.password}" required="true" style="border: 1px solid #76baa5; border-radius: 5px; padding: 10px; background-color: #f9f9f9;"/>
+
+                    <div style="text-align: center; margin-top: 10px;">
+                        <h:selectBooleanCheckbox value="#{loginController.manterConectado}" style="margin-right: 5px;"/>
+                        <h:outputLabel value="Manter Conectado" style="color: #555;"/>
                     </div>
 
-                    <div>
-                        <h:outputLabel for="cpfUsuario" value="CPF:"/>
-                        <h:inputText id="cpfUsuario" value="#{loginController.cpfUsuario}"
-                                     styleClass="input-field"/>
-                    </div>
+                    <h:panelGrid columns="2" style="text-align: center; margin-top: 20px;">
+                        <h:commandButton value="Login" action="#{loginController.login()}" style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer;"/>
+                        <h:commandButton value="Sair" action="#{loginController.logout()}" style="background-color: #ccc; color: black; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer;"/>
+                    </h:panelGrid>
 
-                    <div>
-                        <h:outputLabel for="password" value="Senha:"/>
-                        <h:inputSecret id="password" value="#{loginController.password}"
-                                       styleClass="input-field"/>
+                    <div style="text-align: center; margin-top: 15px;">
+                        <h:outputText value="Ainda não tem cadastro? " style="color: #555;"/>
+                        <h:commandLink value="Clique aqui para se cadastrar" action="cadastrar_usuario" style="color: #76baa5; font-weight: bold;"/>
                     </div>
-
-                    <div align="center">
-                        <h:selectBooleanCheckbox value="#{loginController.manterConectado}"/>
-                        <h:outputLabel value="Manter Conectado"/>
-                    </div>
-
-                    <div>
-                        <h:commandButton value="Login" action="#{loginController.login()}" styleClass="btn-login"/>
-                        <h:commandButton value="Sair" action="#{loginController.logout()}" styleClass="btn-logout"/>
-
-                        <h:messages styleClass="error-messages" globalOnly="true"/>
-                        <p>
-                        </p>
-                    </div>
-                    <div>
-                        <h:outputText value="Ainda não tem cadastro? "/>
-                        <h:commandLink value="Clique aqui para se cadastrar" action="cadastrar_usuario"/>
-                    </div>
-
 
                 </h:panelGrid>
             </h:form>

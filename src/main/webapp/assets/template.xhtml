@@ -23,7 +23,7 @@
             <h:commandLink value="Inicio" action="inicio" styleClass="nav-link home-link" rendered="#{session.getAttribute('usuario') == null}"/>
             <h:commandLink value="Home" action="index" styleClass="nav-link home-link" rendered="#{session.getAttribute('usuario') != null}"/>
 
-            <h:commandLink value="Cadastrar Pet" action="cadastrar_pet" styleClass="nav-link pet-link custom-link" rendered="#{session.getAttribute('perfil') == 'ADMIN' or session.getAttribute('perfil') == 'CLIENTE'}"/>
+            <h:commandLink value="Cadastrar Pets" action="cadastrar_pet" styleClass="nav-link pet-link custom-link" rendered="#{session.getAttribute('perfil') == 'ADMIN' or session.getAttribute('perfil') == 'CLIENTE'}"/>
 
             <h:commandLink value="Cadastrar Usuário" action="cadastrar_usuario" styleClass="nav-link user-link custom-link" rendered="#{session.getAttribute('perfil') == 'ADMIN'}"/>
 

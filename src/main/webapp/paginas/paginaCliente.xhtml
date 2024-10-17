@@ -4,13 +4,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:rich="http://richfaces.org/rich">
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
 
 
 <ui:composition template="../assets/template.xhtml">
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:param name="title" value="Pagina Usuario cliente"/>
 
@@ -38,10 +36,40 @@
                         <f:facet name="header">Raça</f:facet>
                         #{pet.raca}
                     </h:column>
+                    <h:column>
+                        <a4j:commandLink value="editar" action="#{petController.editar(pet.id)}" oncomplete="Richfaces.showModalPanel('petModal');" reRender="petForm"/>
+                    </h:column>
 
                 </h:dataTable>
             </h:form>
         </div>
+
+        <rich:modalPanel id="petModal" width="400" resizeable="true">
+
+
+
+            <h:form id="petForm">
+                <h:panelGrid columns="1" styleClass="rich-tableForm">
+                    <h:outputLabel for="nome" value="Nome do Pet:"/>
+                    <h:inputText id="nome" value="#{petController.pet.nome}"/>
+
+                    <h:outputLabel for="raca" value="Raça:"/>
+                    <h:inputText id="raca" value="#{petController.pet.raca}"/>
+
+
+                    <h:panelGrid columns="2">
+                        <h:commandButton value="Cadastrar" action="#{petController.createPet()}"/>
+                        <h:commandButton value="Cancelar" action="index.xhtml"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <a4j:commandLink value="voltar" ajaxSingle="true" onclick="Richfaces.hideModalPanel('petModal')"/>
+            </h:form>
+
+
+
+        </rich:modalPanel>
     </ui:define>
 </ui:composition>
+
+
 </html>

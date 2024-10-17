@@ -12,6 +12,7 @@ public class IBatisPetDao extends SqlMapClientDaoSupport implements PetDao {
     @Override
     public void savePet(Pet pet) {
         getSqlMapClientTemplate().insert("savePet", pet);
+
     }
 
     @Override

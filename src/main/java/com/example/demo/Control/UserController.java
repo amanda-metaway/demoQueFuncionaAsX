@@ -23,10 +23,10 @@ public class UserController {
     @Autowired
     private PetController petController;
     @Autowired
-    private UserService userServiceTransaction;
-
+    private UserService userService;
     @Autowired
     private PetService petService;
+
 
 
     private UserController userController;
@@ -38,7 +38,7 @@ public class UserController {
     private String mensagemSucesso;
 
 
-    private UserService userService;
+
 
 
     public UserController() {
@@ -53,7 +53,9 @@ public class UserController {
 
     public String createUser() {
         try {
-            userService.saveUser(this.user);
+            if(userService.saveUser(this.user) <= 0){
+                throw new PetShopException("Não foi possivel realizar a operação. Contate o suporte");
+            }
             this.user = new User();
             PetShopException.userCreatedSuccessfully();
             return "pagina de sucesso-que ainda nao tem";
@@ -65,19 +67,9 @@ public class UserController {
         return null;
     }
 
-    public void createUserAndPets() {
-        List<Pet> petsToRegister = new ArrayList<>();
+    public void createUserAndPetController() {
 
         Pet pet = petController.getPet();
-        if (pet != null && pet.getNome() != null && !pet.getNome().isEmpty() &&
-                pet.getRaca() != null && !pet.getRaca().isEmpty()) {
-            petsToRegister.add(pet);
-        } else {
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Por favor, preencha os dados do Pet antes de cadastrar!", null));
-            return;
-        }
 
         if (user == null) {
             FacesContext context = FacesContext.getCurrentInstance();
@@ -86,18 +78,14 @@ public class UserController {
         }
 
         try {
+            userService.createUserAndPetService(user, pet);//chamando o serviço aquii
 
-            userServiceTransaction.createUserAndPets(user, petsToRegister);
-
+            //a mensagem tem que ser na tela
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário e pets cadastrados com sucesso!", null));
-
             resetUser();
             petController.resetPet();
 
-        } catch (PetShopException e) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de validação: " + e.getMessage(), null));
         } catch (Exception e) {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao cadastrar usuário e pets: " + e.getMessage(), null));
@@ -190,10 +178,6 @@ public class UserController {
 
     public void setUserController(UserController userController) {
         this.userController = userController;
-    }
-
-    public UserService getUserServiceTransaction() {
-        return userServiceTransaction;
     }
 
 

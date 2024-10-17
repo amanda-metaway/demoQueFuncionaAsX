@@ -41,7 +41,17 @@ public class PetController implements Serializable {
         this.petService = petService;
     }
 
+    //nao func erro de jvSct
+    public void editar(Integer id){
+        try {
+            pet = petService.getPetById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
 
+//criando dentro do usuario ja existe
     public void createPet() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Integer userId = (Integer) session.getAttribute("user_id");

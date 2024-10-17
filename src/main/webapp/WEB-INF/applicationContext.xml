@@ -70,7 +70,7 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <!-- AOP Configuration -->
+    <!--&lt;!&ndash; AOP Configuration &ndash;&gt;
     <aop:config>
         <aop:pointcut id="serviceLayer" expression="execution(* com.example.demo.Service.UserService.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceLayer"/>
@@ -85,7 +85,7 @@
             <tx:method name="savePet" propagation="REQUIRED"/>
             <tx:method name="*" propagation="REQUIRED"/>
         </tx:attributes>
-    </tx:advice>
+    </tx:advice>-->
 
     <context:component-scan base-package="com.example.demo"/>
 </beans>

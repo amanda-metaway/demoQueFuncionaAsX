@@ -34,7 +34,6 @@ public class UserService {
     private UserService userServiceTransaction;
 
 
-
     public User getUserById(int id) {
 
         return userIbatisUserDao.getUserById(id);
@@ -44,67 +43,74 @@ public class UserService {
         return userIbatisUserDao.getUserByCPF(cpfUsuario);
     }
 
-    public void saveUser(User user) {
 
-        if (user.getCpfUsuario() == null || user.getCpfUsuario().isEmpty()) {
-            throw new PetShopException("O CPF deve ser informado!");
-        }
-
-
-        String cpfSemMascara = user.getCpfUsuario().replaceAll("[^\\d]", "");
-        user.setCpfUsuario(cpfSemMascara);
-
-//        if (cpfSemMascara.length() != 11) {
-//            throw new PetShopException("O CPF deve conter 11 dígitos numéricos!");
-//        }
-
-//busca
-        if (getUserByCPF(user.getCpfUsuario()) != null) {
-            throw new PetShopException("O CPF já está cadastrado!");
-        }
-
-
-        if (user.getPassword() == null || user.getPassword().isEmpty()) {
-            throw new PetShopException("A senha deve ser informada!");
-        }
-
-
-        userIbatisUserDao.saveUser(user);
-        //add transaction e auditoria
-    }
-
-
-    public void createUserAndPets(User user, List<Pet> pets) {
+    //save basico
+    /*se der fazer um managed bean para a transaction
+     * */
+    public Integer saveUser(User user) {
         TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
 
-        transactionTemplate.execute(new TransactionCallback<Void>() {
-            @Override
-            public Void doInTransaction(TransactionStatus status) {
-                try {
-
-                    if (user == null) {
-                        throw new PetShopException("Usuário não pode ser nulo.");
-                    }
-                    if (pets == null || pets.isEmpty()) {
-                        throw new PetShopException("Pelo menos um pet deve ser informado.");
-                    }
-
-
-                    userIbatisUserDao.saveUser(user);
-
-                    for (Pet pet : pets) {
-                        pet.setUser(user);
-                        batisPetDao.savePet(pet);
-                    }
-                } catch (Exception e) {
-                    status.setRollbackOnly();
-                    throw new PetShopException("Erro ao cadastrar usuário e pets: " + e.getMessage());
-                }
-                return null;
+        return transactionTemplate.execute((TransactionCallback<Integer>) status -> {
+            if (user.getCpfUsuario() == null || user.getCpfUsuario().isEmpty()) {
+                throw new PetShopException("O CPF deve ser informado!");
             }
+            String cpfSemMascara = user.getCpfUsuario().replaceAll("[^\\d]", "");
+            user.setCpfUsuario(cpfSemMascara);
+            if (getUserByCPF(user.getCpfUsuario()) != null) {
+                throw new PetShopException("O CPF já está cadastrado!");
+            }
+            if (user.getPassword() == null || user.getPassword().isEmpty()) {
+                throw new PetShopException("A senha deve ser informada!");
+            }
+
+            Integer id = null;
+
+            userIbatisUserDao.saveUser(user);//esse saveUser é da outra camada
+
+            if (user.getId() <= 0) {
+                status.setRollbackOnly();//se der erro ele cancela a op
+                throw new PetShopException("Usuario nao cadastrado");
+            }
+
+            id = user.getId();
+            //auditoria-tem que injetar antes
+            return id;
         });
+
     }
 
+
+    public void createUserAndPetService(User user, Pet pet) {
+
+        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+
+        transactionTemplate.execute((TransactionCallback<Void>) status -> {
+            try {
+                if (user == null) {
+                    throw new PetShopException("Usuário não pode ser nulo.");
+                }
+                if (pet == null) {
+                    throw new PetShopException("Pelo menos um pet deve ser informado.");
+                }
+
+                //ja na camada de servicço ,levando para dao ,salvando retorna o id do save para esse obj settar o id
+                user.setId(saveUser(user));//faz tudo isso para trazer o i por aqui
+
+                if (user.getId() <= 0) {
+                    throw new PetShopException("Usuario nao cadastrado");
+                }
+
+                //fazer o mesmo fluxo para pet
+                pet.setUser(user);
+                batisPetDao.savePet(pet);
+
+            } catch (Exception e) {
+                status.setRollbackOnly();
+                throw new PetShopException("Erro ao cadastrar usuário e pets: " + e.getMessage());
+            }
+            return null;
+        });
+    }
 
 
     public List<User> listarUsers() {
@@ -137,6 +143,7 @@ public class UserService {
 
     public void setPetDao(IBatisPetDao petDao) {
     }
+
     @Autowired
     public void setUserServiceTransaction(UserService userServiceTransaction) {
         this.userServiceTransaction = userServiceTransaction;
