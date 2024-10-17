@@ -33,6 +33,9 @@ public class UserService {
     @Autowired
     private UserService userServiceTransaction;
 
+    private PetService petService;
+
+
 
     public User getUserById(int id) {
 
@@ -95,14 +98,18 @@ public class UserService {
 
                 //ja na camada de servicço ,levando para dao ,salvando retorna o id do save para esse obj settar o id
                 user.setId(saveUser(user));//faz tudo isso para trazer o i por aqui
-
                 if (user.getId() <= 0) {
                     throw new PetShopException("Usuario nao cadastrado");
                 }
 
-                //fazer o mesmo fluxo para pet
+                pet.setId(savePet(pet));
+                if (pet.getId() <= 0) {
+                    throw new PetShopException("Pet nao cadastrado");
+                }
                 pet.setUser(user);
-                batisPetDao.savePet(pet);
+                System.out.println("os dois  : " + pet.getNome() + user.getName());
+
+
 
             } catch (Exception e) {
                 status.setRollbackOnly();
@@ -111,6 +118,28 @@ public class UserService {
             return null;
         });
     }
+
+    //save para pet cadastro
+    public Integer savePet(Pet pet) {
+        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+        return transactionTemplate.execute((TransactionCallback<Integer>) status -> {
+            //id inicializdo aqui
+            Integer id = null;
+            batisPetDao.savePet(pet);//salvamento la na outra camada
+
+            if (pet.getId() <= 0) {
+                status.setRollbackOnly();
+                throw new PetShopException("Pet nao cadastrado");
+            }
+            id = pet.getId();
+            //auditoria aqui
+            return id;
+        });
+
+    }
+
+
+
 
 
     public List<User> listarUsers() {
@@ -125,6 +154,8 @@ public class UserService {
     public void deleteUser(int id) {
         userIbatisUserDao.deleteUser(id);
     }
+
+
 
 
     public void setUserDao(IBatisUserDao userDao) {
@@ -149,4 +180,11 @@ public class UserService {
         this.userServiceTransaction = userServiceTransaction;
     }
 
+    public PetService getPetService() {
+        return petService;
+    }
+
+    public void setPetService(PetService petService) {
+        this.petService = petService;
+    }
 }

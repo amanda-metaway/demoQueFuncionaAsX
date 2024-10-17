@@ -4,7 +4,10 @@ package com.example.demo.Service;
 import com.example.demo.Dao.IBatisPetDao;
 import com.example.demo.Model.Pet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
+
+
 import java.util.List;
 
 @Service
@@ -17,12 +20,16 @@ public class PetService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private DataSourceTransactionManager transactionManager;
+
 
     public Pet getPetById(int id) {
         return batisPetDao.getPetById(id);
     }
 
-    public void savePet(Pet pet) {
+    //save add mais pets a usuario ja cadastrado!
+    public void saveMaisPet(Pet pet) {
         batisPetDao.savePet(pet);
     }
 
@@ -38,6 +45,7 @@ public class PetService {
     public List<Pet> listarPets() {
         return batisPetDao.getListarPet();
     }
+
     public List<Pet> listarPetsPorUsuario(int userId) {
         return batisPetDao.listarPetsPorUsuario(userId);
     }

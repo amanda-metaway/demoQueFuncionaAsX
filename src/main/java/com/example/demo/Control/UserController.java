@@ -51,6 +51,7 @@ public class UserController {
     }
 
 
+    //só para perfil admin esta sem uso -teria que fazer a pg que oadmin criar  usuarios
     public String createUser() {
         try {
             if(userService.saveUser(this.user) <= 0){
@@ -78,9 +79,9 @@ public class UserController {
         }
 
         try {
-            userService.createUserAndPetService(user, pet);//chamando o serviço aquii
+            userService.createUserAndPetService(user, pet);//controller chamando o serviço aquii
 
-            //a mensagem tem que ser na tela
+
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário e pets cadastrados com sucesso!", null));
             resetUser();

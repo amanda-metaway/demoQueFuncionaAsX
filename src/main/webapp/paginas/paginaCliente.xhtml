@@ -21,7 +21,7 @@
 
         <div>
             <h:form styleClass="rich-tableForm">
-                <h:commandButton value="Veja seus Pets" action="#{petController.carregarPetsDoUsuario}" styleClass="action-buttonForm"/>
+                <h:commandButton value="Carregar seus Pets" action="#{petController.carregarPetsDoUsuario}" styleClass="action-buttonForm"/>
 
                 <h:dataTable value="#{petController.pets}" var="pet" rendered="#{not empty petController.pets}" styleClass="rich-table">
                     <h:panelGroup rendered="#{empty petController.pets}">
@@ -37,6 +37,7 @@
                         #{pet.raca}
                     </h:column>
                     <h:column>
+                        <f:facet name="header">Ações</f:facet>
                         <a4j:commandLink value="editar" action="#{petController.editar(pet.id)}" oncomplete="Richfaces.showModalPanel('petModal');" reRender="petForm"/>
                     </h:column>
 

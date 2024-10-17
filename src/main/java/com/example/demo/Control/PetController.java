@@ -16,9 +16,6 @@ import java.util.List;
 
 public class PetController implements Serializable {
 
-
-
-
     @Autowired
     private PetService petService;
 
@@ -31,7 +28,7 @@ public class PetController implements Serializable {
     private String raca;
     private List<Pet> pets;
 
-//esse new nao sei nao
+
     public PetController() {
         this.pet = new Pet();
         this.pets = new ArrayList<>();
@@ -41,8 +38,8 @@ public class PetController implements Serializable {
         this.petService = petService;
     }
 
-    //nao func erro de jvSct
-    public void editar(Integer id){
+    //nao func erro de jvSct no modal de tela
+    public void editar(Integer id) {
         try {
             pet = petService.getPetById(id);
         } catch (Exception e) {
@@ -51,8 +48,9 @@ public class PetController implements Serializable {
         }
     }
 
-//criando dentro do usuario ja existe
-    public void createPet() {
+    //criando dentro do usuario ja existe!
+    //dois pq nao tem modal para o cadastrinho
+    public String createPet() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Integer userId = (Integer) session.getAttribute("user_id");
         try {
@@ -65,8 +63,8 @@ public class PetController implements Serializable {
                     novoPet.setRaca(pet.getRaca());
                     novoPet.setUser(user);
 
+                    petService.saveMaisPet(novoPet);
 
-                    petService.savePet(novoPet);
                 } else {
                     System.out.println("Usuário não encontrado.");
                 }
@@ -77,6 +75,7 @@ public class PetController implements Serializable {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+        return "index.xhtml";
     }
 
 
@@ -84,11 +83,12 @@ public class PetController implements Serializable {
         petService.updatePet(pet);
     }
 
-
+    //seria para ver todos no caso para admin
     public void carregarPets() {
         pets = petService.listarPets();
     }
 
+    //apenas o do user pessoal
     public void carregarPetsDoUsuario() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         Integer userId = (Integer) session.getAttribute("user_id");//do logado
@@ -107,8 +107,6 @@ public class PetController implements Serializable {
     }
 
 
-
-
     public void resetPet() {
         this.pet = new Pet(); // inicia um novo pet
     }
@@ -121,7 +119,6 @@ public class PetController implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
 
 
     public PetService getPetService() {
@@ -162,6 +159,7 @@ public class PetController implements Serializable {
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
+
     public Pet getPet() {
         return pet;
     }
