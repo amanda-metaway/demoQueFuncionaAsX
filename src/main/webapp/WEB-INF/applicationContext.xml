@@ -63,6 +63,8 @@
         <property name="auditoriaDao" ref="auditoriaDao"/>
     </bean>
 
+
+
     <!-- Transaction Manager -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
@@ -73,6 +75,8 @@
         <aop:pointcut id="serviceLayer" expression="execution(* com.example.demo.Service.UserService.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceLayer"/>
     </aop:config>
+
+
 
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>

@@ -10,7 +10,11 @@ import com.example.demo.Model.User;
 
 import com.example.demo.exception.PetShopException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.List;
 
@@ -22,6 +26,12 @@ public class UserService {
 
     @Autowired
     private IBatisPetDao batisPetDao;
+
+    @Autowired
+    private DataSourceTransactionManager transactionManager;
+
+    @Autowired
+    private UserService userServiceTransaction;
 
 
 
@@ -65,12 +75,34 @@ public class UserService {
 
 
     public void createUserAndPets(User user, List<Pet> pets) {
-        userIbatisUserDao.saveUser(user); // da save no user primeiro
+        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
 
-        for (Pet pet : pets) {
-            pet.setUser(user); // vincula o usuario com pets
-            batisPetDao.savePet(pet); // da save no pet
-        }
+        transactionTemplate.execute(new TransactionCallback<Void>() {
+            @Override
+            public Void doInTransaction(TransactionStatus status) {
+                try {
+
+                    if (user == null) {
+                        throw new PetShopException("Usuário não pode ser nulo.");
+                    }
+                    if (pets == null || pets.isEmpty()) {
+                        throw new PetShopException("Pelo menos um pet deve ser informado.");
+                    }
+
+
+                    userIbatisUserDao.saveUser(user);
+
+                    for (Pet pet : pets) {
+                        pet.setUser(user);
+                        batisPetDao.savePet(pet);
+                    }
+                } catch (Exception e) {
+                    status.setRollbackOnly();
+                    throw new PetShopException("Erro ao cadastrar usuário e pets: " + e.getMessage());
+                }
+                return null;
+            }
+        });
     }
 
 
@@ -105,4 +137,9 @@ public class UserService {
 
     public void setPetDao(IBatisPetDao petDao) {
     }
+    @Autowired
+    public void setUserServiceTransaction(UserService userServiceTransaction) {
+        this.userServiceTransaction = userServiceTransaction;
+    }
+
 }

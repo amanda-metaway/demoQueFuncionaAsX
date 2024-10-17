@@ -3,114 +3,64 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:rich="http://richfaces.org/rich">
 
-
 <ui:composition template="../assets/template.xhtml">
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
-
-
     <ui:param name="title" value="Cadastrar Usuário"/>
 
     <ui:define name="content">
+        <rich:panel style="max-width: 200px; margin: 0 auto; padding: 20px; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+            <h:form>
+                <h3 style="text-align: center; color: #333;">Seu Cadastro</h3>
+                <h:panelGrid columns="1" style="width: 100%;">
 
-        <rich:panel style="width: fit-content;height: fit-content; margin: 0 auto;">
-            <rich:tabPanel>
-                <rich:tab title="Cadastrar Usuário">
-                    <h:form>
-                        <h:panelGrid columns="1">
-                            <h:outputLabel for="name" value="Nome:"/>
-                            <h:inputText id="name" value="#{userController.user.name}"/>
+                    <h:outputLabel for="name" value="Nome:" style="color: #555;"/>
+                    <h:inputText id="name" value="#{userController.user.name}" required="true" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;"/>
+                    <rich:message for="name" style="color: red;"/>
 
-                            <h:outputLabel for="cpfUsuario" value="CPF:"/>
-                            <h:inputText id="cpfUsuario" value="#{userController.user.cpfUsuario}"
-                                         converter="userCpfConverter"/>
-                            <rich:message for="cpfUsuario"/>
+                    <h:outputLabel for="cpfUsuario" value="CPF:" style="color: #555;"/>
+                    <h:inputText id="cpfUsuario" value="#{userController.user.cpfUsuario}" converter="userCpfConverter" required="true" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;"/>
+                    <rich:message for="cpfUsuario" style="color: red;"/>
 
-                            <h:outputLabel for="contato" value="Contato:"/>
-                            <h:inputText id="contato" value="#{userController.user.contato}"/>
+                    <h:outputLabel for="contato" value="Contato:" style="color: #555;"/>
+                    <h:inputText id="contato" value="#{userController.user.contato}" required="true" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;"/>
+                    <rich:message for="contato" style="color: red;"/>
 
-                            <h:outputLabel for="password" value="SENHA:"/>
-                            <h:inputSecret id="password" value="#{userController.user.password}"/>
-                            <rich:message for="password"/>
+                    <h:outputLabel for="perfil" value="Perfil:" style="color: #555;"/>
+                    <h:selectOneMenu id="perfil" value="#{userController.user.perfil}" required="true" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
+                        <f:selectItems value="#{apoio.list}"/>
+                    </h:selectOneMenu>
+                    <rich:message for="perfil" style="color: red;"/>
 
-                            <h:panelGrid columns="2">
-                                <h:commandButton value="Cadastrar Usuário"
-                                                 action="#{userController.createUserAndPets}"/>
-                                <h:commandButton value="Cancelar" action="index.xhtml"/>
-                            </h:panelGrid>
-                        </h:panelGrid>
-                    </h:form>
-                </rich:tab>
+                    <h:outputLabel for="password" value="Senha:" style="color: #555;"/>
+                    <h:inputSecret id="password" value="#{userController.user.password}" required="true" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;"/>
+                    <rich:message for="password" style="color: red;"/>
 
-                <rich:tab title="Cadastrar Pets">
-                    <h:form>
-                        <h:panelGrid columns="1">
-                            <h:outputLabel for="nome" value="Nome do Pet:"/>
-                            <h:inputText id="nome" value="#{petController.pet.nome}"/>
 
-                            <h:outputLabel for="raca" value="Raça:"/>
-                            <h:inputText id="raca" value="#{petController.pet.raca}"/>
 
-                            <h:panelGrid columns="2">
-                                <h:commandButton value="Cadastrar Pet" action="#{petController.createPet()}"/>
-                                <h:commandButton value="Cancelar" action="index.xhtml"/>
-                            </h:panelGrid>
-                        </h:panelGrid>
-                    </h:form>
-                </rich:tab>
-            </rich:tabPanel>
+                </h:panelGrid>
+
+                <br/>
+
+                <h3 style="text-align: center; color: #333; margin-top: 30px;">Cadastro do seu Pet</h3>
+                <h:panelGrid columns="1" style="width: 100%; margin-top: 10px;">
+                    <h:outputLabel for="nome" value="Nome do Pet:" style="color: #555;"/>
+                    <h:inputText id="nome" value="#{petController.pet.nome}" required="true" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;"/>
+                    <rich:message for="nome" style="color: red;"/>
+
+                    <h:outputLabel for="raca" value="Raça:" style="color: #555;"/>
+                    <h:inputText id="raca" value="#{petController.pet.raca}" required="true" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;"/>
+                    <rich:message for="raca" style="color: red;"/>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2" style="text-align: center; margin-top: 20px;">
+                    <h:commandButton value="Cadastrar" action="#{userController.createUserAndPets}" style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer;"/>
+                    <h:commandButton value="Cancelar" action="index.xhtml" style="background-color: #ccc; color: black; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer;"/>
+                </h:panelGrid>
+            </h:form>
         </rich:panel>
-
-        <br>
-        </br>
-        <br>
-        </br>
-
-        <h:form styleClass="rich-tableForm">
-
-            <h:column>
-                <h:commandButton value="Listar Usuários" action="#{userController.listarUsers}"
-                                 styleClass="action-buttonForm"/>
-            </h:column>
-
-
-            <h:column>
-                <h:outputLabel for="cpfUsuario" value="Buscar usuário por CPF:"
-                               style="padding: 10px; margin-left: 100px;"/>
-                <h:inputText id="cpfUsuarioBusca" value="#{userController.user.cpfUsuario}"/>
-                <h:commandButton value="Buscar" action="#{userController.prepararBusca}"
-                                 styleClass="action-buttonForm">
-                    <f:param name="cpfUsuario" value="#{userController.user.cpfUsuario}"/>
-                </h:commandButton>
-            </h:column>
-
-            <h:dataTable value="#{userController.users}" var="user" styleClass="rich-table"
-                         rendered="#{not empty userController.users}">
-                <h:column>
-                    <f:facet name="header">Nome</f:facet>
-                    #{user.name}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">CPF</f:facet>
-                    <h:outputText value="#{user.cpfUsuario}" converter="userCpfConverter"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Tipo de Perfil</f:facet>
-                    #{user.perfil.perfil}
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">Contato</f:facet>
-                    #{user.contato}
-                </h:column>
-
-            </h:dataTable>
-        </h:form>
     </ui:define>
-
 </ui:composition>
 </html>

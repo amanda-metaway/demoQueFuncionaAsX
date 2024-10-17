@@ -31,9 +31,9 @@ public class PetController implements Serializable {
     private String raca;
     private List<Pet> pets;
 
-
-
+//esse new nao sei nao
     public PetController() {
+        this.pet = new Pet();
         this.pets = new ArrayList<>();
     }
 
@@ -96,6 +96,14 @@ public class PetController implements Serializable {
 
     }
 
+
+
+
+    public void resetPet() {
+        this.pet = new Pet(); // inicia um novo pet
+    }
+
+
     public String getNome() {
         return nome;
     }
@@ -132,9 +140,6 @@ public class PetController implements Serializable {
         this.pets = pets;
     }
 
-    public Pet getPet() {
-        return pet;
-    }
 
     public void setPet(Pet pet) {
         this.pet = pet;
@@ -147,4 +152,8 @@ public class PetController implements Serializable {
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
+    public Pet getPet() {
+        return pet;
+    }
+
 }
