@@ -3,35 +3,30 @@ package com.example.demo.Control;
 
 import com.example.demo.Model.Pet;
 import com.example.demo.Model.User;
+import com.example.demo.Service.AuditoriaService;
 import com.example.demo.Service.PetService;
 import com.example.demo.Service.UserService;
 import com.example.demo.exception.PetShopException;
-import com.ibatis.sqlmap.client.SqlMapExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class UserController {
-
-
+    
     @Autowired
     private PetController petController;
     @Autowired
-    private UserService userService;
+    private AuditoriaService auditoriaService;
     @Autowired
     private PetService petService;
-
-
-
-    private UserController userController;
-
-
+    @Autowired
+    private UserService userService;
+   
+    
     private User user = new User();
     private List<User> users;
     private User buscaUser;
@@ -44,13 +39,12 @@ public class UserController {
     public UserController() {
         this.users = new ArrayList<>();
     }
+    
+  
 
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
-
+    
+    
     //só para perfil admin esta sem uso -teria que fazer a pg que oadmin criar  usuarios
     public String createUser() {
         try {
@@ -68,6 +62,7 @@ public class UserController {
         return null;
     }
 
+
     public void createUserAndPetController() {
 
         Pet pet = petController.getPet();
@@ -84,6 +79,7 @@ public class UserController {
 
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário e pets cadastrados com sucesso!", null));
+
             resetUser();
             petController.resetPet();
 
@@ -123,29 +119,7 @@ public class UserController {
     public List<User> listarUsers() {
         return users = userService.listarUsers();
     }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-
+    
     public User getBuscaUser() {
         return buscaUser;
     }
@@ -159,32 +133,38 @@ public class UserController {
     }
 
 
-    public void setUserServiceTransaction(UserService userServiceTransaction) {
+    
+   
+    public User getUser() {
+        return user;
     }
 
-    public void setPetController(String petController) {
-    }
-
-    public PetController getPetController() {
-        return petController;
-    }
-
-    public void setPetController(PetController petController) {
-        this.petController = petController;
-    }
-
-    public UserController getUserController() {
-        return userController;
-    }
-
-    public void setUserController(UserController userController) {
-        this.userController = userController;
+    public void setUser(User user) {
+        this.user = user;
     }
 
 
-    public UserService getUserService() {
-        return userService;
+
+
+
+  
+    
+
+
+
+
+   
+
+    
+
+    public AuditoriaService getAuditoriaService() {
+        return auditoriaService;
     }
 
+    public void setAuditoriaService(AuditoriaService auditoriaService) {
+        this.auditoriaService = auditoriaService;
+    }
 
+    public void setUserService(Object userService) {
+    }
 }

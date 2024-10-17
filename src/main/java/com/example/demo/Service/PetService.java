@@ -18,10 +18,10 @@ public class PetService {
     private IBatisPetDao batisPetDao;
 
     @Autowired
-    private UserService userService;
+    private DataSourceTransactionManager transactionManager;
 
     @Autowired
-    private DataSourceTransactionManager transactionManager;
+    private UserService userService;
 
 
     public Pet getPetById(int id) {
@@ -63,14 +63,5 @@ public class PetService {
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
-
-    public IBatisPetDao getBatisPetDao() {
-        return batisPetDao;
-    }
-
-    public void setBatisPetDao(IBatisPetDao batisPetDao) {
-        this.batisPetDao = batisPetDao;
-    }
-
 
 }

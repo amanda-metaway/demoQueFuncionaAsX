@@ -3,16 +3,13 @@ package com.example.demo.Service;
 
 import com.example.demo.Dao.IBatisPetDao;
 import com.example.demo.Dao.IBatisUserDao;
-
-
+import com.example.demo.Model.Auditoria;
 import com.example.demo.Model.Pet;
 import com.example.demo.Model.User;
-
 import com.example.demo.exception.PetShopException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
@@ -30,11 +27,12 @@ public class UserService {
     @Autowired
     private DataSourceTransactionManager transactionManager;
 
+
     @Autowired
-    private UserService userServiceTransaction;
+    private AuditoriaService auditoriaService;
 
+    @Autowired
     private PetService petService;
-
 
 
     public User getUserById(int id) {
@@ -76,7 +74,17 @@ public class UserService {
             }
 
             id = user.getId();
-            //auditoria-tem que injetar antes
+            String cpfUsuario = user.getCpfUsuario();
+
+            //audita
+            Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Usuario Cadastrado");
+            if (auditoria != null && auditoria.getUserId() != null) {
+                auditoriaService.saveAuditoria(auditoria);
+                System.out.println("Auditado: " + auditoria.getUserId().getCpfUsuario() + " " + auditoria.getAcao() + " " + auditoria.getDataHora());
+            } else {
+                System.out.println("Erro: auditoria não foi criada ou usuário não encontrado.");
+            }
+
             return id;
         });
 
@@ -101,14 +109,20 @@ public class UserService {
                 if (user.getId() <= 0) {
                     throw new PetShopException("Usuario nao cadastrado");
                 }
-
+                pet.setUser(user);//vincula eles
                 pet.setId(savePet(pet));
                 if (pet.getId() <= 0) {
                     throw new PetShopException("Pet nao cadastrado");
                 }
-                pet.setUser(user);
-                System.out.println("os dois  : " + pet.getNome() + user.getName());
 
+                String cpfUsuario = user.getCpfUsuario();
+                //audita
+                Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Cadastrou Pet");
+                if (auditoria != null && auditoria.getUserId() != null) {
+                    auditoriaService.saveAuditoria(auditoria);
+                } else {
+                    System.out.println("Erro: auditoria não foi criada ou usuário não encontrado.");
+                }
 
 
             } catch (Exception e) {
@@ -123,23 +137,21 @@ public class UserService {
     public Integer savePet(Pet pet) {
         TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
         return transactionTemplate.execute((TransactionCallback<Integer>) status -> {
-            //id inicializdo aqui
             Integer id = null;
+
             batisPetDao.savePet(pet);//salvamento la na outra camada
 
             if (pet.getId() <= 0) {
                 status.setRollbackOnly();
                 throw new PetShopException("Pet nao cadastrado");
             }
+
             id = pet.getId();
-            //auditoria aqui
+
             return id;
         });
 
     }
-
-
-
 
 
     public List<User> listarUsers() {
@@ -156,35 +168,13 @@ public class UserService {
     }
 
 
-
-
     public void setUserDao(IBatisUserDao userDao) {
         this.userIbatisUserDao = userDao;
-    }
-
-
-    public IBatisUserDao getUserIbatisUserDao() {
-        return userIbatisUserDao;
-    }
-
-    public void setUserIbatisUserDao(IBatisUserDao userIbatisUserDao) {
-        this.userIbatisUserDao = userIbatisUserDao;
     }
 
 
     public void setPetDao(IBatisPetDao petDao) {
     }
 
-    @Autowired
-    public void setUserServiceTransaction(UserService userServiceTransaction) {
-        this.userServiceTransaction = userServiceTransaction;
-    }
 
-    public PetService getPetService() {
-        return petService;
-    }
-
-    public void setPetService(PetService petService) {
-        this.petService = petService;
-    }
 }

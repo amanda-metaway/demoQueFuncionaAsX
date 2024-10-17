@@ -26,16 +26,19 @@ public class LoginController {
     private boolean manterConectado;
 
 
+    private UserService userService;
+
+
+
 
     @Autowired
     private User user;
 
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private AuditoriaService auditoriaService;
+
+
 
 
 
@@ -90,8 +93,8 @@ public class LoginController {
 
 
 
-        // auditoria
-        Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "logou no sistema");
+        // audita
+        Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Usuario LOGOU no sistema");
         if (auditoria != null && auditoria.getUserId() != null) {
             auditoriaService.saveAuditoria(auditoria);
             System.out.println("Auditado: " + auditoria.getUserId().getCpfUsuario() + " " + auditoria.getAcao() + " " + auditoria.getDataHora());
@@ -132,7 +135,14 @@ public class LoginController {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         if (session != null) {
             session.invalidate();
-            System.out.println("Usuario DESconectou: " + cpfUsuario);
+            //audita
+            Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Usuario DESconectou do sistema");
+            if (auditoria != null && auditoria.getUserId() != null) {
+                auditoriaService.saveAuditoria(auditoria);
+                System.out.println("Auditado: " + auditoria.getUserId().getCpfUsuario() + " " + auditoria.getAcao() + " " + auditoria.getDataHora());
+            } else {
+                System.out.println("Erro: auditoria não foi criada ou usuário não encontrado.");
+            }
             // rem cookies
             Cookie cookieUsuario = new Cookie("usuario", null);
             cookieUsuario.setMaxAge(0);

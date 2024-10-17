@@ -55,6 +55,10 @@
             <property-name>auditoriaService</property-name>
             <value>#{auditoriaService}</value>
         </managed-property>
+        <managed-property>
+            <property-name>userService</property-name>
+            <value>#{userService}</value>
+        </managed-property>
     </managed-bean>
 
 

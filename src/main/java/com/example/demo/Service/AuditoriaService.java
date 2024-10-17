@@ -32,8 +32,6 @@ public class AuditoriaService {
 
 
 
-
-
     public Auditoria createAuditoria(String cpfUsuario, String acao) {
         User user = userService.getUserByCPF(cpfUsuario);
         if (user == null) {
@@ -62,7 +60,5 @@ public class AuditoriaService {
         this.userService = userService;
     }
 
-    public IBatisAuditoriaDao getAuditoriaDao() {
-        return auditoriaDao;
-    }
+
 }

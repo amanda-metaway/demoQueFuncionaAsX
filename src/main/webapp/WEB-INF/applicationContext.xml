@@ -29,36 +29,33 @@
         <property name="configLocation" value="classpath:sqlMapConfig.xml"/>
     </bean>
 
+
+    <!--petbean-->
     <bean id="petDao" class="com.example.demo.Dao.IBatisPetDao">
         <property name="sqlMapClient" ref="sqlMapClient"/>
     </bean>
-
     <bean id="petService" class="com.example.demo.Service.PetService">
         <property name="petDao" ref="petDao"/>
     </bean>
-
-    <bean id="userDao" class="com.example.demo.Dao.IBatisUserDao">
-        <property name="sqlMapClient" ref="sqlMapClient"/>
-    </bean>
-
-    <bean id="userServiceTransaction" class="com.example.demo.Service.UserService">
-        <property name="userDao" ref="userDao"/>
-        <property name="petDao" ref="petDao"/>
-    </bean>
-
-    <bean id="userController" class="com.example.demo.Control.UserController">
-        <property name="userServiceTransaction" ref="userServiceTransaction"/>
-        <property name="petController" ref="petController"/>
-    </bean>
-
     <bean id="petController" class="com.example.demo.Control.PetController">
         <property name="petService" ref="petService"/>
     </bean>
 
+    <!--userbean-->
+    <bean id="userDao" class="com.example.demo.Dao.IBatisUserDao">
+        <property name="sqlMapClient" ref="sqlMapClient"/>
+    </bean>
+    <bean id="userService" class="com.example.demo.Service.UserService">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+    <bean id="userController" class="com.example.demo.Control.UserController">
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <!--auditoriabean-->
     <bean id="auditoriaDao" class="com.example.demo.Dao.IBatisAuditoriaDao">
         <property name="sqlMapClient" ref="sqlMapClient"/>
     </bean>
-
     <bean id="auditoriaService" class="com.example.demo.Service.AuditoriaService">
         <property name="auditoriaDao" ref="auditoriaDao"/>
     </bean>

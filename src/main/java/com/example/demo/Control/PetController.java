@@ -3,6 +3,7 @@ package com.example.demo.Control;
 
 import com.example.demo.Model.Pet;
 import com.example.demo.Model.User;
+import com.example.demo.Service.AuditoriaService;
 import com.example.demo.Service.PetService;
 import com.example.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ public class PetController implements Serializable {
 
     @Autowired
     private PetService petService;
-
     @Autowired
     private UserService userService;
 
@@ -34,9 +34,11 @@ public class PetController implements Serializable {
         this.pets = new ArrayList<>();
     }
 
+
     public PetController(PetService petService) {
         this.petService = petService;
     }
+
 
     //nao func erro de jvSct no modal de tela
     public void editar(Integer id) {
@@ -121,23 +123,17 @@ public class PetController implements Serializable {
     }
 
 
-    public PetService getPetService() {
-        return petService;
-    }
-
     public void setPetService(PetService petService) {
         this.petService = petService;
     }
 
-
-    public Pet getPet(int id) {
-        return petService.getPetById(id);
+    public void setPet(Pet pet) {
+        this.pet = pet;
     }
 
-    public Pet getPetById(int id) {
-        return petService.getPetById(id);
+    public Pet getPet() {
+        return pet;
     }
-
 
     public List<Pet> getPets() {
         return pets;
@@ -148,20 +144,6 @@ public class PetController implements Serializable {
     }
 
 
-    public void setPet(Pet pet) {
-        this.pet = pet;
+    public void setUserService(Object userService) {
     }
-
-    public UserService getUserService() {
-        return userService;
-    }
-
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    public Pet getPet() {
-        return pet;
-    }
-
 }
