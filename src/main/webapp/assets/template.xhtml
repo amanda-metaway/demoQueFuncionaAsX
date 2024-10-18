@@ -21,7 +21,8 @@
     <h:form>
         <h:panelGroup>
             <h:commandLink value="Inicio" action="inicio" styleClass="nav-link home-link" rendered="#{session.getAttribute('usuario') == null}"/>
-            <h:commandLink value="Home" action="index" styleClass="nav-link home-link" rendered="#{session.getAttribute('usuario') != null}"/>
+
+            <h:commandLink value="Home" action="#{loginController.indexHome}" styleClass="nav-link home-link" rendered="#{session.getAttribute('usuario') != null}"/>
 
             <h:commandLink value="Cadastrar Pets" action="cadastrar_pet" styleClass="nav-link pet-link custom-link" rendered="#{session.getAttribute('perfil') == 'ADMIN' or session.getAttribute('perfil') == 'CLIENTE'}"/>
 

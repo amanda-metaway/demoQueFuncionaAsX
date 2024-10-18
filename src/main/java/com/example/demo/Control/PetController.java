@@ -1,6 +1,7 @@
 package com.example.demo.Control;
 
 
+import com.example.demo.Model.Auditoria;
 import com.example.demo.Model.Pet;
 import com.example.demo.Model.User;
 import com.example.demo.Service.AuditoriaService;
@@ -21,6 +22,8 @@ public class PetController implements Serializable {
     private PetService petService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private AuditoriaService auditoriaService;
 
 
     private Pet pet = new Pet();
@@ -64,8 +67,16 @@ public class PetController implements Serializable {
                     novoPet.setNome(pet.getNome()); //  do obj
                     novoPet.setRaca(pet.getRaca());
                     novoPet.setUser(user);
+                    String cpfUsuario = user.getCpfUsuario();
 
                     petService.saveMaisPet(novoPet);
+                    //audita
+                    Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Cadastrou NOVO Pet");
+                    if (auditoria != null && auditoria.getUserId() != null) {
+                        auditoriaService.saveAuditoria(auditoria);
+                    } else {
+                        System.out.println("Erro: auditoria não foi criada ou usuário não encontrado.");
+                    }
 
                 } else {
                     System.out.println("Usuário não encontrado.");
@@ -96,6 +107,15 @@ public class PetController implements Serializable {
         Integer userId = (Integer) session.getAttribute("user_id");//do logado
         if (userId != null) {
             pets = petService.listarPetsPorUsuario(userId);
+            Integer idUser = userId;
+            String cpfUsuario = userService.getUserById(idUser).getCpfUsuario();
+            //audita
+            Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Carregou sua LISTA de pets");
+            if (auditoria != null && auditoria.getUserId() != null) {
+                auditoriaService.saveAuditoria(auditoria);
+            } else {
+                System.out.println("Erro: auditoria não foi criada ou usuário não encontrado.");
+            }
         } else {
             System.out.println("Usuário não está logado.");
         }

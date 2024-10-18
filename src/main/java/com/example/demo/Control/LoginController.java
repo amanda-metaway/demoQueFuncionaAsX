@@ -189,6 +189,12 @@ public class LoginController {
         }
     }
 
+    public String indexHome() {
+        HttpSession session3 = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        UserProfile perfil = (UserProfile) session3.getAttribute("perfil");
+        return redirecionarHome(perfil);
+    }
+
 
 
     public User getUser() {
