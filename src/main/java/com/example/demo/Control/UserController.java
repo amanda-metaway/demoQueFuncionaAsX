@@ -140,6 +140,20 @@ public class UserController {
         return users = userService.listarUsers();
     }
 
+    private boolean mostrarTabela = true;
+
+    public boolean isMostrarTabela() {
+        return mostrarTabela;
+    }
+
+    public void setMostrarTabela(boolean mostrarTabela) {
+        this.mostrarTabela = mostrarTabela;
+    }
+
+    public void fecharTabela() {
+        this.mostrarTabela = false;
+    }
+
     public User getBuscaUser() {
         return buscaUser;
     }

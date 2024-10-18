@@ -50,6 +50,7 @@
 
                         <h:commandButton value="Editar Usuário" action="#{userController.prepararEdicao}"
                                          style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"/>
+
                     </h:panelGrid>
                 </h:panelGroup>
 
@@ -78,7 +79,7 @@
                     </h:panelGrid>
                 </h:panelGroup>
 
-                <h:dataTable value="#{userController.users}" var="user" rendered="#{not empty userController.users}"
+                <h:dataTable value="#{userController.users}" var="user" rendered="#{not empty userController.users and userController.mostrarTabela}"
                              styleClass="rich-table" style="margin-top: 20px;">
                     <h:panelGroup rendered="#{empty userController.users}">
                         <h:outputText value="Nenhum usuário encontrado."/>
@@ -101,41 +102,12 @@
                         <h:outputText value="#{user.cpfUsuario}" converter="userCpfConverter"/>
                     </h:column>
 
-
-                    <h:column>
-                        <f:facet name="header">Ações</f:facet>
-                        <a4j:commandLink value="Selecionar" action="#{petController.selecionar(user.id)}"
-                                         reRender="detalhesModal"
-                                         oncomplete="Richfaces.showModalPanel('detalhesModal');"/>
-                    </h:column>
                 </h:dataTable>
+
+
             </h:form>
         </rich:panel>
 
-        <!-- modal do user -->
-        <rich:modalPanel id="detalhesModal" width="600" rendered="true">
-            <h:panelGrid columns="2" cellpadding="5">
-                <h:outputText value="Detalhes do Usuário" style="font-weight: bold; color: #333;"/>
-                <h:outputLabel value="Nome:"/>
-                <h:outputText value="#{petController.selectedUser.name}"/>
-                <h:outputLabel value="Perfil:"/>
-                <h:outputText value="#{petController.selectedUser.perfil.perfil}"/>
-                <h:outputLabel value="Contato:"/>
-                <h:outputText value="#{petController.selectedUser.contato}"/>
-                <h:outputLabel value="Pets:"/>
-                <h:dataTable value="#{petController.selectedUser.pets}" var="pet">
-                    <h:column>
-                        <f:facet name="header">Nome do Pet</f:facet>
-                        #{pet.nome}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Tipo/Raça</f:facet>
-                        #{pet.raca}
-                    </h:column>
-                </h:dataTable>
-            </h:panelGrid>
-            <h:commandButton value="Fechar" onclick="Richfaces.hideModalPanel('detalhesModal'); return false;"/>
-        </rich:modalPanel>
     </ui:define>
 </ui:composition>
 </html>
