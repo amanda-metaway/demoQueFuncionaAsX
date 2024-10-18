@@ -288,6 +288,37 @@ body {
 
 
 
+    .user-form-grid {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        background-color: #f9f9f9; /* Fundo claro */
+        border-radius: 8px; /* Bordas arredondadas */
+        padding: 20px; /* Espaçamento interno */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    }
+
+    .form-label {
+        font-weight: bold; /* Negrito */
+        color: #333; /* Cor do texto */
+    }
+
+    .form-input {
+        width: 100%; /* Largura total */
+        padding: 10px; /* Espaçamento interno */
+        border: 1px solid #ccc; /* Borda padrão */
+        border-radius: 4px; /* Bordas arredondadas */
+        transition: border-color 0.3s; /* Transição suave para foco */
+    }
+
+    .form-input:focus {
+        border-color: #007BFF; /* Cor ao focar */
+        outline: none; /* Remove contorno padrão */
+    }
+
+    .error-message {
+        color: red; /* Cor para mensagens de erro */
+        font-size: 0.9em; /* Tamanho da fonte menor */
+    }
 
 
 
