@@ -13,7 +13,9 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class PetController implements Serializable {
@@ -31,6 +33,9 @@ public class PetController implements Serializable {
     private String raca;
     private List<Pet> pets;
 
+    private User selectedUser;
+
+
 
     public PetController() {
         this.pet = new Pet();
@@ -47,6 +52,29 @@ public class PetController implements Serializable {
     public void editar(Integer id) {
         try {
             pet = petService.getPetById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    //nao func erro de jvSct no modal de tela
+    //seleciona e traz os pets vinculados
+    public void selecionar(Integer id) {
+        try {
+
+            User user = userService.getUserById(id);
+            List<Pet> pets = petService.listarPetsPorUsuario(id);
+
+            user.setPets(pets);
+
+            this.selectedUser = user;
+            this.pets = pets;
+            for (Pet pet : pets) {
+                System.out.println("Pet : " + pet.getNome());
+            }
+
+
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -97,9 +125,17 @@ public class PetController implements Serializable {
     }
 
     //seria para ver todos no caso para admin
-    public void carregarPets() {
-        pets = petService.listarPets();
+    public void carregarPets(User user) {
+        pets = petService.listarPets(user);
+
     }
+
+//    public void prepararPets(User user) {
+//        this.selectedUser = user;
+//        carregarPets(user);
+//    }
+
+
 
     //apenas o do user pessoal
     public void carregarPetsDoUsuario() {
@@ -129,6 +165,7 @@ public class PetController implements Serializable {
     }
 
 
+
     public void resetPet() {
         this.pet = new Pet(); // inicia um novo pet
     }
@@ -156,8 +193,9 @@ public class PetController implements Serializable {
     }
 
     public List<Pet> getPets() {
-        return pets;
+       return pets;
     }
+
 
     public void setPets(List<Pet> pets) {
         this.pets = pets;
@@ -165,5 +203,13 @@ public class PetController implements Serializable {
 
 
     public void setUserService(Object userService) {
+    }
+
+    public User getSelectedUser() {
+        return selectedUser;
+    }
+
+    public void setSelectedUser(User selectedUser) {
+        this.selectedUser = selectedUser;
     }
 }

@@ -24,6 +24,10 @@
             <property-name>userService</property-name>
             <value>#{userService}</value>
         </managed-property>
+        <managed-property>
+            <property-name>petService</property-name>
+            <value>#{petService}</value>
+        </managed-property>
     </managed-bean>
     
 

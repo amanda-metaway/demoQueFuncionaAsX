@@ -20,10 +20,10 @@
         </h:form>
 
         <div>
-            <h:form styleClass="rich-tableForm">
-                <h:commandButton value="Carregar seus Pets" action="#{petController.carregarPetsDoUsuario}" styleClass="action-buttonForm"/>
+            <h:form styleClass="rich-tableForm" >
+                <h:commandButton value="Carregar seus Pets" action="#{petController.carregarPetsDoUsuario}" styleClass="action-buttonForm" onkeypress="async" />
 
-                <h:dataTable value="#{petController.pets}" var="pet" rendered="#{not empty petController.pets}" styleClass="rich-table">
+                <h:dataTable value="#{petController.pets}" var="pet" rendered="#{not empty petController.pets}" styleClass="rich-table" >
                     <h:panelGroup rendered="#{empty petController.pets}">
                         <h:outputText value="Nenhum pet encontrado." />
                     </h:panelGroup>

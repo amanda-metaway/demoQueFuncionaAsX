@@ -4,20 +4,120 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:rich="http://richfaces.org/rich">
+      xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
 
 
 <ui:composition template="../assets/template.xhtml">
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
-
-    <ui:param name="title" value="Pagina Usuario Admin"/>
-
+    <ui:param name="title" value="Página Usuário Admin"/>
     <ui:define name="content">
-        <h:form>
-        <h3>dentro perfil admin</h3>
+        <h:form styleClass="rich-tableForm">
+            <h3>Sou perfil admin</h3>
+
+            <h:commandButton value="Carregar Usuários Cadastrados" action="#{userController.listarUsers}"
+                             styleClass="action-buttonForm"/>
+
+            <br>
+            </br>
+
+            <h:outputLabel for="cpfInput" value="CPF:"/>
+            <h:inputText id="cpfInput" value="#{userController.cpfUsuario}" required="true"/>
+            <h:message for="cpfInput" style="color:red"/>
+
+            <h:commandButton value="Buscar Usuário" action="#{userController.prepararBusca}"
+                             styleClass="action-buttonForm"/>
+
+
+            <h:panelGroup rendered="#{not empty userController.buscaUser}">
+                <h:outputText value="Nome: #{userController.buscaUser.name}"/>
+
+                <h:outputText value="Contato: #{userController.buscaUser.contato}"/>
+
+                <h:outputText value="Perfil: #{userController.buscaUser.perfil}"/>
+
+
+                <h:commandButton value="Editar Usuário"
+                                 action="#{userController.prepararEdicao}"
+                                 styleClass="action-buttonForm"/>
+            </h:panelGroup>
+
+
+
+            <h:panelGroup rendered="#{userController.isEditing()}">
+                <h:outputLabel for="nomeInput" value="Nome:"/>
+                <h:inputText id="nomeInput" value="#{userController.buscaUser.name}" required="true"/>
+                <h:message for="nomeInput" style="color:red"/>
+
+                <h:outputLabel for="contatoInput" value="Contato:"/>
+                <h:inputText id="contatoInput" value="#{userController.buscaUser.contato}" required="true"/>
+                <h:message for="contatoInput" style="color:red"/>
+
+                <h:outputLabel for="perfilInput" value="Perfil:"/>
+                <h:inputText id="perfilInput" value="#{userController.buscaUser.perfil}" required="true"/>
+                <h:message for="perfilInput" style="color:red"/>
+
+                <h:commandButton value="Salvar Alterações"
+                                 action="#{userController.updateUser(userController.buscaUser)}"
+                                 styleClass="action-buttonForm"/>
+                <h:commandButton value="Cancelar" action="#{userController.cancelarEdicao}"
+                                 styleClass="action-buttonForm"/>
+            </h:panelGroup>
+
+
+
+            <h:dataTable value="#{userController.users}" var="user" rendered="#{not empty userController.users}"
+                         styleClass="rich-table">
+                <h:panelGroup rendered="#{empty userController.users}">
+                    <h:outputText value="Nenhum usuário encontrado."/>
+                </h:panelGroup>
+
+                <h:column>
+                    <f:facet name="header">Nome</f:facet>
+                    #{user.name}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Perfil</f:facet>
+                    #{user.perfil.perfil}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Contato</f:facet>
+                    #{user.contato}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Ações</f:facet>
+                    <a4j:commandLink value="Selecionar"
+                                     action="#{petController.selecionar(user.id)}"
+                                     reRender="detalhesModal"
+                                     oncomplete="Richfaces.showModalPanel('detalhesModal');"/>
+                </h:column>
+            </h:dataTable>
         </h:form>
+
+        <!-- modal do user -->
+        <rich:modalPanel id="detalhesModal" width="600" rendered="true">
+            <h:panelGrid columns="2">
+                <h:outputText value="Detalhes do Usuário" styleClass="modal-title"/>
+                <h:outputLabel value="Nome:"/>
+                <h:outputText value="#{petController.selectedUser.name}"/>
+                <h:outputLabel value="Perfil:"/>
+                <h:outputText value="#{petController.selectedUser.perfil.perfil}"/>
+                <h:outputLabel value="Contato:"/>
+                <h:outputText value="#{petController.selectedUser.contato}"/>
+                <h:outputLabel value="Pets:"/>
+                <h:dataTable value="#{petController.selectedUser.pets}" var="pet">
+                    <h:column>
+                        <f:facet name="header">Nome do Pet</f:facet>
+                        #{pet.nome}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Tipo/Raça</f:facet>
+                        #{pet.raca}
+                    </h:column>
+                </h:dataTable>
+            </h:panelGrid>
+            <h:commandButton value="Fechar" onclick="Richfaces.hideModalPanel('detalhesModal'); return false;"/>
+        </rich:modalPanel>
     </ui:define>
 </ui:composition>
+
+
 </html>

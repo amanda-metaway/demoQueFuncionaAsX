@@ -64,7 +64,7 @@ body {
 
 /* Estilo geral da tabela */
 .rich-table {
-    width: 100%;
+    width: 800px;
     border-collapse: collapse;
     border: 2px solid darkgray;
     overflow-x: auto;
@@ -73,6 +73,7 @@ body {
 
 .rich-tableForm {
     overflow-x: auto;
+    padding-left: 80px;
 }
 
 .rich-tableForm .action-buttonForm {
