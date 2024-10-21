@@ -13,9 +13,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 
 public class PetController implements Serializable {
@@ -32,8 +31,11 @@ public class PetController implements Serializable {
     private String nome;
     private String raca;
     private List<Pet> pets;
+    private User buscaUser;
+    private Pet buscaPet;
+    private boolean editing;
+    private Pet selectedPet;
 
-    private User selectedUser;
 
 
 
@@ -48,38 +50,6 @@ public class PetController implements Serializable {
     }
 
 
-    //nao func erro de jvSct no modal de tela
-    public void editar(Integer id) {
-        try {
-            pet = petService.getPetById(id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-    }
-
-    //nao func erro de jvSct no modal de tela
-    //seleciona e traz os pets vinculados
-    public void selecionar(Integer id) {
-        try {
-
-            User user = userService.getUserById(id);
-            List<Pet> pets = petService.listarPetsPorUsuario(id);
-
-            user.setPets(pets);
-
-            this.selectedUser = user;
-            this.pets = pets;
-            for (Pet pet : pets) {
-                System.out.println("Pet : " + pet.getNome());
-            }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-    }
 
     //criando dentro do usuario ja existe!
     //dois pq nao tem modal para o cadastrinho
@@ -119,23 +89,11 @@ public class PetController implements Serializable {
         return "index.xhtml";
     }
 
-
-    public void updatePet(Pet pet) {
-        petService.updatePet(pet);
-    }
-
     //seria para ver todos no caso para admin
     public void carregarPets(User user) {
         pets = petService.listarPets(user);
 
     }
-
-//    public void prepararPets(User user) {
-//        this.selectedUser = user;
-//        carregarPets(user);
-//    }
-
-
 
     //apenas o do user pessoal
     public void carregarPetsDoUsuario() {
@@ -158,17 +116,47 @@ public class PetController implements Serializable {
     }
 
 
-    public void deletePet(int id) {
-        pets.removeIf(pet -> pet.getId() == id);
-        petService.deletePet(id);
 
+
+
+
+    public void editarPet(Pet pet) {
+        this.buscaPet = pet;
+        this.selectedPet = pet;
     }
 
+    public String updatePet(Pet pet) {
+        petService.updatePet(pet);
+        cancelarEdicao();
+        return null;
+    }
+
+    public void cancelarEdicao() {
+        buscaPet = new Pet();
+        selectedPet = null;
+    }
+
+    public void excluirPet(Pet pet) {
+        petService.deletePet(pet.getId());
+        pets.remove(pet);
+        cancelarEdicao();
+    }
 
 
     public void resetPet() {
         this.pet = new Pet(); // inicia um novo pet
     }
+
+
+
+
+
+
+
+
+
+
+
 
 
     public String getNome() {
@@ -193,7 +181,7 @@ public class PetController implements Serializable {
     }
 
     public List<Pet> getPets() {
-       return pets;
+        return pets;
     }
 
 
@@ -205,11 +193,38 @@ public class PetController implements Serializable {
     public void setUserService(Object userService) {
     }
 
-    public User getSelectedUser() {
-        return selectedUser;
+
+    public User getBuscaUser() {
+        return buscaUser;
     }
 
-    public void setSelectedUser(User selectedUser) {
-        this.selectedUser = selectedUser;
+    public void setBuscaUser(User buscaUser) {
+        this.buscaUser = buscaUser;
     }
+
+    public boolean isEditing() {
+        return editing;
+    }
+
+    public void setEditing(boolean editing) {
+        this.editing = editing;
+    }
+
+    public Pet getBuscaPet() {
+        return buscaPet;
+    }
+
+    public void setBuscaPet(Pet buscaPet) {
+        this.buscaPet = buscaPet;
+    }
+
+    public String getRaca() {
+        return raca;
+    }
+
+    public void setRaca(String raca) {
+        this.raca = raca;
+    }
+
+
 }

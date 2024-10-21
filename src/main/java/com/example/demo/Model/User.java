@@ -72,4 +72,6 @@ public class User {
     public void setPerfil(UserProfile perfil) {
         this.perfil = perfil;
     }
+
+
 }

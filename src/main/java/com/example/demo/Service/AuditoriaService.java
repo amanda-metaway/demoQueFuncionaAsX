@@ -26,7 +26,6 @@ public class AuditoriaService {
 
     public void saveAuditoria(Auditoria auditoria) {
         System.out.println("Auditoria: " + auditoria);
-        System.out.println("User ID: " + (auditoria.getUserId() != null ? auditoria.getUserId().getId() : "null"));
         auditoriaDao.inserirAuditoria(auditoria);
     }
 
@@ -45,6 +44,7 @@ public class AuditoriaService {
 
         return auditoria;
     }
+
 
 
     public void setAuditoriaDao(IBatisAuditoriaDao auditoriaDao) {

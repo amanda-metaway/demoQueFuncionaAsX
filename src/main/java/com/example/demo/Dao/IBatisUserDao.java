@@ -24,7 +24,7 @@ public class IBatisUserDao extends SqlMapClientDaoSupport implements UserDao {
     public void updateUser(User user) {
         getSqlMapClientTemplate().update("updateUser", user);
     }
-
+//ps quetsao da delecao da auditoria junto
     @Override
     public void deleteUser(int id) {
         getSqlMapClientTemplate().delete("deleteUser", id);
@@ -45,5 +45,7 @@ public class IBatisUserDao extends SqlMapClientDaoSupport implements UserDao {
         return user;
 
     }
+
+
 
 }

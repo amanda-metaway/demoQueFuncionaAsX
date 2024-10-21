@@ -6,17 +6,21 @@
     <typeAlias alias="user" type="com.example.demo.Model.User"/>
 
     <resultMap id="auditoriaResultMap" class="com.example.demo.Model.Auditoria">
-        <result property="userId.id" column="user_id"  />
+        <result property="id" column="id"/>
         <result property="acao" column="acao"/>
         <result property="dataHora" column="data_hora"/>
+        <result property="userId.id" column="user_id"  />
     </resultMap>
 
 
 
 
     <insert id="inserirAuditoria" parameterClass="com.example.demo.Model.Auditoria">
-        INSERT INTO auditoria (user_id, acao, data_hora)
-        VALUES (#userId.id#, #acao#, #dataHora#)
+        <selectKey keyProperty="id">
+            SELECT nextval('auditoria_id_seq')
+        </selectKey>
+        INSERT INTO auditoria (id, acao, data_hora,user_id)
+        VALUES (#id#, #acao#, #dataHora#,#userId.id#)
     </insert>
 
 

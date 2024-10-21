@@ -2,6 +2,7 @@ package com.example.demo.Service;
 
 
 import com.example.demo.Dao.IBatisPetDao;
+import com.example.demo.Model.Auditoria;
 import com.example.demo.Model.Pet;
 import com.example.demo.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 
 
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -24,6 +27,9 @@ public class PetService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AuditoriaService auditoriaService;
+
 
     public Pet getPetById(int id) {
         return batisPetDao.getPetById(id);
@@ -36,8 +42,23 @@ public class PetService {
 
 
     public void updatePet(Pet pet) {
-        batisPetDao.updatePet(pet);
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        Integer userId = (Integer) session.getAttribute("user_id");
+
+        if (userId != null) {
+            User user = userService.getUserById(userId);
+            if (user != null) {
+                System.out.println("Atualizando pet: " + pet);
+                batisPetDao.updatePet(pet);
+            } else {
+                System.out.println("Erro: Usuário não encontrado.");
+            }
+        } else {
+            System.out.println("Erro: Usuário não está logado.");
+        }
     }
+
+
 
     public void deletePet(int id) {
         batisPetDao.deletePet(id);

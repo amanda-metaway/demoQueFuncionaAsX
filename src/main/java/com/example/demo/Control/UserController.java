@@ -1,6 +1,7 @@
 package com.example.demo.Control;
 
 
+import com.example.demo.Model.Auditoria;
 import com.example.demo.Model.Pet;
 import com.example.demo.Model.User;
 import com.example.demo.Service.AuditoriaService;
@@ -127,32 +128,42 @@ public class UserController {
 
     public void updateUser(User user) {
         userService.updateUser(user);
-        System.out.println("ATUALIZADO: " + user.getName() + user.getContato());
         editing = false;//desativa a edit
     }
 
 
-    public void deleteUser(int id) {
-        userService.deleteUser(id);
-    }
+//    public void deleteUser(int id) {
+//        userService.deleteUser(id);
+//    }
+
 
     public List<User> listarUsers() {
         return users = userService.listarUsers();
     }
 
-    private boolean mostrarTabela = true;
 
-    public boolean isMostrarTabela() {
-        return mostrarTabela;
+
+    public void editar(Integer id) {
+        try {
+            buscaUser = userService.getUserById(id);
+            editing = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
-    public void setMostrarTabela(boolean mostrarTabela) {
-        this.mostrarTabela = mostrarTabela;
+    public void excluir(Integer id) {
+        try {
+            buscaUser = userService.getUserById(id);
+            userService.deleteUser(id);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
-    public void fecharTabela() {
-        this.mostrarTabela = false;
-    }
 
     public User getBuscaUser() {
         return buscaUser;

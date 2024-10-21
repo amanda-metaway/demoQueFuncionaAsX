@@ -78,12 +78,9 @@ public class UserService {
 
             //audita
             Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Usuario Cadastrado");
-            if (auditoria != null && auditoria.getUserId() != null) {
+
                 auditoriaService.saveAuditoria(auditoria);
-                System.out.println("Auditado: " + auditoria.getUserId().getCpfUsuario() + " " + auditoria.getAcao() + " " + auditoria.getDataHora());
-            } else {
-                System.out.println("Erro: auditoria não foi criada ou usuário não encontrado.");
-            }
+
 
             return id;
         });
@@ -118,11 +115,10 @@ public class UserService {
                 String cpfUsuario = user.getCpfUsuario();
                 //audita
                 Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Cadastrou Pet");
-                if (auditoria != null && auditoria.getUserId() != null) {
+
                     auditoriaService.saveAuditoria(auditoria);
-                } else {
-                    System.out.println("Erro: auditoria não foi criada ou usuário não encontrado.");
-                }
+
+
 
 
             } catch (Exception e) {
@@ -161,10 +157,36 @@ public class UserService {
 
     public void updateUser(User user) {
         userIbatisUserDao.updateUser(user);
+        String cpfUsuario = user.getCpfUsuario();
+
+        //audita
+        Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "ATUALIZOU USUARIO");
+            auditoriaService.saveAuditoria(auditoria);
+
     }
 
     public void deleteUser(int id) {
-        userIbatisUserDao.deleteUser(id);
+        User userToDelete = userIbatisUserDao.getUserById(id);
+
+        if (userToDelete == null) {
+            throw new PetShopException("Usuário não encontrado para exclusão.");
+        }
+
+        String cpfUsuario = userToDelete.getCpfUsuario();
+        Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Usuário Deletado");
+
+        try {
+
+            if (auditoria != null) {
+                auditoriaService.saveAuditoria(auditoria);
+            }
+
+
+            userIbatisUserDao.deleteUser(id);
+
+        } catch (Exception e) {
+            throw new PetShopException("Erro ao excluir usuário: " + e.getMessage());
+        }
     }
 
 

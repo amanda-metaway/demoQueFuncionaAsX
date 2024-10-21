@@ -17,8 +17,10 @@
 
 
             <h:form styleClass="form-input">
-                <h:commandButton value="Carregar Usuários Cadastrados" action="#{userController.listarUsers}"
+                <h:commandButton value="Carregar Todos os Usuários" action="#{userController.listarUsers}"
                                  style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"/>
+
+
                 <br>
 
                 </br>
@@ -79,7 +81,7 @@
                     </h:panelGrid>
                 </h:panelGroup>
 
-                <h:dataTable value="#{userController.users}" var="user" rendered="#{not empty userController.users and userController.mostrarTabela}"
+                <h:dataTable value="#{userController.users}" var="user" rendered="#{not empty userController.users}"
                              styleClass="rich-table" style="margin-top: 20px;">
                     <h:panelGroup rendered="#{empty userController.users}">
                         <h:outputText value="Nenhum usuário encontrado."/>
@@ -100,6 +102,13 @@
                     <h:column>
                         <f:facet name="header">CPF</f:facet>
                         <h:outputText value="#{user.cpfUsuario}" converter="userCpfConverter"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Ações</f:facet>
+                        <h:commandButton value="Editar" action="#{userController.editar(user.id)}"
+                                         style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 5px; cursor: pointer;"/>
+                        <h:commandButton value="Excluir" action="#{userController.excluir(user.id)}"
+                                         style="background-color: #76baa5; color: red; border: none; border-radius: 5px; padding: 5px;margin-left: 10px; cursor: pointer;"/>
                     </h:column>
 
                 </h:dataTable>

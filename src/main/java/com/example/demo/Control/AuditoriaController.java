@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDateTime;
 
 public class AuditoriaController {
+    private int id;
     private User userId;
     private String acao;
     private LocalDateTime dataHora;
@@ -27,6 +28,14 @@ public class AuditoriaController {
     public AuditoriaController() {
     }
 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public UserService getUserService() {
         return userService;

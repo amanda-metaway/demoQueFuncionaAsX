@@ -4,17 +4,19 @@ package com.example.demo.Model;
 import java.time.LocalDateTime;
 
 public class Auditoria {
-
+    private int id;
     private User userId;
     private String acao;
     private LocalDateTime dataHora;
 
 
+    public int getId() {
+        return id;
+    }
 
-
-
-
-
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public User getUserId() {
         return userId;

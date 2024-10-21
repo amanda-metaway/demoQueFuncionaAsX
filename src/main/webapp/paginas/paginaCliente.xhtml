@@ -3,29 +3,46 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:rich="http://richfaces.org/rich"
-      xmlns:a4j="http://richfaces.org/a4j">
-
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
 
 <ui:composition template="../assets/template.xhtml">
-
-    <ui:param name="title" value="Pagina Usuario cliente"/>
+    <ui:param name="title" value="Página Usuário Cliente"/>
 
     <ui:define name="content">
-        <h:form>
-            <h:form>
-                <h3>Cliente Perfil</h3>
-            </h:form>
-        </h:form>
+        <h3 style="text-align: center; color: #333;">Gerenciamento de Pets</h3>
 
-        <div>
-            <h:form styleClass="rich-tableForm" >
-                <h:commandButton value="Carregar seus Pets" action="#{petController.carregarPetsDoUsuario}" styleClass="action-buttonForm" onkeypress="async" />
+        <rich:panel style="width: 800px; margin: 20px auto; padding: 30px; border-radius: 10px; background-color: #ffffff; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+            <h:form styleClass="rich-tableForm">
+                <h:commandButton value="Carregar seus Pets" action="#{petController.carregarPetsDoUsuario}"
+                                 style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"/>
 
-                <h:dataTable value="#{petController.pets}" var="pet" rendered="#{not empty petController.pets}" styleClass="rich-table" >
+                <h:panelGroup rendered="#{not empty petController.buscaPet}" style="margin-top: 20px;">
+                    <h:panelGrid columns="1" cellpadding="10" style="width: 100%;">
+                        <h:outputLabel for="nomeInput" value="Nome:" style="color: #555;"/>
+                        <h:inputText id="nomeInput" value="#{petController.buscaPet.nome}"
+                                     style="border: 1px solid #76baa5; border-radius: 5px; padding: 10px; background-color: #f9f9f9;"/>
+                        <h:message for="nomeInput" style="color:red"/>
+
+                        <h:outputLabel for="racaInput" value="Raça:" style="color: #555;"/>
+                        <h:inputText id="racaInput" value="#{petController.buscaPet.raca}"
+                                     style="border: 1px solid #76baa5; border-radius: 5px; padding: 10px; background-color: #f9f9f9;"/>
+                        <h:message for="racaInput" style="color:red"/>
+
+                        <h:commandButton value="Salvar Alterações"
+                                         action="#{petController.updatePet(petController.buscaPet)}"
+                                         style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"/>
+                        <h:commandButton value="Cancelar" action="#{petController.cancelarEdicao}"
+                                         style="background-color: #ccc; color: black; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"/>
+                    </h:panelGrid>
+                </h:panelGroup>
+
+                <h:dataTable value="#{petController.pets}" var="pet" rendered="#{not empty petController.pets}"
+                             styleClass="rich-table" style="margin-top: 20px;">
                     <h:panelGroup rendered="#{empty petController.pets}">
-                        <h:outputText value="Nenhum pet encontrado." />
+                        <h:outputText value="Nenhum pet encontrado."/>
                     </h:panelGroup>
 
                     <h:column>
@@ -38,39 +55,14 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">Ações</f:facet>
-                        <a4j:commandLink value="editar" action="#{petController.editar(pet.id)}" oncomplete="Richfaces.showModalPanel('petModal');" reRender="petForm"/>
+                        <h:commandButton value="Editar" action="#{petController.editarPet(pet)}"
+                                         style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 5px; cursor: pointer;"/>
+                        <h:commandButton value="Excluir" action="#{petController.excluirPet(pet)}"
+                                         style="background-color: #d9534f; color: white; border: none; border-radius: 5px; padding: 5px; cursor: pointer;"/>
                     </h:column>
-
                 </h:dataTable>
             </h:form>
-        </div>
-
-        <rich:modalPanel id="petModal" width="400" resizeable="true">
-
-
-
-            <h:form id="petForm">
-                <h:panelGrid columns="1" styleClass="rich-tableForm">
-                    <h:outputLabel for="nome" value="Nome do Pet:"/>
-                    <h:inputText id="nome" value="#{petController.pet.nome}"/>
-
-                    <h:outputLabel for="raca" value="Raça:"/>
-                    <h:inputText id="raca" value="#{petController.pet.raca}"/>
-
-
-                    <h:panelGrid columns="2">
-                        <h:commandButton value="Cadastrar" action="#{petController.createPet()}"/>
-                        <h:commandButton value="Cancelar" action="index.xhtml"/>
-                    </h:panelGrid>
-                </h:panelGrid>
-                <a4j:commandLink value="voltar" ajaxSingle="true" onclick="Richfaces.hideModalPanel('petModal')"/>
-            </h:form>
-
-
-
-        </rich:modalPanel>
+        </rich:panel>
     </ui:define>
 </ui:composition>
-
-
 </html>
