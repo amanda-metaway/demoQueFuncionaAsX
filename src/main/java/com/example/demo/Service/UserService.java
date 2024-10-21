@@ -36,12 +36,25 @@ public class UserService {
 
 
     public User getUserById(int id) {
-
-        return userIbatisUserDao.getUserById(id);
+        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+        return transactionTemplate.execute(status -> {
+            User user = userIbatisUserDao.getUserById(id);
+            if (user == null) {
+                throw new PetShopException("Usuário não encontrado.");
+            }
+            return user;
+        });
     }
 
     public User getUserByCPF(String cpfUsuario) {
-        return userIbatisUserDao.getUserByCPF(cpfUsuario);
+        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+        return transactionTemplate.execute(status -> {
+            User user = userIbatisUserDao.getUserByCPF(cpfUsuario);
+            if (user == null) {
+                throw new PetShopException("Usuário com CPF " + cpfUsuario + " não encontrado.");
+            }
+            return user;
+        });
     }
 
 
@@ -79,7 +92,7 @@ public class UserService {
             //audita
             Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Usuario Cadastrado");
 
-                auditoriaService.saveAuditoria(auditoria);
+            auditoriaService.saveAuditoria(auditoria);
 
 
             return id;
@@ -115,11 +128,7 @@ public class UserService {
                 String cpfUsuario = user.getCpfUsuario();
                 //audita
                 Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Cadastrou Pet");
-
-                    auditoriaService.saveAuditoria(auditoria);
-
-
-
+                auditoriaService.saveAuditoria(auditoria);
 
             } catch (Exception e) {
                 status.setRollbackOnly();
@@ -134,16 +143,12 @@ public class UserService {
         TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
         return transactionTemplate.execute((TransactionCallback<Integer>) status -> {
             Integer id = null;
-
             batisPetDao.savePet(pet);//salvamento la na outra camada
-
             if (pet.getId() <= 0) {
                 status.setRollbackOnly();
                 throw new PetShopException("Pet nao cadastrado");
             }
-
             id = pet.getId();
-
             return id;
         });
 
@@ -151,42 +156,63 @@ public class UserService {
 
 
     public List<User> listarUsers() {
-        return userIbatisUserDao.getListarUser();
+        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+        return transactionTemplate.execute(status -> {
+            try {
+                List<User> users = userIbatisUserDao.getListarUser();
+                if (users == null || users.isEmpty()) {
+                    throw new PetShopException("Nenhum usuário encontrado.");
+                }
+                return users;
+            } catch (Exception e) {
+                status.setRollbackOnly();  // mesmo em leitura?
+                throw new PetShopException("Erro ao listar usuários: " + e.getMessage());
+            }
+        });
     }
 
 
     public void updateUser(User user) {
-        userIbatisUserDao.updateUser(user);
-        String cpfUsuario = user.getCpfUsuario();
+        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+        transactionTemplate.execute((TransactionCallback<Void>) status -> {
+            try {
+                userIbatisUserDao.updateUser(user);
+                String cpfUsuario = user.getCpfUsuario();
 
-        //audita
-        Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "ATUALIZOU USUARIO");
-            auditoriaService.saveAuditoria(auditoria);
-
+                // Auditoria
+                Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "ATUALIZOU USUARIO");
+                auditoriaService.saveAuditoria(auditoria);
+            } catch (Exception e) {
+                status.setRollbackOnly();
+                throw new PetShopException("Erro ao atualizar usuário: " + e.getMessage());
+            }
+            return null;
+        });
     }
 
     public void deleteUser(int id) {
-        User userToDelete = userIbatisUserDao.getUserById(id);
+        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+        transactionTemplate.execute((TransactionCallback<Void>) status -> {
+            try {
+                User userToDelete = userIbatisUserDao.getUserById(id);
+                if (userToDelete == null) {
+                    throw new PetShopException("Usuário não encontrado para exclusão.");
+                }
 
-        if (userToDelete == null) {
-            throw new PetShopException("Usuário não encontrado para exclusão.");
-        }
+                String cpfUsuario = userToDelete.getCpfUsuario();
+                Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Usuário Deletado");
 
-        String cpfUsuario = userToDelete.getCpfUsuario();
-        Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Usuário Deletado");
+                if (auditoria != null) {
+                    auditoriaService.saveAuditoria(auditoria);
+                }
 
-        try {
-
-            if (auditoria != null) {
-                auditoriaService.saveAuditoria(auditoria);
+                userIbatisUserDao.deleteUser(id);
+            } catch (Exception e) {
+                status.setRollbackOnly();
+                throw new PetShopException("Erro ao excluir usuário: " + e.getMessage());
             }
-
-
-            userIbatisUserDao.deleteUser(id);
-
-        } catch (Exception e) {
-            throw new PetShopException("Erro ao excluir usuário: " + e.getMessage());
-        }
+            return null;
+        });
     }
 
 

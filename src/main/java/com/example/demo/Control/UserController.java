@@ -132,9 +132,6 @@ public class UserController {
     }
 
 
-//    public void deleteUser(int id) {
-//        userService.deleteUser(id);
-//    }
 
 
     public List<User> listarUsers() {
