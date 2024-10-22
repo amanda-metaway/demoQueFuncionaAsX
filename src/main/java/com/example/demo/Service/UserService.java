@@ -40,7 +40,7 @@ public class UserService {
     @Autowired
     private PetService petService;
 
-
+//aqui
     public User getUserById(int id) {
         logger.info("Buscando usuario com ID: " + id);
         TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
@@ -56,15 +56,7 @@ public class UserService {
 
     public User getUserByCPF(String cpfUsuario) {
         logger.info("Buscando usuario com cpf: " + cpfUsuario);
-        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
-        return transactionTemplate.execute(status -> {
-            User user = userIbatisUserDao.getUserByCPF(cpfUsuario);
-            if (user == null) {
-                logger.warn("Usuario nao encontrado");
-                throw new PetShopException("Usuário com CPF " + cpfUsuario + " não encontrado.");
-            }
-            return user;
-        });
+        return userIbatisUserDao.getUserByCPF(cpfUsuario);
     }
 
 

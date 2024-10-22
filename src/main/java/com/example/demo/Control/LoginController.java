@@ -16,11 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+
 import org.apache.log4j.Logger;
 
 public class LoginController {
 
-    private static Logger logger = Logger.getLogger(LoginController.class);
+    private static final Logger logger = Logger.getLogger(LoginController.class);
     private UserProfile perfil;
     private UserProfile perfilSelecionado;
     private String cpfUsuario;
@@ -34,6 +35,7 @@ public class LoginController {
     private User user;
     @Autowired
     private AuditoriaService auditoriaService;
+
     @PostConstruct
     public void init() {
         checkManterConectado();
@@ -71,7 +73,6 @@ public class LoginController {
         }
 
 
-
         manterConectado = isManterConectado();
         logger.info("Manter conectado" + manterConectado);
         //login sessao
@@ -83,8 +84,6 @@ public class LoginController {
         //manter o user_id para o pet depois
         HttpSession session2 = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         session.setAttribute("user_id", user.getId());  // Aqui mqantem o usr
-
-
 
 
         // audita
@@ -127,16 +126,24 @@ public class LoginController {
     }
 
     public String logout() {
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        if (session != null) {
-            session.invalidate();
+
+        try {
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+            Integer userId = (Integer) session.getAttribute("user_id");
+
+            if (userId != null) {
+                User user = userService.getUserById(userId);
+                String cpfUsuario = user != null ? user.getCpfUsuario() : null; // logado
+                session.invalidate();
+
             //audita
             Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Usuario DESconectou do sistema");
             if (auditoria != null && auditoria.getUserId() != null) {
                 auditoriaService.saveAuditoria(auditoria);
-                System.out.println("Auditado: " + auditoria.getUserId().getCpfUsuario() + " " + auditoria.getAcao() + " " + auditoria.getDataHora());
+                logger.info("Auditado usuario desconectou do sistema: " + auditoria.getDataHora());
+            }
             } else {
-                System.out.println("Erro: auditoria não foi criada ou usuário não encontrado.");
+                logger.error("Erro: auditoria não foi criada ou usuário não encontrado.");
             }
             // rem cookies
             Cookie cookieUsuario = new Cookie("usuario", null);
@@ -155,12 +162,15 @@ public class LoginController {
             response.addCookie(cookieUsuario);
             response.addCookie(cookieSenha);
             response.addCookie(cookiePerfil);
-
-
             limparCampos();
+
+        } catch (Exception e) {
+            logger.info("Logout realizado. Redirecionando para a página inicial.");
+
         }
         return "logout";
     }
+
 
     private User limparCampos() {
         manterConectado = false;
@@ -184,13 +194,12 @@ public class LoginController {
             return "logout";
         }
     }
-
+//vai
     public String indexHome() {
         HttpSession session3 = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         UserProfile perfil = (UserProfile) session3.getAttribute("perfil");
         return redirecionarHome(perfil);
     }
-
 
 
     public User getUser() {
