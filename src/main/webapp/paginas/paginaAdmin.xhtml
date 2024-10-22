@@ -28,7 +28,7 @@
 
                 </br>
 
-                <h:panelGrid columns="3" cellpadding="10" style="margin-top: 20px;padding: 4px" >
+                <h:panelGrid columns="3" cellpadding="10" style="margin-top: 20px;padding: 4px">
                     <h:outputLabel for="cpfInput" value="CPF:" style="color: #555;font-size: medium"/>
                     <h:inputText id="cpfInput" value="#{userController.cpfUsuario}"
                                  style="border: 1px solid #76baa5; border-radius: 5px; padding: 10px; background-color: #f9f9f9;"
@@ -38,7 +38,7 @@
                     <h:commandButton value="Buscar Usuário" action="#{userController.prepararBusca}"
                                      style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"/>
                 </h:panelGrid>
-
+                <!--mostra usuario-->
                 <h:panelGroup rendered="#{not empty userController.buscaUser}" style="margin-top: 20px;">
                     <h:panelGrid columns="1" cellpadding="5" style="width: 100%;">
                         <h:outputLabel value="Nome:" style="font-weight: bold;"/>
@@ -52,10 +52,14 @@
 
                         <h:commandButton value="Editar Usuário" action="#{userController.prepararEdicao}"
                                          style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"/>
+                        <h:commandButton value="Ver Pets Vinculados"
+                                         action="#{petController.verPetsVinculados(userController.buscaUser.id)}"
+                                         style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"/>
+
 
                     </h:panelGrid>
                 </h:panelGroup>
-
+                <!--edita usuario-->
                 <h:panelGroup rendered="#{userController.isEditing()}" style="margin-top: 20px;">
                     <h:panelGrid columns="1" cellpadding="10" style="width: 100%;">
                         <h:outputLabel for="nomeInput" value="Nome:" style="color: #555;"/>
@@ -80,7 +84,51 @@
                                          style="background-color: #ccc; color: black; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"/>
                     </h:panelGrid>
                 </h:panelGroup>
+                <br>
 
+                </br>
+                <br>
+
+                </br>
+                <br>
+
+                </br>
+
+
+                <!--mostrando os pets dele-->
+
+                <h:panelGroup rendered="#{petController.exibirPets}" style="margin-top: 20px;">
+                    <h3 style="text-align: center; color: #333;">Pets do usuario</h3>
+                    <h:dataTable value="#{petController.petsVinculados}" var="pet"
+                                 styleClass="rich-table" style="margin-top: 20px;">
+                        <h:column>
+                            <f:facet name="header">Nome do Pet</f:facet>
+                            #{pet.nome}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Raça</f:facet>
+                            #{pet.raca}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Ações</f:facet>
+                            <h:commandButton value="Editar" action="#{petController.editarPet(pet.id)}"
+                                             style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 5px; cursor: pointer;"/>
+                            <h:commandButton value="Excluir" action="#{petController.excluirPet(pet.id)}"
+                                             style="background-color: #76baa5; color: red; border: none; border-radius: 5px; padding: 5px;margin-left: 10px; cursor: pointer;"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+
+                <br>
+
+                </br>
+                <br>
+
+                </br>
+                <br>
+
+                </br>
+                <h3 style="text-align: center; color: #333;">Lista de usuarios cadastrados</h3>
                 <h:dataTable value="#{userController.users}" var="user" rendered="#{not empty userController.users}"
                              styleClass="rich-table" style="margin-top: 20px;">
                     <h:panelGroup rendered="#{empty userController.users}">

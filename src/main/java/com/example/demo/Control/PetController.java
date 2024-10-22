@@ -35,8 +35,8 @@ public class PetController implements Serializable {
     private Pet buscaPet;
     private boolean editing;
     private Pet selectedPet;
-
-
+    private List<Pet> petsVinculados;
+    private boolean exibirPets;
 
 
     public PetController() {
@@ -117,10 +117,6 @@ public class PetController implements Serializable {
     }
 
 
-
-
-
-
     public void editarPet(Pet pet) {
         this.buscaPet = pet;
         this.selectedPet = pet;
@@ -150,6 +146,10 @@ public class PetController implements Serializable {
 
 
 
+    public void verPetsVinculados(Integer userId) {
+        this.petsVinculados = petService.listarPetsPorUsuario(userId);
+        this.exibirPets = true;
+    }
 
 
 
@@ -227,5 +227,19 @@ public class PetController implements Serializable {
         this.raca = raca;
     }
 
+    public List<Pet> getPetsVinculados() {
+        return petsVinculados;
+    }
 
+    public void setPetsVinculados(List<Pet> petsVinculados) {
+        this.petsVinculados = petsVinculados;
+    }
+
+    public boolean isExibirPets() {
+        return exibirPets;
+    }
+
+    public void setExibirPets(boolean exibirPets) {
+        this.exibirPets = exibirPets;
+    }
 }
