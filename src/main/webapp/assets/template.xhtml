@@ -27,6 +27,8 @@
 
             <h:commandLink value="Cadastrar Pets" action="cadastrar_pet" styleClass="nav-link pet-link custom-link" rendered="#{session.getAttribute('perfil') == 'CLIENTE'}"/>
 
+            <h:commandLink value="Auditoria" action="auditoria" styleClass="nav-link audit-link custom-link" rendered="#{session.getAttribute('perfil') == 'ADMIN'}"/>
+
             <h:commandLink value="Cadastrar Usuário" action="cadastrar_usuario" styleClass="nav-link user-link custom-link" rendered="#{session.getAttribute('perfil') == 'ADMIN'}"/>
 
             <h:commandLink value="Serviços" action="servicos" styleClass="nav-link service-link"/>

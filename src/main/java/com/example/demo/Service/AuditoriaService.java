@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -26,7 +27,9 @@ public class AuditoriaService {
     public AuditoriaService(IBatisAuditoriaDao auditoriaDao) {
         this.auditoriaDao = auditoriaDao;
     }
-
+    public List<Auditoria> buscarTodas() {
+        return auditoriaDao.buscarTodas();
+    }
 
     public void saveAuditoria(Auditoria auditoria) {
        logger.info("tentando salvar auditoria :" + auditoria);

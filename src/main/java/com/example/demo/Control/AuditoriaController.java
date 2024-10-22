@@ -6,13 +6,17 @@ import com.example.demo.Service.AuditoriaService;
 import com.example.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class AuditoriaController {
     private int id;
     private User userId;
     private String acao;
     private LocalDateTime dataHora;
+    private List<Auditoria> auditorias;
+
 
     @Autowired
     private UserService userService;
@@ -27,7 +31,18 @@ public class AuditoriaController {
 
     public AuditoriaController() {
     }
+    @PostConstruct
+    public void init() {
+        listarAuditorias();
+    }
 
+    public void listarAuditorias() {
+        this.auditorias = auditoriaService.buscarTodas();
+    }
+
+    public List<Auditoria> getAuditorias() {
+        return auditorias;
+    }
 
     public int getId() {
         return id;

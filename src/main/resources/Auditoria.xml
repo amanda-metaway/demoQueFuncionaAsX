@@ -23,7 +23,10 @@
         VALUES (#id#, #acao#, #dataHora#,#userId.id#)
     </insert>
 
-
+<select id="buscarTodas" resultMap="auditoriaResultMap">
+    SELECT id,acao,data_hora,user_id
+    FROM auditoria ORDER BY id DESC;
+</select>
 
 
 </sqlMap>
