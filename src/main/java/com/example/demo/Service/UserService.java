@@ -230,10 +230,11 @@ public class UserService {
 
                 if (auditoria != null) {
                     auditoriaService.saveAuditoria(auditoria);
-                    logger.info("Usuario deletado com sucesso");
+
                 }
 
                 userIbatisUserDao.deleteUser(id);
+                logger.info("Usuario deletado com sucesso");
             } catch (Exception e) {
                 status.setRollbackOnly();
                 logger.error("Erro ao deletar usuario: " + e.getMessage());

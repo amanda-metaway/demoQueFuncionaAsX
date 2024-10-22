@@ -16,33 +16,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import org.apache.log4j.Logger;
 
 public class LoginController {
 
+    private static Logger logger = Logger.getLogger(LoginController.class);
     private UserProfile perfil;
     private UserProfile perfilSelecionado;
     private String cpfUsuario;
     private String password;
     private boolean manterConectado;
 
-
     private UserService userService;
-
-
 
 
     @Autowired
     private User user;
-
-
     @Autowired
     private AuditoriaService auditoriaService;
-
-
-
-
-
-
     @PostConstruct
     public void init() {
         checkManterConectado();
@@ -56,6 +47,7 @@ public class LoginController {
                 if (cookie.getName().equals("usuario")) {
                     cpfUsuario = cookie.getValue();
                     password = cookie.getValue();// nao armazenar  senha em  cookie-apenas para teste
+                    logger.info("usuario conectado");
                     System.out.println("Usuario  conectado: " + cpfUsuario);
                 }
             }
@@ -74,12 +66,14 @@ public class LoginController {
         if (!perfil.equals(perfilSelecionado)) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new javax.faces.application.FacesMessage("Perfil não autorizado!"));
+            logger.warn("Perfilnao autorizado");
             return "logout";
         }
 
 
 
         manterConectado = isManterConectado();
+        logger.info("Manter conectado" + manterConectado);
         //login sessao
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         session.setAttribute("usuario", cpfUsuario);
@@ -88,7 +82,7 @@ public class LoginController {
         session.setAttribute("login", manterConectado);
         //manter o user_id para o pet depois
         HttpSession session2 = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        session.setAttribute("user_id", user.getId());  // Aqui está a modificação
+        session.setAttribute("user_id", user.getId());  // Aqui mqantem o usr
 
 
 
@@ -97,9 +91,10 @@ public class LoginController {
         Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Usuario LOGOU no sistema");
         if (auditoria != null && auditoria.getUserId() != null) {
             auditoriaService.saveAuditoria(auditoria);
-            System.out.println("Auditado: " + auditoria.getUserId().getCpfUsuario() + " " + auditoria.getAcao() + " " + auditoria.getDataHora());
+            logger.info("Auditoria salvo com sucesso: " + auditoria.getDataHora());
         } else {
-            System.out.println("Erro: auditoria não foi criada ou usuário não encontrado.");
+            logger.error("Erro: auditoria não foi criada ou usuário não encontrado.");
+            throw new RuntimeException();
         }
 
 
@@ -176,14 +171,15 @@ public class LoginController {
 
     private String redirecionarHome(UserProfile perfil) {
         if (perfil.equals(UserProfile.ADMIN)) {
-            System.out.println("Redirecionando para página de acesso Admin");
+            logger.info("Redirecionando para página de acesso Admin");
             return "paginaAdmin";
         } else if (perfil.equals(UserProfile.CLIENTE)) {
-            System.out.println("Redirecionando para página de acesso Cliente");
+            logger.info("Redirecionando para página de acesso Cliente");
             return "paginaCliente";
         } else {
             FacesContext.getCurrentInstance().addMessage(null,
                     new javax.faces.application.FacesMessage("Erro inesperado! Contate o suporte."));
+            logger.error("Erro inesperado");
             limparCampos();
             return "logout";
         }
