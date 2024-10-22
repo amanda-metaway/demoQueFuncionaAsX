@@ -123,6 +123,8 @@ public class PetController implements Serializable {
     }
 
     public String updatePet(Pet pet) {
+        System.out.println("pet"+pet.getId()+pet.getNome()+pet.getRaca());
+
         petService.updatePet(pet);
         cancelarEdicao();
         return null;
@@ -241,5 +243,13 @@ public class PetController implements Serializable {
 
     public void setExibirPets(boolean exibirPets) {
         this.exibirPets = exibirPets;
+    }
+
+    public Pet getSelectedPet() {
+        return selectedPet;
+    }
+
+    public void setSelectedPet(Pet selectedPet) {
+        this.selectedPet = selectedPet;
     }
 }

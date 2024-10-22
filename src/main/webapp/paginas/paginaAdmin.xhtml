@@ -101,6 +101,9 @@
                     <h3 style="text-align: center; color: #333;">Pets do usuario</h3>
                     <h:dataTable value="#{petController.petsVinculados}" var="pet"
                                  styleClass="rich-table" style="margin-top: 20px;">
+                        <h:panelGroup rendered="#{empty petController.petsVinculados}">
+                            <h:outputText value="Nenhum pet encontrado para esse usuario."/>
+                        </h:panelGroup>
                         <h:column>
                             <f:facet name="header">Nome do Pet</f:facet>
                             #{pet.nome}
@@ -111,9 +114,9 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">Ações</f:facet>
-                            <h:commandButton value="Editar" action="#{petController.editarPet(pet.id)}"
+                            <h:commandButton value="Editar" action="#{petController.editarPet(pet)}"
                                              style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 5px; cursor: pointer;"/>
-                            <h:commandButton value="Excluir" action="#{petController.excluirPet(pet.id)}"
+                            <h:commandButton value="Excluir" action="#{petController.excluirPet(pet)}"
                                              style="background-color: #76baa5; color: red; border: none; border-radius: 5px; padding: 5px;margin-left: 10px; cursor: pointer;"/>
                         </h:column>
                     </h:dataTable>
@@ -122,6 +125,18 @@
                 <br>
 
                 </br>
+                <h:panelGroup rendered="#{not empty petController.selectedPet}" style="margin-top: 20px;">
+                    <h3 style="text-align: center; color: #333;">Editando pet</h3>
+                    <h:outputLabel for="nomeInputEdit" value="Nome do Pet:" />
+                    <h:inputText id="nomeInputEdit" value="#{petController.selectedPet.nome}" required="true"/>
+
+                    <h:outputLabel for="racaInputEdit" value="Raça:" />
+                    <h:inputText id="racaInputEdit" value="#{petController.selectedPet.raca}" required="true"/>
+
+                    <h:commandButton value="Salvar" action="#{petController.updatePet(petController.selectedPet)}"
+                                     style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"/>
+                </h:panelGroup>
+
                 <br>
 
                 </br>

@@ -70,7 +70,7 @@ public class PetService {
 
 
     public void updatePet(Pet pet) {
-        logger.info("Tentando atualizar pet: " + pet);
+        logger.info("Tentando atualizar pet: " + pet.getId() + pet.getNome() + pet.getRaca());
         TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
         transactionTemplate.execute((TransactionCallback<Void>) status -> {
             try {
@@ -82,6 +82,7 @@ public class PetService {
                     if (user != null) {
                         logger.info("Atualizando pet: " + pet);
                         batisPetDao.updatePet(pet);
+
                         // Auditoria
                         String cpfUsuario = user.getCpfUsuario();
                         Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Atualizou um pet");
@@ -152,50 +153,49 @@ public class PetService {
     }
 
 
+    public List<Pet> listarPets(User user) {
+        logger.info("Listando pets para o usuário: " + user);
+        return batisPetDao.getListarPet();
+    }
 
-    public List<Pet> listarPets (User user){
-                logger.info("Listando pets para o usuário: " + user);
-                return batisPetDao.getListarPet();
+    public List<Pet> listarPetsPorUsuario(int userId) {
+        logger.info("Listando pets para o usuário com ID: " + userId);
+        User user = userService.getUserById(userId);
+
+        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+        return transactionTemplate.execute(status -> {
+            try {
+                List<Pet> pets = batisPetDao.listarPetsPorUsuario(userId);
+                if (pets == null || pets.isEmpty()) {
+                    logger.warn("Nenhum pet encontrado para o usuário com ID: " + userId);
+                    throw new RuntimeException("Nenhum pet encontrado para o usuário.");
+                }
+                // Auditoria
+                String cpfUsuario = user.getCpfUsuario();
+                Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Visualizou pets");
+                auditoriaService.saveAuditoria(auditoria);
+                logger.info("Pets listados com sucesso para o usuário: " + userId);
+                return pets;
+            } catch (Exception e) {
+                status.setRollbackOnly();
+                logger.error("Erro ao listar pets: " + e.getMessage(), e);
+                throw new RuntimeException("Erro ao listar pets: " + e.getMessage());
             }
-
-            public List<Pet> listarPetsPorUsuario ( int userId){
-                logger.info("Listando pets para o usuário com ID: " + userId);
-                User user = userService.getUserById(userId);
-
-                TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
-                return transactionTemplate.execute(status -> {
-                    try {
-                        List<Pet> pets = batisPetDao.listarPetsPorUsuario(userId);
-                        if (pets == null || pets.isEmpty()) {
-                            logger.warn("Nenhum pet encontrado para o usuário com ID: " + userId);
-                            throw new RuntimeException("Nenhum pet encontrado para o usuário.");
-                        }
-                        // Auditoria
-                        String cpfUsuario = user.getCpfUsuario();
-                        Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Visualizou pets");
-                        auditoriaService.saveAuditoria(auditoria);
-                        logger.info("Pets listados com sucesso para o usuário: " + userId);
-                        return pets;
-                    } catch (Exception e) {
-                        status.setRollbackOnly();
-                        logger.error("Erro ao listar pets: " + e.getMessage(), e);
-                        throw new RuntimeException("Erro ao listar pets: " + e.getMessage());
-                    }
-                });
-            }
+        });
+    }
 
 
-            public void setPetDao (IBatisPetDao petDao){
-                this.batisPetDao = petDao;
-            }
+    public void setPetDao(IBatisPetDao petDao) {
+        this.batisPetDao = petDao;
+    }
 
 
-            public UserService getUserService () {
-                return userService;
-            }
+    public UserService getUserService() {
+        return userService;
+    }
 
-            public void setUserService (UserService userService){
-                this.userService = userService;
-            }
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
-        }
+}
