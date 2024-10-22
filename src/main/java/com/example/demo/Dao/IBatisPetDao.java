@@ -28,7 +28,6 @@ public class IBatisPetDao extends SqlMapClientDaoSupport implements PetDao {
 
     @Override
     public void deletePet(int id) {
-        System.out.println("delete Pet ...");
         getSqlMapClientTemplate().delete("deletePet", id);
     }
 

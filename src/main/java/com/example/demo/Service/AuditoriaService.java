@@ -8,30 +8,34 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+import org.apache.log4j.Logger;
+
 @Service
 public class AuditoriaService {
+    private static final Logger logger = Logger.getLogger(AuditoriaService.class);
+
     @Autowired
     private IBatisAuditoriaDao auditoriaDao;
     @Autowired
     private UserService userService;
 
-
     public AuditoriaService() {
 
     }
+
     public AuditoriaService(IBatisAuditoriaDao auditoriaDao) {
         this.auditoriaDao = auditoriaDao;
     }
 
 
     public void saveAuditoria(Auditoria auditoria) {
-        System.out.println("Auditoria: " + auditoria);
+       logger.info("tentando salvar auditoria :" + auditoria);
         auditoriaDao.inserirAuditoria(auditoria);
     }
 
 
-
     public Auditoria createAuditoria(String cpfUsuario, String acao) {
+        logger.info("tentando inserir auditoria :" + acao);
         User user = userService.getUserByCPF(cpfUsuario);
         if (user == null) {
             return null;
@@ -46,10 +50,8 @@ public class AuditoriaService {
     }
 
 
-
     public void setAuditoriaDao(IBatisAuditoriaDao auditoriaDao) {
     }
-
 
 
     public UserService getUserService() {

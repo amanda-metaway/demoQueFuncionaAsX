@@ -53,7 +53,9 @@ public class PetService {
             try {
                 batisPetDao.savePet(pet);
                 // Auditoria
-                String cpfUsuario = ""; // fazer como obter o CPF do usuário logado
+                // fazer como obter o CPF do usuário logado
+                String cpfUsuario = pet.getUser().getCpfUsuario();
+
                 Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Cadastrou um novo pet");
                 auditoriaService.saveAuditoria(auditoria);
                 logger.info("Pet salvo com sucesso: " + pet);
@@ -78,7 +80,7 @@ public class PetService {
                 if (userId != null) {
                     User user = userService.getUserById(userId);
                     if (user != null) {
-                        System.out.println("Atualizando pet: " + pet);
+                        logger.info("Atualizando pet: " + pet);
                         batisPetDao.updatePet(pet);
                         // Auditoria
                         String cpfUsuario = user.getCpfUsuario();
@@ -111,12 +113,33 @@ public class PetService {
                 Pet pet = batisPetDao.getPetById(id);
                 if (pet != null) {
                     batisPetDao.deletePet(id);
-                    // Auditoria
-                    String cpfUsuario = ""; // Defina como obter o CPF do usuário logado
-                    Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Deletou um pet");
-                    auditoriaService.saveAuditoria(auditoria);
-                    logger.info("Pet deletado com sucesso: " + pet);
+
+                    // audit
+                    try {
+                        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+                        Integer userId = (Integer) session.getAttribute("user_id");
+
+                        if (userId != null) {
+                            User user = userService.getUserById(userId);
+                            String cpfUsuario = user != null ? user.getCpfUsuario() : null; // logado
+
+                            if (cpfUsuario != null) {
+                                Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Deletou um pet");
+                                auditoriaService.saveAuditoria(auditoria);
+                                logger.info("Pet deletado com sucesso: " + pet);
+                            } else {
+                                logger.warn("CPF do usuário não encontrado para auditoria.");
+                            }
+                        } else {
+                            logger.warn("Usuário não está logado ao tentar auditar a exclusão do pet.");
+                        }
+                    } catch (Exception e) {
+                        status.setRollbackOnly();
+                        logger.error("Erro ao registrar auditoria após exclusão de pet: " + e.getMessage(), e);
+                        throw new RuntimeException("Erro ao registrar auditoria: " + e.getMessage());
+                    }
                 } else {
+                    logger.warn("Pet não encontrado com ID: " + id);
                     throw new RuntimeException("Pet não encontrado.");
                 }
             } catch (Exception e) {
@@ -128,49 +151,51 @@ public class PetService {
         });
     }
 
-    public List<Pet> listarPets(User user) {
-        logger.info("Listando pets para o usuário: " + user);
-        return batisPetDao.getListarPet();
-    }
-
-    public List<Pet> listarPetsPorUsuario(int userId) {
-        logger.info("Listando pets para o usuário com ID: " + userId);
-        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
-        return transactionTemplate.execute(status -> {
-            try {
-                List<Pet> pets = batisPetDao.listarPetsPorUsuario(userId);
-                if (pets == null || pets.isEmpty()) {
-                    logger.warn("Nenhum pet encontrado para o usuário com ID: " + userId);
-                    throw new RuntimeException("Nenhum pet encontrado para o usuário.");
-                }
-                // Auditoria
-                String cpfUsuario = ""; // fazer ainda como obter o CPF do usuário logado
-                Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Visualizou pets");
-                auditoriaService.saveAuditoria(auditoria);
-                logger.info("Pets listados com sucesso para o usuário: " + userId);
 
 
-                return pets;
-            } catch (Exception e) {
-                status.setRollbackOnly();
-                logger.error("Erro ao listar pets: " + e.getMessage(), e);
-                throw new RuntimeException("Erro ao listar pets: " + e.getMessage());
+    public List<Pet> listarPets (User user){
+                logger.info("Listando pets para o usuário: " + user);
+                return batisPetDao.getListarPet();
             }
-        });
-    }
+
+            public List<Pet> listarPetsPorUsuario ( int userId){
+                logger.info("Listando pets para o usuário com ID: " + userId);
+                User user = userService.getUserById(userId);
+
+                TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+                return transactionTemplate.execute(status -> {
+                    try {
+                        List<Pet> pets = batisPetDao.listarPetsPorUsuario(userId);
+                        if (pets == null || pets.isEmpty()) {
+                            logger.warn("Nenhum pet encontrado para o usuário com ID: " + userId);
+                            throw new RuntimeException("Nenhum pet encontrado para o usuário.");
+                        }
+                        // Auditoria
+                        String cpfUsuario = user.getCpfUsuario();
+                        Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Visualizou pets");
+                        auditoriaService.saveAuditoria(auditoria);
+                        logger.info("Pets listados com sucesso para o usuário: " + userId);
+                        return pets;
+                    } catch (Exception e) {
+                        status.setRollbackOnly();
+                        logger.error("Erro ao listar pets: " + e.getMessage(), e);
+                        throw new RuntimeException("Erro ao listar pets: " + e.getMessage());
+                    }
+                });
+            }
 
 
-    public void setPetDao(IBatisPetDao petDao) {
-        this.batisPetDao = petDao;
-    }
+            public void setPetDao (IBatisPetDao petDao){
+                this.batisPetDao = petDao;
+            }
 
 
-    public UserService getUserService() {
-        return userService;
-    }
+            public UserService getUserService () {
+                return userService;
+            }
 
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+            public void setUserService (UserService userService){
+                this.userService = userService;
+            }
 
-}
+        }
