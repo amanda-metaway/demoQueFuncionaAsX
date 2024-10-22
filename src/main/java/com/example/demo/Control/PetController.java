@@ -68,6 +68,7 @@ public class PetController implements Serializable {
                     String cpfUsuario = user.getCpfUsuario();
 
                     petService.saveMaisPet(novoPet);
+                    pets.add(pet);
                     //audita
                     Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Cadastrou NOVO Pet");
                     if (auditoria != null && auditoria.getUserId() != null) {
