@@ -45,21 +45,21 @@
                         <h:outputText value="Nenhum pet encontrado."/>
                     </h:panelGroup>
 
-                    <h:column>
+                    <rich:column>
                         <f:facet name="header">Nome do Pet</f:facet>
                         #{pet.nome}
-                    </h:column>
-                    <h:column>
+                    </rich:column>
+                    <rich:column>
                         <f:facet name="header">Raça</f:facet>
                         #{pet.raca}
-                    </h:column>
-                    <h:column>
+                    </rich:column>
+                    <rich:column>
                         <f:facet name="header">Ações</f:facet>
                         <h:commandButton value="Editar" action="#{petController.editarPet(pet)}"
                                          style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 5px; cursor: pointer;"/>
                         <h:commandButton value="Excluir" action="#{petController.excluirPet(pet)}"
                                          style="background-color: #d9534f; color: white; border: none; border-radius: 5px; padding: 5px; cursor: pointer;"/>
-                    </h:column>
+                    </rich:column>
                 </h:dataTable>
             </h:form>
         </rich:panel>

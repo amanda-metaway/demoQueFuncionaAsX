@@ -98,39 +98,41 @@
                 <!--mostrando os pets dele-->
 
                 <h:panelGroup rendered="#{petController.exibirPets}" style="margin-top: 20px;">
-                    <h3 style="text-align: center; color: #333;">Pets do usuario</h3>
-                    <h:dataTable value="#{petController.petsVinculados}" var="pet"
-                                 styleClass="rich-table" style="margin-top: 20px;">
-                        <h:panelGroup rendered="#{empty petController.petsVinculados}">
-                            <h:outputText value="Nenhum pet encontrado para esse usuario."/>
-                        </h:panelGroup>
-                        <h:column>
-                            <f:facet name="header">Nome do Pet</f:facet>
-                            #{pet.nome}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Raça</f:facet>
-                            #{pet.raca}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Ações</f:facet>
-                            <h:commandButton value="Editar" action="#{petController.editarPet(pet)}"
-                                             style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 5px; cursor: pointer;"/>
-                            <h:commandButton value="Excluir" action="#{petController.excluirPet(pet)}"
-                                             style="background-color: #76baa5; color: red; border: none; border-radius: 5px; padding: 5px;margin-left: 10px; cursor: pointer;"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
+                    <h3 style="text-align: center; color: #333;">Pets do usuário</h3>
 
+
+                    <h:panelGroup rendered="#{not empty petController.petsVinculados}" style="margin-top: 20px;">
+                        <h:dataTable value="#{petController.petsVinculados}" var="pet" styleClass="rich-table">
+                            <rich:column>
+                                <f:facet name="header">Nome do Pet</f:facet>
+                                #{pet.nome}
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">Raça</f:facet>
+                                #{pet.raca}
+                            </rich:column>
+                            <rich:column>
+                                <f:facet name="header">Ações</f:facet>
+                                <h:commandButton value="Editar" action="#{petController.editarPet(pet)}"
+                                                 style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 5px; cursor: pointer;"/>
+                                <h:commandButton value="Excluir" action="#{petController.excluirPet(pet)}"
+                                                 style="background-color: #76baa5; color: red; border: none; border-radius: 5px; padding: 5px;margin-left: 10px; cursor: pointer;"/>
+                            </rich:column>
+                        </h:dataTable>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{empty petController.petsVinculados}" style="margin-top: 20px;">
+                        <h:outputText value="Nenhum pet encontrado para esse usuário."/>
+                    </h:panelGroup>
+                </h:panelGroup>
                 <br>
 
                 </br>
                 <h:panelGroup rendered="#{not empty petController.selectedPet}" style="margin-top: 20px;">
                     <h3 style="text-align: center; color: #333;">Editando pet</h3>
-                    <h:outputLabel for="nomeInputEdit" value="Nome do Pet:" />
+                    <h:outputLabel for="nomeInputEdit" value="Nome do Pet:"/>
                     <h:inputText id="nomeInputEdit" value="#{petController.selectedPet.nome}" required="true"/>
 
-                    <h:outputLabel for="racaInputEdit" value="Raça:" />
+                    <h:outputLabel for="racaInputEdit" value="Raça:"/>
                     <h:inputText id="racaInputEdit" value="#{petController.selectedPet.raca}" required="true"/>
 
                     <h:commandButton value="Salvar" action="#{petController.updatePet(petController.selectedPet)}"
@@ -150,29 +152,29 @@
                         <h:outputText value="Nenhum usuário encontrado."/>
                     </h:panelGroup>
 
-                    <h:column>
+                    <rich:column>
                         <f:facet name="header">Nome</f:facet>
                         #{user.name}
-                    </h:column>
-                    <h:column>
+                    </rich:column>
+                    <rich:column>
                         <f:facet name="header">Perfil</f:facet>
                         #{user.perfil.perfil}
-                    </h:column>
-                    <h:column>
+                    </rich:column>
+                    <rich:column>
                         <f:facet name="header">Contato</f:facet>
                         #{user.contato}
-                    </h:column>
-                    <h:column>
+                    </rich:column>
+                    <rich:column>
                         <f:facet name="header">CPF</f:facet>
                         <h:outputText value="#{user.cpfUsuario}" converter="userCpfConverter"/>
-                    </h:column>
-                    <h:column>
+                    </rich:column>
+                    <rich:column>
                         <f:facet name="header">Ações</f:facet>
                         <h:commandButton value="Editar" action="#{userController.editar(user.id)}"
                                          style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 5px; cursor: pointer;"/>
                         <h:commandButton value="Excluir" action="#{userController.excluir(user.id)}"
                                          style="background-color: #76baa5; color: red; border: none; border-radius: 5px; padding: 5px;margin-left: 10px; cursor: pointer;"/>
-                    </h:column>
+                    </rich:column>
 
                 </h:dataTable>
 

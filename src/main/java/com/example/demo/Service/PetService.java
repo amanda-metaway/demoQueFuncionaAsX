@@ -39,6 +39,8 @@ public class PetService {
     @Autowired
     private DataSourceTransactionManager transactionManagerPet;
 
+    private List<Pet> petsVinculados;
+
 
     public Pet getPetById(int id) {
         logger.info("Buscando pet com ID: " + id);
@@ -168,7 +170,9 @@ public class PetService {
                 List<Pet> pets = batisPetDao.listarPetsPorUsuario(userId);
                 if (pets == null || pets.isEmpty()) {
                     logger.warn("Nenhum pet encontrado para o usuário com ID: " + userId);
-                    throw new RuntimeException("Nenhum pet encontrado para o usuário.");
+                    setPetsVinculados(pets);
+                    return pets;
+
                 }
                 // Auditoria
                 String cpfUsuario = user.getCpfUsuario();
@@ -196,6 +200,14 @@ public class PetService {
 
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    public List<Pet> getPetsVinculados() {
+        return petsVinculados;
+    }
+
+    public void setPetsVinculados(List<Pet> petsVinculados) {
+        this.petsVinculados = petsVinculados;
     }
 
 }

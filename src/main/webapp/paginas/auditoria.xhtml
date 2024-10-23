@@ -36,29 +36,29 @@
             <h:dataTable value="#{auditoriaController.auditorias}" var="auditoria"
                          style="margin-top: 20px; width: 100%;"
                          styleClass="rich-table">
-                <h:column>
+                <rich:column>
                     <f:facet name="header">
                         <strong>Ação</strong>
                     </f:facet>
                     #{auditoria.acao}
-                </h:column>
-                <h:column>
+                </rich:column>
+                <rich:column>
                     <f:facet name="header">
                         <strong>Data e Hora</strong>
                     </f:facet>
                     <h:outputText value="#{auditoria.dataHora}" converter="dateConverter" />
-                </h:column>
-                <h:column>
+                </rich:column>
+                <rich:column>
                     <f:facet name="header">
                         <strong>Usuário</strong>
                     </f:facet>
                     ID: #{auditoria.userId.id}<br/>
-                </h:column>
-                <h:column>
+                </rich:column>
+                <rich:column>
                     <f:facet name="header">
                         <strong>Açoes</strong>
                     </f:facet>
-                </h:column>
+                </rich:column>
             </h:dataTable>
 
         </rich:panel>
