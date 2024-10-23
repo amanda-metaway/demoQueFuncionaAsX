@@ -18,6 +18,8 @@ public class AuditoriaController {
     private LocalDateTime dataHora;
     private List<Auditoria> auditorias;
 
+
+
     @Autowired
     private RelatorioService relatorioService;
     @Autowired
@@ -45,10 +47,16 @@ public class AuditoriaController {
     public List<Auditoria> getAuditorias() {
         return auditorias;
     }
-    public void gerarRelatorio() {
+    public void gerarRelatorioPDF() {
         RelatorioService relatorioService = new RelatorioService();
-        relatorioService.gerarRelatorio(auditorias);
+        relatorioService.gerarRelatorioPDF(auditorias);
     }
+
+    public void gerarRelatorioCsv() {
+      RelatorioService relatorioService = new RelatorioService();
+      relatorioService.gerarRelatorioCsv(auditorias);
+    }
+
 
 
     public int getId() {

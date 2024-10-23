@@ -20,12 +20,13 @@
             </br>
 
             <h:form styleClass="form-input">
-                <h:commandButton value="Gerar relatorio"
-                                 action="#{auditoriaController.gerarRelatorio}"
+                <h:commandButton value="Gerar Relatorio PDF"
+                                 action="#{auditoriaController.gerarRelatorioPDF}"
                                  style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 10px; margin-right: 4px; cursor: pointer;"/>
 
 
-                <h:commandButton value="Filtrar busca"
+                <h:commandButton value="Gerar Relatorio Csv"
+                                 action="#{auditoriaController.gerarRelatorioCsv()}"
                                  style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 10px; margin-left: 4px; cursor: pointer;"/>
 
 
@@ -55,11 +56,6 @@
                         <strong>Usuário</strong>
                     </f:facet>
                     ID: #{auditoria.userId.id}<br/>
-                </rich:column>
-                <rich:column>
-                    <f:facet name="header">
-                        <strong>Açoes</strong>
-                    </f:facet>
                 </rich:column>
             </h:dataTable>
 
