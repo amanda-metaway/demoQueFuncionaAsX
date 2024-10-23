@@ -31,7 +31,9 @@
 
             <h:commandLink value="Cadastrar Usuário" action="cadastrar_usuario" styleClass="nav-link user-link custom-link" rendered="#{session.getAttribute('perfil') == 'ADMIN'}"/>
 
-            <h:commandLink value="Serviços" action="servicos" styleClass="nav-link service-link"/>
+            <h:commandLink value="Agendamentos" action="servicos" styleClass="nav-link service-link" rendered="#{session.getAttribute('perfil') == 'ADMIN'}"/>
+
+            <h:commandLink value="Meus Agendamentos" action="servicos" styleClass="nav-link service-link" rendered="#{session.getAttribute('perfil') == 'CLIENTE'}"/>
 
             <h:commandLink value="Loja Agro - Confira" action="loja_produtos" styleClass="nav-link shop-link"/>
 
