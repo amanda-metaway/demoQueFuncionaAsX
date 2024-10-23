@@ -3,6 +3,7 @@ package com.example.demo.Control;
 import com.example.demo.Model.Auditoria;
 import com.example.demo.Model.User;
 import com.example.demo.Service.AuditoriaService;
+import com.example.demo.Service.RelatorioService;
 import com.example.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,7 +18,8 @@ public class AuditoriaController {
     private LocalDateTime dataHora;
     private List<Auditoria> auditorias;
 
-
+    @Autowired
+    private RelatorioService relatorioService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -43,6 +45,11 @@ public class AuditoriaController {
     public List<Auditoria> getAuditorias() {
         return auditorias;
     }
+    public void gerarRelatorio() {
+        RelatorioService relatorioService = new RelatorioService();
+        relatorioService.gerarRelatorio(auditorias);
+    }
+
 
     public int getId() {
         return id;
@@ -66,4 +73,18 @@ public class AuditoriaController {
     }
 
 
+    public void setRelatorioService(Object relatorioService) {
+    }
+
+    public RelatorioService getRelatorioService() {
+        return relatorioService;
+    }
+
+    public void setRelatorioService(RelatorioService relatorioService) {
+        this.relatorioService = relatorioService;
+    }
+
+    public AuditoriaService getAuditoriaService() {
+        return auditoriaService;
+    }
 }

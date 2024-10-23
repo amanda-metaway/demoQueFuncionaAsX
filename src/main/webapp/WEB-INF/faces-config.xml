@@ -59,6 +59,10 @@
             <property-name>userService</property-name>
             <value>#{userService}</value>
         </managed-property>
+        <managed-property>
+            <property-name>relatorioService</property-name>
+            <value>#{relatorioService}</value>
+        </managed-property>
     </managed-bean>
 
 
