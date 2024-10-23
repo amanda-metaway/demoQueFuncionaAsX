@@ -1,7 +1,9 @@
 package com.example.demo.Model;
 
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Auditoria {
     private int id;
@@ -37,6 +39,9 @@ public class Auditoria {
     public LocalDateTime getDataHora() {
         return dataHora;
     }
+
+
+
 
     public void setDataHora(LocalDateTime dataHora) {
         this.dataHora = dataHora;

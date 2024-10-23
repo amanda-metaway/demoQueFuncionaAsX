@@ -81,6 +81,10 @@
         <converter-class>com.example.demo.Converter.UserCpfConverter</converter-class>
     </converter>
 
+    <converter>
+        <converter-id>dateConverter</converter-id>
+        <converter-class>com.example.demo.Converter.DateConverter</converter-class>
+    </converter>
 
     <!-- validators aqui-->
     <validator>

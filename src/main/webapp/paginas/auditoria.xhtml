@@ -18,17 +18,17 @@
             </br>
             <br>
             </br>
-            <!--
+
             <h:form styleClass="form-input">
-                <h:commandButton value="Gerar relatorio" action=""
+                <h:commandButton value="Gerar relatorio"
                                  style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 10px; margin-right: 4px; cursor: pointer;"/>
 
-                <h:commandButton value="Filtrar busca" action=""
+                <h:commandButton value="Filtrar busca"
                                  style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 10px; margin-left: 4px; cursor: pointer;"/>
 
 
             </h:form>
-            -->
+
             <br>
             </br>
             <br>
@@ -46,7 +46,7 @@
                     <f:facet name="header">
                         <strong>Data e Hora</strong>
                     </f:facet>
-                    #{auditoria.dataHora}
+                    <h:outputText value="#{auditoria.dataHora}" converter="dateConverter" />
                 </h:column>
                 <h:column>
                     <f:facet name="header">
