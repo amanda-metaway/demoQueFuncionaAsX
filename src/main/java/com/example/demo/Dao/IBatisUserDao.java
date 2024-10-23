@@ -1,7 +1,6 @@
 package com.example.demo.Dao;
 
 
-import com.example.demo.Model.Pet;
 import com.example.demo.Model.User;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import java.util.List;

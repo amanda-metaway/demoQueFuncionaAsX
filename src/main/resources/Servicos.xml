@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Servicos">
+
+    <typeAlias alias="servicos" type="com.example.demo.Model.Servicos"/>
+
+    <resultMap id="servicosResultMap" class="servicos">
+        <result property="id" column="id" />
+        <result property="tipo.tiposervico" column="tipo_servico" />
+        <result property="descricao" column="descricao" />
+        <result property="valor" column="valor" />
+        <result property="duracaoEstimado" column="duracao_estimado" />
+        <result property="userId.id" column="user_id" />
+    </resultMap>
+
+    <select id="getServicoById" parameterClass="java.lang.Integer" resultMap="servicosResultMap">
+        SELECT id, tipo_servico, descricao, valor, duracao_estimado, user_id
+        FROM servicos
+        WHERE id = #id#
+    </select>
+
+    <select id="listarServicos" resultMap="servicosResultMap">
+        SELECT id, tipo_servico, descricao, valor, duracao_estimado, user_id
+        FROM servicos
+        ORDER BY id DESC
+    </select>
+
+    <insert id="saveServico" parameterClass="com.example.demo.Model.Servicos">
+        <selectKey keyProperty="id">
+            SELECT nextval('servicos_id_seq'::regclass)
+        </selectKey>
+        INSERT INTO servicos (id, tipo_servico, descricao, valor, duracao_estimado, user_id)
+        VALUES (#id#, #tipo.tipoServico#, #descricao#, #valor#, #duracaoEstimado#, #userId.id#)
+    </insert>
+
+    <update id="updateServico" parameterClass="com.example.demo.Model.Servicos">
+        UPDATE servicos
+        SET tipo_servico = #tipo.tipoServico#,
+            descricao = #descricao#,
+            valor = #valor#,
+            duracao_estimado = #duracaoEstimado#,
+            user_id = #userId#
+        WHERE id = #id#
+    </update>
+
+    <delete id="deleteCancelaServico" parameterClass="java.lang.Integer">
+        DELETE
+        FROM servicos
+        WHERE id = #id#
+    </delete>
+
+</sqlMap>

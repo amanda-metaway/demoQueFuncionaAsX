@@ -60,6 +60,17 @@
         <property name="auditoriaDao" ref="auditoriaDao"/>
     </bean>
 
+    <!--servicosbean-->
+    <bean id="servicosDao" class="com.example.demo.Dao.IBatisServicosDao">
+        <property name="sqlMapClient" ref="sqlMapClient"/>
+    </bean>
+    <bean id="servicosService" class="com.example.demo.Service.ServicosService">
+        <property name="servicosDao" ref="servicosDao"/>
+    </bean>
+    <bean id="servicosController" class="com.example.demo.Control.ServicosController">
+        <property name="servicosService" ref="servicosService"/>
+    </bean>
+
 
 
     <!-- Transaction Manager -->
