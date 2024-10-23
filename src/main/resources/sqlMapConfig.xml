@@ -16,14 +16,6 @@
 
 
 
-    <typeHandler
-            javaType="com.example.demo.Model.Servicos"
-            callback="com.example.demo.Model.ServicosTypeHandler"/>
-
-
-    <typeHandler
-            javaType="com.example.demo.Model.Servicos"
-            callback="com.example.demo.Model.ServicosValida"/>
 
 
 
@@ -33,7 +25,7 @@
     <sqlMap resource="User.xml"/>
     <sqlMap resource="Pet.xml"/>
     <sqlMap resource="Auditoria.xml"/>
-    <sqlMap resource="Servicos.xml"/>
+
 
 
 

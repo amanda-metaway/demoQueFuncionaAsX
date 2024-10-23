@@ -72,22 +72,6 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 
-    <managed-bean>
-        <managed-bean-name>servicosApoio</managed-bean-name>
-        <managed-bean-class>com.example.demo.Control.ServicosApoio</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-
-
-    <managed-bean>
-        <managed-bean-name>servicosController</managed-bean-name>
-        <managed-bean-class>com.example.demo.Control.ServicosController</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-            <property-name>servicosService</property-name>
-            <value>#{servicosService}</value>
-        </managed-property>
-    </managed-bean>
     <!---->
 
 
@@ -107,10 +91,7 @@
         <converter-class>com.example.demo.Converter.DateConverter</converter-class>
     </converter>
 
-    <converter>
-        <converter-id>tipoServicoConverter</converter-id>
-        <converter-class>com.example.demo.Converter.TipoServicoConverter</converter-class>
-    </converter>
+
 
     <!-- validators aqui-->
     <validator>
@@ -162,14 +143,7 @@
             <from-outcome>auditoria</from-outcome>
             <to-view-id>/paginas/auditoria.xhtml</to-view-id>
         </navigation-case>
-        <navigation-case>
-            <from-outcome>paginaAdmin</from-outcome>
-            <to-view-id>/paginas/paginaServicos.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>paginaCliente</from-outcome>
-            <to-view-id>/paginas/paginaServicos.xhtml</to-view-id>
-        </navigation-case>
+       
 
 
 
