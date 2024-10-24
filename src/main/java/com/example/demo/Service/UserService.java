@@ -17,6 +17,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 
 @Service
 public class UserService {
@@ -198,6 +201,8 @@ public class UserService {
                 Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "ATUALIZOU USUARIO");
                 auditoriaService.saveAuditoria(auditoria);
                 logger.info("Usuario atualizado com sucesso");
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "usuario Atualizado/Editado com com sucesso!", null));
             } catch (Exception e) {
                 status.setRollbackOnly();
                 logger.error("Erro ao atualizar usuario: " + e.getMessage());
@@ -220,6 +225,7 @@ public class UserService {
                 String cpfUsuario = userToDelete.getCpfUsuario();
                 Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Usuário Deletado");
 
+
                 if (auditoria != null) {
                     auditoriaService.saveAuditoria(auditoria);
 
@@ -227,6 +233,8 @@ public class UserService {
 
                 userIbatisUserDao.deleteUser(id);
                 logger.info("Usuario deletado com sucesso");
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "usuario deletado com com sucesso!", null));
             } catch (Exception e) {
                 status.setRollbackOnly();
                 logger.error("Erro ao deletar usuario: " + e.getMessage());

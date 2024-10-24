@@ -77,7 +77,6 @@ public class UserController {
 
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário e pets cadastrados com sucesso!", null));
-
             resetUser();
             petController.resetPet();
 

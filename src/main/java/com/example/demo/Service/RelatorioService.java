@@ -4,8 +4,9 @@ package com.example.demo.Service;
 import com.example.demo.Model.Auditoria;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRCsvExporter;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
@@ -18,9 +19,7 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.OutputStreamExporterOutput;
-import net.sf.jasperreports.export.SimpleCsvExporterConfiguration;
+
 
 
 
@@ -65,9 +64,12 @@ public class RelatorioService {
             response.getOutputStream().flush();
             facesContext.responseComplete();
 
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Seu relatorio ja esta pronto!", null));
     }
 
 

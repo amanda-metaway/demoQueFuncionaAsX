@@ -344,5 +344,11 @@ body {
         font-size: 0.9em; /* Tamanho da fonte menor */
     }
 
+    .success-message {
+        color: green; /* Cor para mensagens de sucesso */
+        font-size: 0.9em; /* Tamanho da fonte menor */
+    }
+
+
 
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -83,13 +84,20 @@ public class PetService {
                     User user = userService.getUserById(userId);
                     if (user != null) {
                         logger.info("Atualizando pet: " + pet);
-                        batisPetDao.updatePet(pet);
-
-                        // Auditoria
-                        String cpfUsuario = user.getCpfUsuario();
-                        Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Atualizou um pet");
-                        auditoriaService.saveAuditoria(auditoria);
-                        logger.info("Pet atualizado com sucesso: " + pet);
+                        if (pet.getNome() != null && !pet.getNome().isEmpty() &&
+                                pet.getRaca() != null && !pet.getRaca().isEmpty()) {
+                            batisPetDao.updatePet(pet);
+                            // Auditoria
+                            String cpfUsuario = user.getCpfUsuario();
+                            Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Atualizou um pet");
+                            auditoriaService.saveAuditoria(auditoria);
+                            logger.info("Pet atualizado com sucesso: " + pet);
+                            FacesContext context = FacesContext.getCurrentInstance();
+                            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "PET Atualizado/Editado com com sucesso!", null));
+                        } else {
+                            FacesContext context = FacesContext.getCurrentInstance();
+                            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ops ocorreu um erro na operacao", null));
+                        }
                     } else {
                         logger.warn("Usuário não encontrado ao tentar atualizar pet: " + pet);
                         throw new RuntimeException("Erro: Usuário não encontrado.");
@@ -116,7 +124,8 @@ public class PetService {
                 Pet pet = batisPetDao.getPetById(id);
                 if (pet != null) {
                     batisPetDao.deletePet(id);
-
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "PET Deletado com sucesso!", null));
                     // audit
                     try {
                         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
@@ -130,6 +139,7 @@ public class PetService {
                                 Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Deletou um pet");
                                 auditoriaService.saveAuditoria(auditoria);
                                 logger.info("Pet deletado com sucesso: " + pet);
+
                             } else {
                                 logger.warn("CPF do usuário não encontrado para auditoria.");
                             }
@@ -148,6 +158,8 @@ public class PetService {
             } catch (Exception e) {
                 status.setRollbackOnly();
                 logger.error("Erro ao excluir pet: " + e.getMessage(), e);
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao tentar cadastrar pet!", null));
                 throw new RuntimeException("Erro ao excluir pet: " + e.getMessage());
             }
             return null;

@@ -9,6 +9,7 @@ import com.example.demo.Service.PetService;
 import com.example.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import java.io.Serializable;
@@ -71,6 +72,8 @@ public class PetController implements Serializable {
                     pets.add(pet);
                     //audita
                     Auditoria auditoria = auditoriaService.createAuditoria(cpfUsuario, "Cadastrou NOVO Pet");
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "PET cadastrado com sucesso!", null));
                     if (auditoria != null && auditoria.getUserId() != null) {
                         auditoriaService.saveAuditoria(auditoria);
                     } else {
@@ -123,8 +126,6 @@ public class PetController implements Serializable {
     }
 
     public String updatePet(Pet pet) {
-        System.out.println("pet"+pet.getId()+pet.getNome()+pet.getRaca());
-
         petService.updatePet(pet);
         cancelarEdicao();
         return null;

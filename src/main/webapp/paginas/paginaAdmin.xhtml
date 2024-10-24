@@ -14,9 +14,11 @@
         <h3 style="text-align: center; color: #333;">Sou perfil admin</h3>
         <rich:panel
                 style="width: 800px; margin: 20px auto; padding: 30px; border-radius: 10px; background-color: #ffffff; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+            <h:messages styleClass="error-message" globalOnly="true" style="color: red;"/>
 
 
             <h:form styleClass="form-input">
+
                 <h:commandButton value="Carregar Todos os Usuários" action="#{userController.listarUsers}"
                                  style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"/>
 

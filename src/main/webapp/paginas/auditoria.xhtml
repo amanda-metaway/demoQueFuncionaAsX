@@ -14,7 +14,7 @@
         <h3 style="text-align: center; color: #333;">Registro de Auditoria</h3>
         <rich:panel
                 style="width: 800px; margin: 20px auto; padding: 30px; border-radius: 10px; background-color: #ffffff; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
-            <br>
+            <h:messages styleClass="error-message" globalOnly="true" style="color: red;"/> <br>
             </br>
             <br>
             </br>
@@ -23,6 +23,10 @@
                 <h:commandButton value="Gerar Relatorio PDF"
                                  action="#{auditoriaController.gerarRelatorioPDF}"
                                  style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 10px; margin-right: 4px; cursor: pointer;"/>
+                <rich:message for="name" styleClass="error-message" style="color: red;"/>
+
+
+
 
 
 

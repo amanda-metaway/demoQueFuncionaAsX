@@ -3,42 +3,48 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://java.sun.com/jsf/html">
-
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
 
 <link rel="stylesheet" type="text/css" href="../assets/styles.css"/>
 
-
 <ui:composition template="../assets/template.xhtml">
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
-
     <ui:param name="title" value="Cadastrar Pet"/>
 
     <ui:define name="content">
-        <rich:panel style="width: fit-content;height: fit-content; margin: 0 auto;">
+        <rich:panel
+                style="max-width: 200px; margin: 0 auto; padding: 20px; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
             <div>
                 <h:form>
-                    <h:panelGrid columns="1" styleClass="rich-tableForm">
-                        <h:outputLabel for="nome" value="Nome do Pet:"/>
-                        <h:inputText id="nome" value="#{petController.pet.nome}"/>
+                    <h3 style="text-align: center; color: #333;">Cadastro do Pet</h3>
+                    <h:messages styleClass="error-message" globalOnly="true" style="color: red;"/>
 
-                        <h:outputLabel for="raca" value="Raça:"/>
-                        <h:inputText id="raca" value="#{petController.pet.raca}"/>
+                    <h:panelGrid columns="1" style="width: 100%;">
+                        <h:outputLabel for="nome" value="Nome do Pet:" style="color: #555;"/>
+                        <h:inputText id="nome" value="#{petController.pet.nome}"
+                                     requiredMessage="O campo Nome do Pet é obrigatório."
+                                     required="true"
+                                     style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;"/>
+                        <rich:message for="nome" styleClass="error-message" style="color: red;"/>
 
+                        <h:outputLabel for="raca" value="Raça:" style="color: #555;"/>
+                        <h:inputText id="raca" value="#{petController.pet.raca}"
+                                     style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;"
+                                     required="true"
+                                     requiredMessage="O campo Raça do Pet é obrigatório."/>
+                        <rich:message for="raca" styleClass="error-message" style="color: red;"/>
+                    </h:panelGrid>
 
-                        <h:panelGrid columns="2">
-                            <h:commandButton value="Cadastrar" action="#{petController.createPet()}"/>
-                            <h:commandButton value="Cancelar" action="index.xhtml"/>
-                        </h:panelGrid>
+                    <h:panelGrid columns="2" style="text-align: center; margin-top: 20px;">
+                        <h:commandButton value="Cadastrar" action="#{petController.createPet()}"
+                                         style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer;"/>
+                        <h:commandButton value="Cancelar" action="index.xhtml"
+                                         style="background-color: #ccc; color: black; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer;"/>
                     </h:panelGrid>
                 </h:form>
             </div>
         </rich:panel>
-
-
     </ui:define>
 </ui:composition>
 </html>

@@ -11,33 +11,47 @@
     <ui:param name="title" value="Cadastrar Usuário"/>
 
     <ui:define name="content">
-        <rich:panel style="max-width: 200px; margin: 0 auto; padding: 20px; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+        <rich:panel
+                style="max-width: 200px; margin: 0 auto; padding: 20px; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
             <h:form>
                 <h3 style="text-align: center; color: #333;">Seu Cadastro</h3>
-                <h:panelGrid columns="1" style="width: 100%;">
+                <h:messages styleClass="error-message" globalOnly="true" style="color: red;"/>
 
+
+                <h:panelGrid columns="1" style="width: 100%;">
                     <h:outputLabel for="name" value="Nome:" style="color: #555;"/>
-                    <h:inputText id="name" value="#{userController.user.name}" required="true" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;"/>
-                    <rich:message for="name" style="color: red;"/>
+                    <h:inputText id="name" value="#{userController.user.name}" required="true"
+                                 style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;" requiredMessage="O campo Nome é obrigatório."/>
+                    <rich:message for="name" styleClass="error-message" style="color: red;"/>
 
                     <h:outputLabel for="cpfUsuario" value="CPF:" style="color: #555;"/>
-                    <h:inputText id="cpfUsuario" value="#{userController.user.cpfUsuario}" converter="userCpfConverter" required="true" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;"/>
-                    <rich:message for="cpfUsuario" style="color: red;"/>
+                    <h:inputText id="cpfUsuario" value="#{userController.user.cpfUsuario}" converter="userCpfConverter"
+                                 requiredMessage="O campo Cpf é obrigatório."
+                                 validator="cpfValidator"
+                                 required="true" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;"/>
+                    <rich:message for="cpfUsuario" styleClass="error-message" style="color: red;"/>
 
                     <h:outputLabel for="contato" value="Contato:" style="color: #555;"/>
-                    <h:inputText id="contato" value="#{userController.user.contato}" required="true" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;"/>
-                    <rich:message for="contato" style="color: red;"/>
+                    <h:inputText id="contato" value="#{userController.user.contato}" required="true"
+                                 requiredMessage="O campo Contato é obrigatório."
+                                 style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;"/>
+                    <rich:message for="contato" styleClass="error-message" style="color: red;"/>
 
                     <h:outputLabel for="perfil" value="Perfil:" style="color: #555;"/>
-                    <h:selectOneMenu id="perfil" value="#{userController.user.perfil}" required="true" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
+                    <h:selectOneMenu id="perfil" value="#{userController.user.perfil}" required="true"
+                                     style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;"
+                                    >
+
                         <f:selectItems value="#{apoio.list}"/>
                     </h:selectOneMenu>
-                    <rich:message for="perfil" style="color: red;"/>
+                    <rich:message for="perfil" styleClass="error-message" style="color: red;"/>
+
 
                     <h:outputLabel for="password" value="Senha:" style="color: #555;"/>
-                    <h:inputSecret id="password" value="#{userController.user.password}" required="true" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;"/>
-                    <rich:message for="password" style="color: red;"/>
-
+                    <h:inputSecret id="password" value="#{userController.user.password}" required="true"
+                                   style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;"
+                                   requiredMessage="O campo senha é obrigatório."/>
+                    <rich:message for="password" styleClass="error-message" style="color: red;"/>
 
 
                 </h:panelGrid>
@@ -47,17 +61,23 @@
                 <h3 style="text-align: center; color: #333; margin-top: 30px;">Cadastro do seu Pet</h3>
                 <h:panelGrid columns="1" style="width: 100%; margin-top: 10px;">
                     <h:outputLabel for="nome" value="Nome do Pet:" style="color: #555;"/>
-                    <h:inputText id="nome" value="#{petController.pet.nome}" required="true" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;"/>
-                    <rich:message for="nome" style="color: red;"/>
+                    <h:inputText id="nome" value="#{petController.pet.nome}" required="true"
+                                 style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;"
+                                 requiredMessage="O campo Nome do Pet é obrigatório."/>
+                    <rich:message for="nome" styleClass="error-message" style="color: red;"/>
 
                     <h:outputLabel for="raca" value="Raça:" style="color: #555;"/>
-                    <h:inputText id="raca" value="#{petController.pet.raca}" required="true" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;"/>
-                    <rich:message for="raca" style="color: red;"/>
+                    <h:inputText id="raca" value="#{petController.pet.raca}" required="true"
+                                 style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;"
+                                 requiredMessage="O campo Raça do Pet é obrigatório."/>
+                    <rich:message for="raca" styleClass="error-message" style="color: red;"/>
                 </h:panelGrid>
 
                 <h:panelGrid columns="2" style="text-align: center; margin-top: 20px;">
-                    <h:commandButton value="Cadastrar" action="#{userController.createUserAndPetController}" style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer;"/>
-                    <h:commandButton value="Cancelar" action="index.xhtml" style="background-color: #ccc; color: black; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer;"/>
+                    <h:commandButton value="Cadastrar" action="#{userController.createUserAndPetController}"
+                                     style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer;"/>
+                    <h:commandButton value="Cancelar" action="index.xhtml"
+                                     style="background-color: #ccc; color: black; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer;"/>
                 </h:panelGrid>
             </h:form>
         </rich:panel>

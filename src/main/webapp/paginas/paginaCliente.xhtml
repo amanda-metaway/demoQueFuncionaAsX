@@ -14,7 +14,9 @@
     <ui:define name="content">
         <h3 style="text-align: center; color: #333;">Gerenciamento de Pets</h3>
 
-        <rich:panel style="width: 800px; margin: 20px auto; padding: 30px; border-radius: 10px; background-color: #ffffff; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+        <rich:panel
+                style="width: 800px; margin: 20px auto; padding: 30px; border-radius: 10px; background-color: #ffffff; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+            <h:messages styleClass="error-message" globalOnly="true" style="color: red;"/>
             <h:form styleClass="rich-tableForm">
                 <h:commandButton value="Carregar seus Pets" action="#{petController.carregarPetsDoUsuario}"
                                  style="background-color: #76baa5; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"/>
@@ -23,12 +25,14 @@
                     <h:panelGrid columns="1" cellpadding="10" style="width: 100%;">
                         <h:outputLabel for="nomeInput" value="Nome:" style="color: #555;"/>
                         <h:inputText id="nomeInput" value="#{petController.buscaPet.nome}"
-                                     style="border: 1px solid #76baa5; border-radius: 5px; padding: 10px; background-color: #f9f9f9;"/>
+                                     style="border: 1px solid #76baa5; border-radius: 5px; padding: 10px; background-color: #f9f9f9;"
+                                     requiredMessage="O campo Nome do Pet para edicao é obrigatório."/>
                         <h:message for="nomeInput" style="color:red"/>
 
                         <h:outputLabel for="racaInput" value="Raça:" style="color: #555;"/>
                         <h:inputText id="racaInput" value="#{petController.buscaPet.raca}"
-                                     style="border: 1px solid #76baa5; border-radius: 5px; padding: 10px; background-color: #f9f9f9;"/>
+                                     style="border: 1px solid #76baa5; border-radius: 5px; padding: 10px; background-color: #f9f9f9;"
+                                     requiredMessage="O campo Nome do Pet para edicao é obrigatório."/>
                         <h:message for="racaInput" style="color:red"/>
 
                         <h:commandButton value="Salvar Alterações"
