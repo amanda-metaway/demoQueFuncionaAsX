@@ -39,6 +39,18 @@ body {
     text-decoration: none; /* tira o sublinhado */
 }
 
+.audit-link::before {
+    content: ""; /* Código do ícone escolhido */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white; /* Ou a cor que preferir */
+}
+
+
 /* Main content styles */
 .main-content {
     padding: 20px;
@@ -210,7 +222,7 @@ body {
     }
 
     .shop-link::before {
-        content: "\f07a"; /* Código do ícone de carrinho de compras */
+        content: "\f07a";
         font-family: "Font Awesome 5 Free";
         font-weight: 900;
         position: absolute;
@@ -219,6 +231,18 @@ body {
         transform: translateY(-50%);
         color: white;
     }
+
+    .loja-link::before {
+        content: "";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: white;
+    }
+
 
     .logout-link::before {
         content: "\f2f5"; /* Código correto do ícone de sair */

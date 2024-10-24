@@ -44,23 +44,9 @@ public class AuditoriaController {
 
     public List<Auditoria> listarAuditorias() {
         this.auditorias = auditoriaService.buscarTodas();
-        for (Auditoria auditoria : auditorias) {
-            System.out.println("Auditoria ID: " + auditoria.getId());
-            System.out.println("Ação: " + auditoria.getAcao());
-            System.out.println("Data e Hora: " + auditoria.getDataHora());
-            if (auditoria.getUserId() != null) {
-                System.out.println("User ID: " + auditoria.getUserId().getId());
-                System.out.println("User Name: " + auditoria.getUserId().getName());
-                System.out.println("User CPF: " + auditoria.getUserId().getCpfUsuario());
-                System.out.println("User perfil: " + auditoria.getUserId().getPerfil());
-            } else {
-                System.out.println("User não encontrado.");
-            }
-
-
-        }
         return this.auditorias;
     }
+
     public List<Auditoria> getAuditorias() {
         return auditorias;
     }
@@ -69,10 +55,6 @@ public class AuditoriaController {
         relatorioService.gerarRelatorioPDF(auditorias);
     }
 
-    public void gerarRelatorioCsv() {
-      RelatorioService relatorioService = new RelatorioService();
-      relatorioService.gerarRelatorioCsv(auditorias);
-    }
 
 
 

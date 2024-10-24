@@ -1,0 +1,93 @@
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              name="Gerando Relatório de Auditoria"
+              pageWidth="595" pageHeight="842"
+              columnCount="1" uuid="12345678-1234-1234-1234-123456789abc">
+
+
+    <parameter name="Relatorio de Auditorias" class="com.example.demo.Model.Auditoria"/>
+
+    <field name="acao" class="java.lang.String"/>
+    <field name="formattedDataHora" class="java.lang.String"/>
+    <field name="userId.id" class="java.lang.Integer"/>
+    <field name="userId.name" class="java.lang.String"/>
+    <field name="userId.cpfUsuario" class="java.lang.String"/>
+    <field name="userId.perfil.perfil" class="java.lang.String"/>
+
+
+    <title>
+        <band height="50">
+            <staticText>
+                <reportElement x="0" y="0" width="500" height="30"/>
+                <textElement>
+                    <font size="18" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Relatorio de Auditoria]]></text>
+            </staticText>
+        </band>
+    </title>
+
+
+
+    <columnHeader>
+        <band height="30">
+            <staticText>
+                <reportElement x="0" y="0" width="80" height="30"/>
+                <text><![CDATA[Ação]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="80" y="0" width="120" height="30"/>
+                <text><![CDATA[Data e Hora]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="200" y="0" width="80" height="30"/>
+                <text><![CDATA[User ID]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="280" y="0" width="100" height="30"/>
+                <text><![CDATA[Nome]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="380" y="0" width="80" height="30"/>
+                <text><![CDATA[CPF]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="460" y="0" width="80" height="30"/>
+                <text><![CDATA[Perfil]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="30">
+            <textField>
+                <reportElement x="0" y="0" width="80" height="30"/>
+                <textFieldExpression><![CDATA[$F{acao}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="80" y="0" width="120" height="30"/>
+                <textFieldExpression><![CDATA[$F{formattedDataHora}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="200" y="0" width="80" height="30"/>
+                <textFieldExpression><![CDATA[$F{userId.id}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="280" y="0" width="100" height="30"/>
+                <textFieldExpression><![CDATA[$F{userId.name}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="380" y="0" width="80" height="30"/>
+                <textFieldExpression><![CDATA[$F{userId.cpfUsuario}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="460" y="0" width="80" height="30"/>
+                <textFieldExpression><![CDATA[$F{userId.perfil.perfil}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+    <summary>
+        <band height="50"/>
+    </summary>
+</jasperReport>

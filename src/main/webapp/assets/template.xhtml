@@ -35,7 +35,11 @@
 
             <h:commandLink value="Meus Agendamentos" action="servicos" styleClass="nav-link service-link" rendered="#{session.getAttribute('perfil') == 'CLIENTE'}"/>
 
-            <h:commandLink value="Loja Agro - Confira" action="loja_produtos" styleClass="nav-link shop-link"/>
+            <h:commandLink value="Loja" action="#{loginController.indexHome}" styleClass="nav-link loja-link" rendered="#{session.getAttribute('usuario') != null}"/>
+
+            <h:commandLink value="Carrinho" action="carrinho" styleClass="nav-link shop-link" rendered="#{session.getAttribute('perfil') == 'CLIENTE'}"/>
+
+
 
             <h:commandLink action="#{loginController.logout()}" styleClass="nav-link logout-link" rendered="#{session.getAttribute('usuario') != null}">
                 Sair

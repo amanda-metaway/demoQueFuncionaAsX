@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Auditoria {
@@ -54,5 +55,8 @@ public class Auditoria {
         return userId != null ? userId.getId() : null;
     }
 
-
+    public String getFormattedDataHora() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return dataHora != null ? dataHora.format(formatter) : "";
+    }
 }
