@@ -1,6 +1,8 @@
 package com.example.demo.Model;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -10,6 +12,7 @@ public class Auditoria {
     private User userId;
     private String acao;
     private LocalDateTime dataHora;
+
 
 
     public int getId() {

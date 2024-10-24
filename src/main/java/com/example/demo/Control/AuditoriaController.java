@@ -25,6 +25,8 @@ public class AuditoriaController {
     @Autowired
     private UserService userService;
     @Autowired
+    private User user;
+    @Autowired
     private AuditoriaService auditoriaService;
 
     @Autowired
@@ -40,10 +42,25 @@ public class AuditoriaController {
         listarAuditorias();
     }
 
-    public void listarAuditorias() {
+    public List<Auditoria> listarAuditorias() {
         this.auditorias = auditoriaService.buscarTodas();
-    }
+        for (Auditoria auditoria : auditorias) {
+            System.out.println("Auditoria ID: " + auditoria.getId());
+            System.out.println("Ação: " + auditoria.getAcao());
+            System.out.println("Data e Hora: " + auditoria.getDataHora());
+            if (auditoria.getUserId() != null) {
+                System.out.println("User ID: " + auditoria.getUserId().getId());
+                System.out.println("User Name: " + auditoria.getUserId().getName());
+                System.out.println("User CPF: " + auditoria.getUserId().getCpfUsuario());
+                System.out.println("User perfil: " + auditoria.getUserId().getPerfil());
+            } else {
+                System.out.println("User não encontrado.");
+            }
 
+
+        }
+        return this.auditorias;
+    }
     public List<Auditoria> getAuditorias() {
         return auditorias;
     }

@@ -36,7 +36,7 @@
             </br>
             <br>
             </br>
-            <h:dataTable value="#{auditoriaController.auditorias}" var="auditoria"
+            <h:dataTable value="#{auditoriaController.listarAuditorias()}" var="auditoria"
                          style="margin-top: 20px; width: 100%;"
                          styleClass="rich-table">
                 <rich:column>
@@ -56,6 +56,10 @@
                         <strong>Usuário</strong>
                     </f:facet>
                     ID: #{auditoria.userId.id}<br/>
+                    CPF: #{auditoria.userId.cpfUsuario}<br/>
+                    NOME: #{auditoria.userId.name}<br/>
+                    PERFIL: #{auditoria.userId.perfil.perfil}<br/>
+
                 </rich:column>
             </h:dataTable>
 

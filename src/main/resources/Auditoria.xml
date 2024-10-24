@@ -9,7 +9,11 @@
         <result property="id" column="id"/>
         <result property="acao" column="acao"/>
         <result property="dataHora" column="data_hora"/>
-        <result property="userId.id" column="user_id"  />
+        <result property="userId.id" column="user_id" />
+        <result property="userId.name" column="name" />
+        <result property="userId.cpfUsuario" column="cpf_usuario" />
+        <result property="userId.perfil" column="perfil" />
+
     </resultMap>
 
 
@@ -24,8 +28,11 @@
     </insert>
 
 <select id="buscarTodas" resultMap="auditoriaResultMap">
-    SELECT id,acao,data_hora,user_id
-    FROM auditoria ORDER BY id DESC;
+    SELECT a.id, a.acao, a.data_hora, u.id AS user_id, u.name AS name, u.cpfusuario AS cpf_usuario, u.perfil AS perfil
+    FROM auditoria a
+             JOIN users u ON a.user_id = u.id
+    ORDER BY a.id DESC;
+
 </select>
 
 

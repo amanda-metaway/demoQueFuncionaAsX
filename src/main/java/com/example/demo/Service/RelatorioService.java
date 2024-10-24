@@ -1,11 +1,13 @@
 package com.example.demo.Service;
 
+import com.example.demo.Converter.DateConverter;
 import com.example.demo.Model.Auditoria;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.properties.TextAlignment;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.faces.context.ExternalContext;
@@ -23,33 +25,53 @@ public class RelatorioService {
 
     private List<Auditoria> auditorias;
 
+
+
+
+
     public void gerarRelatorioPDF(List<Auditoria> auditorias) {
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-            // cria aqui documento
+            // Cria aqui o documento
             PdfWriter writer = new PdfWriter(outputStream);
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
 
-            // titulo
-            document.add(new Paragraph("Registro de Auditoria").setBold().setFontSize(20));
+            // Título
+            document.add(new Paragraph("Registro de Auditoria")
+                    .setBold()
+                    .setFontSize(20)
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setMarginBottom(20));
 
-            // a tabela em si
-            Table table = new Table(3);
+            // A tabela em si
+            Table table = new Table(6); // 6 colunas
             table.addHeaderCell("Ação");
             table.addHeaderCell("Data e Hora");
-            table.addHeaderCell("Usuário");
+            table.addHeaderCell("User ID");
+            table.addHeaderCell("Nome");
+            table.addHeaderCell("CPF");
+            table.addHeaderCell("PERFIL");
 
-            // adiciona os dados
+            // Conversor de data
+            DateConverter dateConverter = new DateConverter();
+
+            // Adiciona os dados
             for (Auditoria auditoria : auditorias) {
                 table.addCell(auditoria.getAcao());
-                table.addCell(auditoria.getDataHora().toString());
+                String formattedDate = dateConverter.getAsString(null, null, auditoria.getDataHora());
+                table.addCell(formattedDate);
                 table.addCell(String.valueOf(auditoria.getUserIdValue()));
+                table.addCell(auditoria.getUserId().getName());
+                table.addCell(auditoria.getUserId().getCpfUsuario());
+
+                String perfil = auditoria.getUserId().getPerfil() != null ? auditoria.getUserId().getPerfil().getPerfil() : "N/A";
+                table.addCell(perfil);
             }
 
             document.add(table);
             document.close();
 
-            //  para o PDF
+            // Para o PDF
             FacesContext facesContext = FacesContext.getCurrentInstance();
             ExternalContext externalContext = facesContext.getExternalContext();
             HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
@@ -67,14 +89,24 @@ public class RelatorioService {
         }
     }
 
+
+
+
     public void gerarRelatorioCsv(List<Auditoria> auditorias) {
         StringBuilder csvBuilder = new StringBuilder();
-        csvBuilder.append("Ação,Data e Hora,Usuário\n");
+        csvBuilder.append("Ação,Data e Hora,User ID,Nome,CPF,PERFIL\n");
+
+        // conversor da ta aqui tbm
+        DateConverter dateConverter = new DateConverter();
 
         for (Auditoria auditoria : auditorias) {
             csvBuilder.append(escaparCampo(auditoria.getAcao())).append(",");
-            csvBuilder.append(escaparCampo(auditoria.getDataHora().toString())).append(",");
-            csvBuilder.append(escaparCampo(String.valueOf(auditoria.getUserIdValue()))).append("\n");
+            // formatar aqui a data
+            String formattedDate = dateConverter.getAsString(null, null, auditoria.getDataHora());
+            csvBuilder.append(escaparCampo(formattedDate)).append(",");
+            csvBuilder.append(escaparCampo(String.valueOf(auditoria.getUserIdValue()))).append(",");
+            csvBuilder.append(escaparCampo(auditoria.getUserId().getName())).append(",");
+            csvBuilder.append(escaparCampo(auditoria.getUserId().getCpfUsuario())).append("\n");
         }
 
         // para o CSV
@@ -96,10 +128,10 @@ public class RelatorioService {
         }
     }
 
+
     private String escaparCampo(String campo) {
-        // Escapa caracteres especiais
         String escapedCampo = campo.replace("\"", "\"\"");
-        return "\"" + escapedCampo + "\""; // Envolve o campo em aspas
+        return "\"" + escapedCampo + "\"";
     }
 
 
