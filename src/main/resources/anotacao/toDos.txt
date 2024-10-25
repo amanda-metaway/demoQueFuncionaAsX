@@ -1,0 +1,270 @@
+# minhas anotacos diarias aqui
+- antes do index, fazer uma tela de acesso de login faz de conta
+-dados de usuario com possibilidade de acessar seu perfil
+- no cadastro inserir foto do animal
+
+
+
+
+
+-testar-as operacoes para o crud
+
+-logar
+
+- cadastrar
+ 	-usuario-nav rules-
+	-insert-falta p enum
+-update
+-select
+-delet
+-listagem
+
+
+
+
+
+	-pet-
+select
+ok-
+insert
+-update
+ delete
+-listagem ok
+
+-tela de busca
+-remodelagem do acesso e
+-tentando chamar o metodo delet
+-numeracao da lista  -para ver numero total de cadastrados
+
+
+========
+1.
+Validator(fazer uma classe que implementa ela)-Converter-Mascara para cpf(jQuery)-tira os carcteres que não sao numeros para ir para o banco e coloca de volta ao apresentar na tela.
+	*numero de digitos correto[validacao]
+	*na tela apresenta com a mascara[converter]
+	*no banco tira-salva apenas os numeros[string][converter]
+-> na tela
+validator
+converter
+->facesConfig
+2.
+mensagens de erro(rich messages):
+
+	*globais>globalOnly Flag indicating that only global messages (that is,
+messages not associated with any client identifier) are
+to be displayed. Default value is "false"
+
+	*de campo-try catch
+
+
+
+ <rich:messages styleClass="error-messages" globalOnly="true" />
+
+ <rich:message for="cpfUsuario" styleClass="error-message"/>
+
+
+
+
+
+
+
+
+mascara com jquery:
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('#cpfUsuario').mask('000.000.000-00', {placeholder: "___.___.___-__"});
+    });
+</script>
+
+
+=======================
+
+1.mascara por selector ok
+
+2.arrumar o validator que vai dar erro ok
+
+3.tratamento de excecoes a parttir na excecao mae ja criada:
+Definir a exceção personalizada (PetShopException). ok
+Adicionar validações no serviço (UserService).ok
+Tratar todas as exceções no controlador (UserController). com a Utilitaria PetException
+
+4.passar as validacoes para o serviceok
+========================================
+HttpSession session = (HttpSession)FacesContext.getcurrentInstance().getExternalContext().getSession(false));
+session.setAttribute("usuario", valor);
+
+
+Login
+Filtro de segurança
+Auditoria
+Transação
+Relatórios
+
+
+ 1.fazer um login de acesso.
+preciso de um controller- manege beans com scope session ou request.
+usando credencial  e session map.
+
+------------
+HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+String usuario = (String) session.getAttribute("usuario");
+if (usuario == null) {
+    // Redirecionar para a página de login
+}
+
+perfil na tela de login faltouok
+
+2.Filtro
+
+2.2arrumar o menu com o sair e o template
+logout no index-ainda aparece ovc esta conectado,ver o manter conectado para ser setado
+3.auditoria e transactions-
+
+
+sqlmap auditoria
+-arrumar a auditoria e fazer funcionar o registro em si
+=======================================
+
+
+Transactions
+#user e pet
+
+
+-refatorar para usar a camada de serviço
+#user e pet
+
+
+
+-centralizar os servicos e seus metodos unicos com as transactions e as auditorias
+
+-gerar erros para poder ver a transacao falhar
+
+
+-id das auditorias
+
+
+-auditoria do criar pet ja user
+
+-criar as tabelas do banco por script
+-relatorio
+
+---ajustes de tela
+-perfil na tela de usuario admin
+
+==========================
+#fazer os relatorios com jasper-arquivo pdf
+#refatorar as mensagens de erro e sucesso
+-msg auditoria nao aparece
+
+#contador de numero de usuarios e pets
+#outras abas fazer
+#vincular os servicos a pets e users
+#auditorias padronizadas
+#add pet para um usuario pelo admin
+#arrumar input doperfil
+
+#typeHandlerDuracao
+
+
+#relatoriook
+#terminar cruds e inputs ok
+#transactions nos  processos-servicesok
+#auditoriaS-ajustarok
+#colocar o logger do maven para as infos  e errosok
+#formatar a data na auditoria ok
+#colunas de h para richok
+
+
+=====
+relatorio no jaspersoft studio
+jdbc:postgresql://<host>:<port>/<database>
+jdbc:postgresql://localhost:5432/database
+==
+trabalhando com endpoint resteasy
+
+pom-
+  <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+            <version>3.1.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxb-provider</artifactId>
+            <version>3.1.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-servlet-initializer</artifactId>
+            <version>3.1.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-spring</artifactId>
+            <version>3.1.0.Final</version>
+        </dependency>
+
+web.xml-
+  <listener>
+        <listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>Resteasy</servlet-name>
+        <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Resteasy</servlet-name>
+        <url-pattern>/api</url-pattern>
+    </servlet-mapping>
+
+
+
+==
+metodosdoscontroller
+ps.lembrando que meu login so tem controller
+auditoria:
+->listar auditorias
+->gerar relatorio
+login:
+->login
+->validarUser
+->logout
+pet:
+->createPet
+->carregarTodosPets
+->carregarTodosPetsuser
+->editar/update
+->excluir
+->verPetsVinculados
+user:
+->createUser
+->createUser&Pets
+->getUserByCPF
+->updateUser
+->listarUsers
+->excluirUser
+
+
+
+
+
+
+
+
