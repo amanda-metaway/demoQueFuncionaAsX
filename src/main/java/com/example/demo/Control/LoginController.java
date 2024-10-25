@@ -59,7 +59,6 @@ public class LoginController {
         }
     }
 
-
     public String login() {
         user = isValidUser(cpfUsuario, password);
         if (user != null) {
