@@ -111,6 +111,10 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+
+
+
+
     <servlet>
         <servlet-name>Resteasy</servlet-name>
         <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
@@ -118,8 +122,21 @@
 
     <servlet-mapping>
         <servlet-name>Resteasy</servlet-name>
-        <url-pattern>/api</url-pattern>
+        <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
+
+
+
+    <context-param>
+        <param-name>resteasy.scan</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
+        <param-name>resteasy.javax.ws.rs.Application</param-name>
+        <param-value>com.example.demo.api.RestApplication</param-value>
+    </context-param>
+
+
 
 
 

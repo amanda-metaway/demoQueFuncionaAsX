@@ -189,7 +189,7 @@ public class UserService {
     }
 
 
-    public void updateUser(User user) {
+    public User updateUser(User user) {
         logger.info("Tentando atualizar usuario: " + user.getCpfUsuario());
         TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
         transactionTemplate.execute((TransactionCallback<Void>) status -> {
@@ -210,6 +210,7 @@ public class UserService {
             }
             return null;
         });
+        return user;
     }
 
     public void deleteUser(int id) {
